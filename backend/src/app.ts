@@ -2,8 +2,10 @@ import "dotenv/config";
 import express from "express";
 import employeeRoute from "../routes/employee.route";
 import authRoute from "../routes/auth.route";
+const feedbackRouter = require('../routes/feedback');
 import logger from "../middlewares/logger.middleware";
 import cors from "cors";
+const {connect} = require ("../config/db.config")
 
 const app = express();
 const port = process.env.PORT!;
@@ -16,6 +18,8 @@ app.use(logger);
 // Routes
 app.use("/api/auth", authRoute);
 app.use("/api/employees", employeeRoute);
+app.use("/feedback/",feedbackRouter);
+
 
 // JUST FOR TESTING
 app.use("/", (req, res) => {
@@ -24,4 +28,5 @@ app.use("/", (req, res) => {
 
 app.listen(port, () => {
   console.log(`Server is listening on port ${port}`);
+  connect();
 });
