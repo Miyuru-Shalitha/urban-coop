@@ -1,3 +1,9 @@
+import LoadingIndicator from "../components/LoadingIndicator";
+
 export default function HomePage() {
-  return <div>HOME PAGE</div>;
+  return (
+    <div className="h-screen flex justify-center items-center">
+      <LoadingIndicator />
+    </div>
+  );
 }

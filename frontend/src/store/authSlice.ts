@@ -13,8 +13,8 @@ const authSlice = createSlice({
     logIn: (
       state,
       action: PayloadAction<{
+        username: string;
         email: string;
-        password: string;
       }>
     ) => {
       state.isAuthenticated = true;
