@@ -11,7 +11,7 @@ const Navbar = () => {
             <li className="mr-6">
               <a href="#home" className="text-white hover:text-amber-500">
                 Home
-              </a>
+              </a> 
             </li>
             <li className="mr-6">
               <a href="#feedback" className="text-white hover:text-amber-500">
