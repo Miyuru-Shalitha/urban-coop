@@ -1,10 +1,12 @@
-import LoadingIndicator from "../components/LoadingIndicator";
-import Navbar from "../components/Navbar";
+import Header from "../components/Header";
+import Layout from "../components/Layout";
+
 export default function HomePage() {
   return (
-    <div className="h-screen flex justify-center items-center bg-black">
-      <Navbar/>
-      <LoadingIndicator />
-    </div>
+    <Layout>
+      <Header />
+
+      <div className="h-test"></div>
+    </Layout>
   );
 }
