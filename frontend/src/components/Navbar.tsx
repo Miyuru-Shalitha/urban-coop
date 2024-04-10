@@ -1,6 +1,6 @@
 import Logo from "../assets/logo.png";
 
-export default function () {
+export default function Navbar() {
   return (
     <nav className="bg-secondary px-4 flex items-center justify-between w-full sticky z-10">
       <img src={Logo} alt="Urban Coop logo" />
