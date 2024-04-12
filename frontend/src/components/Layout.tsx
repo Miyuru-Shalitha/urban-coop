@@ -1,17 +1,16 @@
-import { ReactNode } from "react";
 import Navbar from "./Navbar";
 import Footer from "./Footer/Footer";
+import { Outlet } from "react-router-dom";
 
 interface Props {
-  children: ReactNode;
   className?: string;
 }
 
-export default function Layout({ children, className = "" }: Props) {
+export default function Layout({ className = "" }: Props) {
   return (
     <div className={`overflow-hidden ${className}`}>
       <Navbar />
-      {children}
+      <Outlet />
       <Footer />
     </div>
   );

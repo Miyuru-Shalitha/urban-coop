@@ -1,13 +1,12 @@
-import Slide1BackgroundImage from "../assets/header_slide_1_background.png";
+interface Props {
+  className: string;
+  backgroundImageSrc: string;
+}
 
-export default function Header() {
+export default function HeaderSlide({ className, backgroundImageSrc }: Props) {
   return (
-    <div className="relative h-screen w-screen overflow-hidden">
-      <img
-        src={Slide1BackgroundImage}
-        alt=""
-        className="absolute left-0 top-0"
-      />
+    <div className={className}>
+      <img src={backgroundImageSrc} alt="" className="absolute left-0 top-0" />
       <div className="bg-gradient-to-b from-blackA1 to-blackA2 absolute h-full w-full"></div>
 
       <div className="w-container absolute top-1/2 left-1/2 -translate-y-1/2 -translate-x-1/2">
@@ -21,16 +20,6 @@ export default function Header() {
             Explore Now
           </button>
         </div>
-      </div>
-
-      <div
-        className="absolute bottom-16 left-1/2 -translate-x-1/2
-        flex gap-2"
-      >
-        <div className="bg-primary w-12 h-1.5 rounded"></div>
-        <div className="bg-gray1 w-8 h-1.5 rounded"></div>
-        <div className="bg-gray1 w-8 h-1.5 rounded"></div>
-        <div className="bg-gray1 w-8 h-1.5 rounded"></div>
       </div>
     </div>
   );

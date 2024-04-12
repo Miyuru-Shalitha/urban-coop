@@ -1,4 +1,5 @@
 import Logo from "../assets/logo.png";
+import ProfilePhoto from "./ProfilePhoto";
 
 export default function Navbar() {
   return (
@@ -15,12 +16,7 @@ export default function Navbar() {
         <li>About Us</li>
       </ul>
 
-      <div
-        className="text-white font-bold text-xl bg-gray1 w-12 h-12 
-        flex justify-center items-center rounded-full border-2 border-primary"
-      >
-        <span>Z</span>
-      </div>
+      <ProfilePhoto />
     </nav>
   );
 }

@@ -3,15 +3,21 @@ import { useSelector } from "react-redux";
 import { RootState } from "../store/store";
 import { useNavigate } from "react-router-dom";
 
-export default function Protected({ children }: { children: ReactNode }) {
+export default function ProtectedDiv({
+  children,
+  className,
+}: {
+  children: ReactNode;
+  className?: string;
+}) {
   const authState = useSelector((state: RootState) => state.auth);
   const navigate = useNavigate();
 
   useEffect(() => {
     if (!authState.isAuthenticated) {
-      navigate("/log-in");
+      // navigate("/log-in");
     }
   }, []);
 
-  return <>{children}</>;
+  return <div className={className}>{children}</div>;
 }
