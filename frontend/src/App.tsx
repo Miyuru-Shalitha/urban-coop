@@ -8,6 +8,7 @@ import AdminLayout from "./components/AdminLayout/AdminLayout";
 import Layout from "./components/Layout";
 import EventDash from "./pages/EventDash";
 import UpdateEvent from "./pages/UpdateEvent";
+import PetDaycareBookingPage from "./pages/PetDaycareBookingPage";
 
 export default function App() {
   return (
@@ -21,6 +22,7 @@ export default function App() {
           <Route path="create" element={<EventCreationForm />} />
           <Route path="event-dashboard" element={<EventDash />} />
           <Route path="update" element={<UpdateEvent />} />
+          <Route path="daycare" element={<PetDaycareBookingPage />} />
         </Route>
 
         {/* Employee Routes */}
