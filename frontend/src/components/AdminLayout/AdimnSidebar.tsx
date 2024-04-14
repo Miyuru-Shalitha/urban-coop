@@ -11,6 +11,7 @@ interface BaseItem {
   onClick: (index: number) => void;
   activeIndex: number;
   title: string;
+  homeRoute: string;
   subtitles: Subtitle[];
 }
 
@@ -24,6 +25,7 @@ export default function AdminSidebar() {
         onClick: (index) => setActiveItemIndex(index),
         activeIndex: activeItemIndex,
         title: "Something Management",
+        homeRoute: "/admin/#",
         subtitles: [
           {
             name: "Item 1",
@@ -35,10 +37,19 @@ export default function AdminSidebar() {
         onClick: (index) => setActiveItemIndex(index),
         activeIndex: activeItemIndex,
         title: "Employee Management",
+        homeRoute: "/admin/employee-management",
         subtitles: [
           {
-            name: "Item 1",
-            route: "/admin/employees",
+            name: "Employees",
+            route: "/admin/employee-management/employees",
+          },
+          {
+            name: "Roles",
+            route: "/admin/employee-management/roles",
+          },
+          {
+            name: "Salary",
+            route: "/admin/employee-management/salary",
           },
         ],
       },
@@ -63,7 +74,14 @@ interface Item extends BaseItem {
   index: number;
 }
 
-function SidebarItem({ index, activeIndex, onClick, title, subtitles }: Item) {
+function SidebarItem({
+  index,
+  activeIndex,
+  onClick,
+  title,
+  homeRoute,
+  subtitles,
+}: Item) {
   const navigate = useNavigate();
 
   if (index === activeIndex) {
@@ -73,6 +91,7 @@ function SidebarItem({ index, activeIndex, onClick, title, subtitles }: Item) {
         onClick={(event) => {
           onClick(-1);
           event.stopPropagation();
+          navigate(homeRoute);
         }}
       >
         <p className="bg-primary text-secondary py-2 px-4 cursor-pointer flex gap-2">
@@ -84,7 +103,7 @@ function SidebarItem({ index, activeIndex, onClick, title, subtitles }: Item) {
           {subtitles.map((subtitle, index) => (
             <li
               key={index}
-              className="py-2 px-8 bg-gray1 cursor-pointer flex items-center gap-2"
+              className="py-2 px-8 bg-gray1 hover:bg-gray0 transition-colors cursor-pointer flex items-center gap-2"
               onClick={(event) => {
                 event.stopPropagation();
                 navigate(subtitle.route);

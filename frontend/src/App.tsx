@@ -3,11 +3,14 @@ import HomePage from "./pages/HomePage";
 import LogInPage from "./pages/LogInPage";
 import EventPage from "./pages/EventPage";
 import EventCreationForm from "./pages/EventCreationForm";
-import EmployeeManagementAdminPage from "./pages/EmployeeManagementAdminPage";
+import EmployeeManagementAdminPage from "./pages/EmployeeManagementAdminPage/EmployeeManagementAdminPage";
 import AdminLayout from "./components/AdminLayout/AdminLayout";
 import Layout from "./components/Layout";
 import EventDash from "./pages/EventDash";
 import UpdateEvent from "./pages/UpdateEvent";
+import EmployeeManagementEmployeesAdminPage from "./pages/EmployeeManagementAdminPage/EmployeeManagementEmployeesAdminPage";
+import EmployeeManagementRolesAdminPage from "./pages/EmployeeManagementAdminPage/EmployeeManagementRolesPage";
+import EmployeeManagementSalaryPage from "./pages/EmployeeManagementAdminPage/EmployeeManagementSalaryPage";
 
 export default function App() {
   return (
@@ -25,7 +28,22 @@ export default function App() {
 
         {/* Employee Routes */}
         <Route path="/admin" element={<AdminLayout />}>
-          <Route path="" element={<EmployeeManagementAdminPage />} />
+          <Route
+            path="employee-management"
+            element={<EmployeeManagementAdminPage />}
+          />
+          <Route
+            path="employee-management/employees"
+            element={<EmployeeManagementEmployeesAdminPage />}
+          />
+          <Route
+            path="employee-management/roles"
+            element={<EmployeeManagementRolesAdminPage />}
+          />
+          <Route
+            path="employee-management/salary"
+            element={<EmployeeManagementSalaryPage />}
+          />
         </Route>
       </Routes>
     </BrowserRouter>
