@@ -11,6 +11,7 @@ import UpdateEvent from "./pages/UpdateEvent";
 import EmployeeManagementEmployeesAdminPage from "./pages/EmployeeManagementAdminPage/EmployeeManagementEmployeesAdminPage";
 import EmployeeManagementRolesAdminPage from "./pages/EmployeeManagementAdminPage/EmployeeManagementRolesPage";
 import EmployeeManagementSalaryPage from "./pages/EmployeeManagementAdminPage/EmployeeManagementSalaryPage";
+import PetDaycareBookingPage from "./pages/PetDaycareBookingPage";
 
 export default function App() {
   return (
@@ -24,6 +25,7 @@ export default function App() {
           <Route path="create" element={<EventCreationForm />} />
           <Route path="event-dashboard" element={<EventDash />} />
           <Route path="update" element={<UpdateEvent />} />
+          <Route path="daycare" element={<PetDaycareBookingPage />} />
         </Route>
 
         {/* Employee Routes */}
