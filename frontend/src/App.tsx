@@ -1,18 +1,18 @@
 import { BrowserRouter, Route, Routes } from "react-router-dom";
 import HomePage from "./pages/HomePage";
 import LogInPage from "./pages/LogInPage";
-import EventPage from "./pages/EventManagement/EventPage";
-import EventCreationForm from "./pages/EventManagement/EventCreationForm";
+import EventPage from "./pages/EventManagementPage/EventPage";
+import EventCreationForm from "./pages/EventManagementPage/EventCreationPage";
 import EmployeeManagementAdminPage from "./pages/EmployeeManagementAdminPage/EmployeeManagementAdminPage";
 import AdminLayout from "./components/AdminLayout/AdminLayout";
 import Layout from "./components/Layout";
-import EventDash from "./pages/EventManagement/EventDash";
-import UpdateEvent from "./pages/EventManagement/UpdateEvent";
+import EventDash from "./pages/EventManagementPage/EventAdminPage";
+import UpdateEvent from "./pages/EventManagementPage/UpdateEventPage";
 import EmployeeManagementEmployeesAdminPage from "./pages/EmployeeManagementAdminPage/EmployeeManagementEmployeesAdminPage";
 import EmployeeManagementRolesAdminPage from "./pages/EmployeeManagementAdminPage/EmployeeManagementRolesPage";
 import EmployeeManagementSalaryPage from "./pages/EmployeeManagementAdminPage/EmployeeManagementSalaryPage";
 //import PetDaycareBookingPage from "./pages/PetDaycareBookingPage";
-import EventRegistrationPage from "./pages/EventManagement/EventRegistrationPage"
+import EventRegistrationPage from "./pages/EventManagementPage/EventRegistrationPage"
 
 
 
@@ -79,32 +79,8 @@ export default function App() {
 
           {/* feedback dashboard */}
         </Route>
-<<<<<<< Updated upstream
-
-        {/* Supplier Management Routes
-        <Route path="/admin" element={<AdminLayout />}>
-          <Route
-            path="supplier-management"
-            element={<EmployeeManagementAdminPage />}
-          />
-          <Route
-            path="employee-management/employees"
-            element={<EmployeeManagementEmployeesAdminPage />}
-          />
-          <Route
-            path="employee-management/roles"
-            element={<EmployeeManagementRolesAdminPage />}
-          />
-          <Route
-            path="employee-management/salary"
-            element={<EmployeeManagementSalaryPage />}
-          />
-        </Route> */}
-        
-=======
         
 
->>>>>>> Stashed changes
       </Routes>
     </BrowserRouter>
   );
