@@ -2,6 +2,7 @@ import "dotenv/config";
 import express from "express";
 import employeeRoute from "../routes/employee.route";
 import authRoute from "../routes/auth.route";
+const feedbackRouter = require('../routes/feedback');
 import logger from "../middlewares/logger.middleware";
 import cors from "cors";
 import bodyParser from "body-parser";
@@ -24,6 +25,8 @@ app.use(bodyParser.urlencoded({ extended: true })); // for parsing application/x
 // Routes
 app.use("/api/auth", authRoute);
 app.use("/api/employees", employeeRoute);
+app.use("/feedback/",feedbackRouter);
+
 
 app.use("/api/event", router);
 
@@ -34,4 +37,5 @@ app.use("/", (req, res) => {
 
 app.listen(port, () => {
   console.log(`Server is listening on port ${port}`);
+  connect();
 });

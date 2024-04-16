@@ -1,4 +1,6 @@
-import mongoose from "mongoose";
+//import mongoose from "mongoose";
+const mongoose = require("mongoose");
+
 
 async function connect() {
   try {
@@ -8,7 +10,7 @@ async function connect() {
       console.log("MongoDB connected successfully");
     });
 
-    mongoose.connection.on("error", (error) => {
+    mongoose.connection.on("error", (error: Error) => {
       console.log(
         "MongoDB connection error. Please make sure MongoDB is running. " +
           error
@@ -22,3 +24,4 @@ async function connect() {
 }
 
 export default connect;
+module.exports = {connect}
