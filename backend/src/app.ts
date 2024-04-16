@@ -6,8 +6,8 @@ import logger from "../middlewares/logger.middleware";
 import cors from "cors";
 import bodyParser from "body-parser";
 import connect from "../config/db.config";
-
 import router from "../routes/Event.route";
+
 const app = express();
 const port = process.env.PORT!;
 
@@ -21,14 +21,11 @@ connect();
 app.use(bodyParser.json()); // for parsing application/json
 app.use(bodyParser.urlencoded({ extended: true })); // for parsing application/x-www-form-urlencoded
 
-
 // Routes
 app.use("/api/auth", authRoute);
 app.use("/api/employees", employeeRoute);
 
-
-app.use("/api/event",router);
-
+app.use("/api/event", router);
 
 // JUST FOR TESTING
 app.use("/", (req, res) => {
