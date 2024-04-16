@@ -8,7 +8,7 @@ async function connect() {
       console.log("MongoDB connected successfully");
     });
 
-    mongoose.connection.on("error", (error) => {
+    mongoose.connection.on("error", (error: Error) => {
       console.log(
         "MongoDB connection error. Please make sure MongoDB is running. " +
           error

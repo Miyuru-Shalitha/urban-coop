@@ -46,6 +46,29 @@ export default function App() {
             path="employee-management/salary"
             element={<EmployeeManagementSalaryPage />}
           />
+          <Route path="event-dashboar" element={<EventDash />} />
+          {/* event report generation */}
+          {/* event registration */}
+
+          {/* set daily rates */}
+          {/* bookings */}
+
+          {/* adoption management */}
+          {/* display adoptions */}
+
+          {/* inventory dashboard */}
+          {/* inventory items */}
+          {/* request stocks */}
+
+          {/* expense */}
+          {/* income */}
+          {/* expense */}
+
+          {/* supllier dashboard */}
+          {/* manage suppliers */}
+          {/* stock requests */}
+
+          {/* feedback dashboard */}
         </Route>
 
         {/* Supplier Management Routes
