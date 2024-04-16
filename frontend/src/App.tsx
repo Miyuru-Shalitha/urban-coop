@@ -46,6 +46,7 @@ export default function App() {
             path="employee-management/salary"
             element={<EmployeeManagementSalaryPage />}
           />
+          <Route path="event-dashboar" element={<EventDash />} />
         </Route>
       </Routes>
     </BrowserRouter>

@@ -1,67 +1,61 @@
-import { ReactNode } from "react";
+import { ReactNode, useEffect, useState } from "react";
+import { Employee, getEmployees } from "../../services/employeeService";
+import FilledButton from "../../components/Common/FilledButton";
+import EmployeeCreationPopUp from "../../components/EmployeeCreationPopUp";
 
 export default function EmployeeManagementEmployeesAdminPage() {
+  const [employees, setEmployees] = useState<Employee[]>([]);
+  const [showEmployeeCreationPopUp, setShowEmployeeCreationPopUp] =
+    useState(false);
+
+  useEffect(() => {
+    (async () => {
+      setEmployees(await getEmployees());
+    })();
+  }, []);
+
   return (
-    <div className="p-16">
-      <table className="border-2">
-        <thead>
-          <TableHeaderRow>
-            <TableHeaderColumn text="Employee ID" />
-            <TableHeaderColumn text="First Name" />
-            <TableHeaderColumn text="Last Name" />
-            <TableHeaderColumn text="Email" />
-            <TableHeaderColumn text="Address" />
-            <TableHeaderColumn text="Timestamp" />
-          </TableHeaderRow>
-        </thead>
+    <div className="relative flex-1">
+      {<EmployeeCreationPopUp />}
 
-        <tbody>
-          <TableRow rowIndex={0}>
-            <TableColumn text="UB12382" />
-            <TableColumn text="David" />
-            <TableColumn text="Jones" />
-            <TableColumn text="david@test.com" />
-            <TableColumn text="Some Address" />
-            <TableColumn text="02/04/2024" />
-          </TableRow>
+      {!showEmployeeCreationPopUp && (
+        <FilledButton
+          onClick={() => setShowEmployeeCreationPopUp(true)}
+          className="absolute right-4 bottom-24 text-base"
+        >
+          Add New Employee
+        </FilledButton>
+      )}
 
-          <TableRow rowIndex={1}>
-            <TableColumn text="UB12382" />
-            <TableColumn text="David" />
-            <TableColumn text="Jones" />
-            <TableColumn text="david@test.com" />
-            <TableColumn text="Some Address" />
-            <TableColumn text="02/04/2024" />
-          </TableRow>
+      <div className="p-4 h-screen overflow-auto">
+        <table className="border-2">
+          <thead>
+            <TableHeaderRow>
+              <TableHeaderColumn text="Employee ID" />
+              <TableHeaderColumn text="First Name" />
+              <TableHeaderColumn text="Last Name" />
+              <TableHeaderColumn text="Email" />
+              <TableHeaderColumn text="Address" />
+              <TableHeaderColumn text="Date Joined" />
+              <TableHeaderColumn text="Role" />
+            </TableHeaderRow>
+          </thead>
 
-          <TableRow rowIndex={2}>
-            <TableColumn text="UB12382" />
-            <TableColumn text="David" />
-            <TableColumn text="Jones" />
-            <TableColumn text="david@test.com" />
-            <TableColumn text="Some Address" />
-            <TableColumn text="02/04/2024" />
-          </TableRow>
-
-          <TableRow rowIndex={3}>
-            <TableColumn text="UB12382" />
-            <TableColumn text="David" />
-            <TableColumn text="Jones" />
-            <TableColumn text="david@test.com" />
-            <TableColumn text="Some Address" />
-            <TableColumn text="02/04/2024" />
-          </TableRow>
-
-          <TableRow rowIndex={4}>
-            <TableColumn text="UB12382" />
-            <TableColumn text="David" />
-            <TableColumn text="Jones" />
-            <TableColumn text="david@test.com" />
-            <TableColumn text="Some Address" />
-            <TableColumn text="02/04/2024" />
-          </TableRow>
-        </tbody>
-      </table>
+          <tbody>
+            {employees.map((employee, index) => (
+              <TableRow key={employee._id} rowIndex={index}>
+                <TableColumn text={employee._id} />
+                <TableColumn text={employee.firstName} />
+                <TableColumn text={employee.lastName} />
+                <TableColumn text={employee.email} />
+                <TableColumn text={employee.address} />
+                <TableColumn text={employee.dateJoined} />
+                <TableColumn text={employee.role} />
+              </TableRow>
+            ))}
+          </tbody>
+        </table>
+      </div>
     </div>
   );
 }
@@ -78,7 +72,7 @@ function TableRow({
   rowIndex: number;
 }) {
   return (
-    <tr className={rowIndex % 2 === 0 ? "bg-white" : "bg-gray1"}>{children}</tr>
+    <tr className={rowIndex % 2 === 0 ? "bg-white" : "bg-gray0"}>{children}</tr>
   );
 }
 

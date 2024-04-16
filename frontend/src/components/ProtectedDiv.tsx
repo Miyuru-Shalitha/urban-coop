@@ -14,7 +14,7 @@ export default function ProtectedDiv({
   const navigate = useNavigate();
 
   useEffect(() => {
-    if (!authState.isAuthenticated) {
+    if (!authState.user.isAuthenticated) {
       // navigate("/log-in");
     }
   }, []);
