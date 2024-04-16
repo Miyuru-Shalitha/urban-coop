@@ -47,6 +47,27 @@ export default function App() {
             element={<EmployeeManagementSalaryPage />}
           />
         </Route>
+
+        {/* Supplier Management Routes
+        <Route path="/admin" element={<AdminLayout />}>
+          <Route
+            path="supplier-management"
+            element={<EmployeeManagementAdminPage />}
+          />
+          <Route
+            path="employee-management/employees"
+            element={<EmployeeManagementEmployeesAdminPage />}
+          />
+          <Route
+            path="employee-management/roles"
+            element={<EmployeeManagementRolesAdminPage />}
+          />
+          <Route
+            path="employee-management/salary"
+            element={<EmployeeManagementSalaryPage />}
+          />
+        </Route> */}
+        
       </Routes>
     </BrowserRouter>
   );
