@@ -1,9 +1,12 @@
 import { PayloadAction, createSlice } from "@reduxjs/toolkit";
 
 const initialState = {
-  isAuthenticated: false,
-  username: "",
-  email: "",
+  user: {
+    isAuthenticated: true,
+    username: "testuser",
+    _id: "60f3b3b3b3b3b3b3b3b3b3b3",
+    email: "testuser@gmail.com",
+  },
 };
 
 const authSlice = createSlice({
@@ -13,11 +16,11 @@ const authSlice = createSlice({
     logIn: (
       state,
       action: PayloadAction<{
+        username: string;
         email: string;
-        password: string;
       }>
     ) => {
-      state.isAuthenticated = true;
+      state.user.isAuthenticated = true;
     },
   },
 });
