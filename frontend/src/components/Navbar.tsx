@@ -1,3 +1,4 @@
+import { Link } from "react-router-dom";
 import Logo from "../assets/logo.png";
 import ProfilePhoto from "./ProfilePhoto";
 
@@ -12,7 +13,9 @@ export default function Navbar() {
       >
         <li className="text-primary">Home</li>
         <li>Services</li>
-        <li>Feeback</li>
+        <Link to="/feedback">
+          <li>Feeback</li>
+        </Link>
         <li>About Us</li>
       </ul>
 
