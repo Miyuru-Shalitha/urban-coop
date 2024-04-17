@@ -19,6 +19,8 @@ import InventoryManagementRequestStocksPage from "./pages/InventoryManagementAdm
 import UserProfilePage from "./pages/UserProfilePage";
 import EmployeeProfilePage from "./pages/EmployeeProfilePage";
 import EventRegistrationPage from "./pages/EventManagementPage/EventRegistrationPage";
+import FeedbackPage from "./pages/FeedbackPage";
+import FeedbackManagementAdminPage from "./pages/FeedbackManagementAdminPage/FeedbackManagementAdminPage";
 
 export default function App() {
   return (
@@ -31,6 +33,7 @@ export default function App() {
           <Route path="userprofile" element={<UserProfilePage />} />
           <Route path="events" element={<EventPage />} />
           <Route path="events/register" element={<EventRegistrationPage />} />
+          <Route path="feedback" element={<FeedbackPage />} />
         </Route>
 
         {/* Employee Routes */}
@@ -104,6 +107,10 @@ export default function App() {
           {/* stock requests */}
 
           {/* feedback dashboard */}
+          <Route
+            path="feedback-dashboard"
+            element={<FeedbackManagementAdminPage />}
+          />
         </Route>
       </Routes>
     </BrowserRouter>
