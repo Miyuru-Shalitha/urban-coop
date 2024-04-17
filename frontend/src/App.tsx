@@ -12,6 +12,11 @@ import EmployeeManagementEmployeesAdminPage from "./pages/EmployeeManagementAdmi
 import EmployeeManagementRolesAdminPage from "./pages/EmployeeManagementAdminPage/EmployeeManagementRolesPage";
 import EmployeeManagementSalaryPage from "./pages/EmployeeManagementAdminPage/EmployeeManagementSalaryPage";
 import PetDaycareBookingPage from "./pages/PetDaycareBookingPage";
+import InventoryManagementPage from "./pages/InventoryManagementAdminPage/InventoryManagementAdminPage";
+import InventoryManagementDashboard from "./pages/InventoryManagementAdminPage/InventoryManagementDashboard";
+import InventoryManagementItemPage from "./pages/InventoryManagementAdminPage/InventoryManagementItemPage";
+import InventoryManagementRequestStocksPage from "./pages/InventoryManagementAdminPage/InventoryManagementRequestStocksPage";
+
 
 export default function App() {
   return (
@@ -46,7 +51,38 @@ export default function App() {
             path="employee-management/salary"
             element={<EmployeeManagementSalaryPage />}
           />
+
+           {/* Inventory Routes */}
+          <Route
+            path="inventory-management"
+            element={< InventoryManagementPage/>}
+          />
+          <Route
+            path="inventory-management/dashboard"
+            element={< InventoryManagementDashboard/>}
+          />
+          <Route
+            path="inventory-management/item"
+            element={<InventoryManagementItemPage/>}
+          />
+   
+          <Route
+            path="inventory-management/request-stocks"
+            element={<InventoryManagementRequestStocksPage/>}
+          />
+     
         </Route>
+
+        
+
+
+
+      
+
+        
+        
+
+   
       </Routes>
     </BrowserRouter>
   );
