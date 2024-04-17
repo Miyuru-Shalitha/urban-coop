@@ -1,17 +1,22 @@
 import { BrowserRouter, Route, Routes } from "react-router-dom";
 import HomePage from "./pages/HomePage";
 import LogInPage from "./pages/LogInPage";
-import EventPage from "./pages/EventPage";
-import EventCreationForm from "./pages/EventCreationForm";
+import EventPage from "./pages/EventManagementPage/EventPage";
+import EventCreationForm from "./pages/EventManagementPage/EventCreationPage";
 import EmployeeManagementAdminPage from "./pages/EmployeeManagementAdminPage/EmployeeManagementAdminPage";
 import AdminLayout from "./components/AdminLayout/AdminLayout";
 import Layout from "./components/Layout";
-import EventDash from "./pages/EventDash";
-import UpdateEvent from "./pages/UpdateEvent";
+import EventDash from "./pages/EventManagementPage/EventAdminPage";
+import UpdateEvent from "./pages/EventManagementPage/UpdateEventPage";
 import EmployeeManagementEmployeesAdminPage from "./pages/EmployeeManagementAdminPage/EmployeeManagementEmployeesAdminPage";
 import EmployeeManagementRolesAdminPage from "./pages/EmployeeManagementAdminPage/EmployeeManagementRolesPage";
 import EmployeeManagementSalaryPage from "./pages/EmployeeManagementAdminPage/EmployeeManagementSalaryPage";
-import PetDaycareBookingPage from "./pages/PetDaycareBookingPage";
+import InventoryManagementPage from "./pages/InventoryManagementAdminPage/InventoryManagementAdminPage";
+import InventoryManagementDashboard from "./pages/InventoryManagementAdminPage/InventoryManagementDashboard";
+import InventoryManagementItemPage from "./pages/InventoryManagementAdminPage/InventoryManagementItemPage";
+import InventoryManagementRequestStocksPage from "./pages/InventoryManagementAdminPage/InventoryManagementRequestStocksPage";
+//import PetDaycareBookingPage from "./pages/PetDaycareBookingPage";
+import EventRegistrationPage from "./pages/EventManagementPage/EventRegistrationPage"
 
 
 export default function App() {
@@ -23,10 +28,9 @@ export default function App() {
           <Route path="" element={<HomePage />} />
           <Route path="log-in" element={<LogInPage />} />
           <Route path="events" element={<EventPage />} />
-          <Route path="create" element={<EventCreationForm />} />
-          <Route path="event-dashboard" element={<EventDash />} />
-          <Route path="update" element={<UpdateEvent />} />
-          <Route path="daycare" element={<PetDaycareBookingPage />} />
+          <Route path="events/register" element={<EventRegistrationPage/>} />
+         
+          
         </Route>
 
         {/* Employee Routes */}
@@ -47,7 +51,37 @@ export default function App() {
             path="employee-management/salary"
             element={<EmployeeManagementSalaryPage />}
           />
-          <Route path="event-dashboar" element={<EventDash />} />
+ 
+
+           {/* Inventory Routes */}
+          <Route
+            path="inventory-management"
+            element={< InventoryManagementPage/>}
+          />
+          <Route
+            path="inventory-management/dashboard"
+            element={< InventoryManagementDashboard/>}
+          />
+          <Route
+            path="inventory-management/item"
+            element={<InventoryManagementItemPage/>}
+          />
+   
+          <Route
+            path="inventory-management/request-stocks"
+            element={<InventoryManagementRequestStocksPage/>}
+          />
+     
+   
+
+          <Route path="event-dashboard" 
+          element={<EventDash />} />
+
+          <Route path="event-dashboard/addEvent" 
+          element={<EventCreationForm />} />
+
+          <Route path="event-dashboard/uptadeEvent" 
+          element={< UpdateEvent/>} />
           {/* event report generation */}
           {/* event registration */}
 
@@ -72,6 +106,8 @@ export default function App() {
           {/* feedback dashboard */}
 
         </Route>
+        
+
       </Routes>
     </BrowserRouter>
   );
