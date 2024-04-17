@@ -29,7 +29,7 @@ export default function AdminSidebar() {
         subtitles: [
           {
             name: "User Registration",
-            route: "/admin/user-dashboard",
+            route: "/admin/user-registerdashboard",
           },
           {
             name: "Report Generation",

@@ -16,12 +16,9 @@ import InventoryManagementDashboard from "./pages/InventoryManagementAdminPage/I
 import InventoryManagementItemPage from "./pages/InventoryManagementAdminPage/InventoryManagementItemPage";
 import InventoryManagementRequestStocksPage from "./pages/InventoryManagementAdminPage/InventoryManagementRequestStocksPage";
 //import PetDaycareBookingPage from "./pages/PetDaycareBookingPage";
-import EmployeeProfilePage from "./pages/EmployeeProfilePage";
-import EventRegistrationPage from "./pages/EventManagementPage/EventRegistrationPage";
-import FeedbackPage from "./pages/FeedbackPage";
+import EventRegistrationPage from "./pages/EventManagementPage/EventRegistrationPage"
 import FeedbackManagementAdminPage from "./pages/FeedbackManagementAdminPage/FeedbackManagementAdminPage";
-import UserProfileLayout from "./components/UserProfileLayout";
-import EmployeeProfileLayout from "./components/EmployeeProfileLayout";
+import EmployeeProfilePage from "./pages/EmployeeProfilePage";
 
 export default function App() {
   return (
@@ -32,23 +29,9 @@ export default function App() {
           <Route path="" element={<HomePage />} />
           <Route path="log-in" element={<LogInPage />} />
           <Route path="events" element={<EventPage />} />
-          <Route path="events/register" element={<EventRegistrationPage />} />
-          <Route path="feedback" element={<FeedbackPage />} />
-
-          {/* User profile */}
-          <Route path="userprofile" element={<UserProfileLayout />}>
-            <Route path="test-1" element={<div>TEST 1</div>} />
-            <Route path="test-2" element={<div>TEST 2</div>} />
-          </Route>
-        </Route>
-
-        {/* Emplyee profile */}
-        <Route
-          path="/admin/employee-profile"
-          element={<EmployeeProfileLayout />}
-        >
-          <Route path="test-1" element={<div>TEST 1</div>} />
-          <Route path="test-2" element={<div>TEST 2</div>} />
+          <Route path="events/register" element={<EventRegistrationPage/>} />
+         
+          
         </Route>
 
         {/* Management Routes */}
@@ -92,6 +75,9 @@ export default function App() {
             element={<InventoryManagementRequestStocksPage />}
           />
 
+
+
+          {/* Event Management Routes */}
           <Route path="event-dashboard" element={<EventDash />} />
 
           <Route
@@ -99,9 +85,10 @@ export default function App() {
             element={<EventCreationForm />}
           />
 
-          <Route path="event-dashboard/uptadeEvent" element={<UpdateEvent />} />
+          <Route path="event-dashboard/uptadeEvent" 
+          element={< UpdateEvent/>} />
           {/* event report generation */}
-          {/* event registration */}
+
 
           {/* set daily rates */}
           {/* bookings */}
