@@ -13,6 +13,7 @@ import EmployeeManagementRolesAdminPage from "./pages/EmployeeManagementAdminPag
 import EmployeeManagementSalaryPage from "./pages/EmployeeManagementAdminPage/EmployeeManagementSalaryPage";
 //import PetDaycareBookingPage from "./pages/PetDaycareBookingPage";
 import EventRegistrationPage from "./pages/EventManagementPage/EventRegistrationPage"
+import UserRegistrationForEventPage from "./pages/EventManagementPage/UserRegistrationForEventPage"
 
 
 
@@ -25,7 +26,7 @@ export default function App() {
           <Route path="" element={<HomePage />} />
           <Route path="log-in" element={<LogInPage />} />
           <Route path="events" element={<EventPage />} />
-          <Route path="events/register" element={<EventRegistrationPage/>} />
+          <Route path="events/register/:id" element={<EventRegistrationPage/>} />
          
           
         </Route>
@@ -56,7 +57,10 @@ export default function App() {
 
           <Route path="event-dashboard/uptadeEvent" 
           element={< UpdateEvent/>} />
-          {/* event report generation */}
+          
+          <Route path="user-dashboard" 
+          element={< UserRegistrationForEventPage/>} />
+          
           {/* event registration */}
 
           {/* set daily rates */}

@@ -56,7 +56,7 @@ export default function EventCreationForm() {
 
   return (
     
-    <div className="flex flex-col items-center justify-center h-screen p-10 font-sans">
+    <div className=" flex flex-col items-center justify-center h-screen w-full m-4 font-sans">
       
       <div className=" bg-gray-200 w-full max-w-md shadow-md rounded px-8 pt-6 pb-8 mb-4 ">
         <div className="">
@@ -157,7 +157,7 @@ export default function EventCreationForm() {
           <div className="flex items-center justify-between">
             <button
               type="submit"
-              className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline"
+              className="bg-primaryAccent hover:bg-primary text-back font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline"
             >
               Create Event
             </button>

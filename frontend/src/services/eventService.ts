@@ -5,7 +5,7 @@ interface Event {
     time: string;
     location: string;
     image: string;
-    maxAttendance: number;
+    maxParticipation: number;
     description: string;
   }
   
@@ -14,11 +14,11 @@ interface Event {
       {
         _id: "EV12345",
         title: "Music Concert",
-        date: "2024-05-15",
+        date: "2024-10-15",
         time: "19:00",
         location: "City Park",
         image: "music_concert.jpg",
-        maxAttendance: 500,
+        maxParticipation: 500,
         description: "Enjoy live music performances from various artists."
       },
       {
@@ -28,7 +28,7 @@ interface Event {
         time: "12:00",
         location: "Downtown Square",
         image: "food_festival.jpg",
-        maxAttendance: 300,
+        maxParticipation: 300,
         description: "Taste a variety of delicious foods from different cuisines."
       },
     {
@@ -38,7 +38,7 @@ interface Event {
         time: "15:00",
         location: "Art Gallery",
         image: "art_exhibition.jpg",
-        maxAttendance: 200,
+        maxParticipation: 200,
         description: "Explore stunning artworks from talented artists."
     },
     {
@@ -48,7 +48,7 @@ interface Event {
         time: "20:30",
         location: "Outdoor Theater",
         image: "movie_night.jpg",
-        maxAttendance: 400,
+        maxParticipation: 400,
         description: "Watch a classic movie under the stars."
     }
     ];

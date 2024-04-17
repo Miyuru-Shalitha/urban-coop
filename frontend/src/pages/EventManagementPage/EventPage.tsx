@@ -1,19 +1,35 @@
 import { useEffect, useState } from "react";
 import { Event, getEvents } from "../../services/eventService";
-
+import { Link } from "react-router-dom";
+import { isAfter } from "date-fns";
 
 const EventPage = () => {
   const [events, setEvents] = useState<Event[]>([]);
-  
+
   useEffect(() => {
-    
     const fetchEvents = async () => {
-      setEvents(await getEvents());
+      try {
+        
+        const allEvents = await getEvents();
+        
+        //filter event (Only display upcomming events)
+        const futureEvents = allEvents.filter(event => {
+          const eventDate = new Date(event.date); 
+          const currentDate = new Date(); 
+          return isAfter(eventDate, currentDate);
+        });
+        
+        // Set the state with the filtered events
+        setEvents(futureEvents);
+      } catch (error) {
+        console.error("Error fetching events:", error);
+      }
     };
 
     fetchEvents();
   }, []);
 
+  
   return (
     <div className="w-screen mx-auto bg-orange-50 pt-10 pl-20 pr-20 font-sans">
       <div className="flex justify-between items-center">
@@ -64,12 +80,12 @@ const EventPage = () => {
                 <p className="text-gray-600 mt-2">
                   Location: {event.location}
                 </p>
-                <p className="text-gray-700 mt-2 text-xs ">
+                <p className="text-gray-700 mt-2 text-xs pb-4">
                   {event.description}
                 </p>
-                <button className=" grid justify-items-end ... bg-blue-500 hover:bg-blue-600 text-white font-semibold py-1 px-2 rounded mt-4 w-20">
+                <Link to={`register/${event._id}`} className="inline-block px-2 py-1 bg-primaryAccent text-black rounded hover:bg-primary">
                   Register
-                </button>
+                </Link>
               </div>
             </div>
           </div>
