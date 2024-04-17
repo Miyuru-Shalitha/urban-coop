@@ -1,9 +1,8 @@
 import ProtectedDiv from "../ProtectedDiv";
 import Footer from "../Footer/Footer";
-import Logo from "../../assets/logo.png";
 import AdminSidebar from "./AdimnSidebar";
 import { Outlet } from "react-router-dom";
-import ProfilePhoto from "../ProfilePhoto";
+import AdminTopbar from "../AdminTopbar";
 
 interface Props {
   className?: string;
@@ -12,11 +11,7 @@ interface Props {
 export default function AdminLayout({ className }: Props) {
   return (
     <ProtectedDiv className={className}>
-      <div className="bg-secondary flex justify-between items-center px-4">
-        <img src={Logo} alt="" />
-
-        <ProfilePhoto />
-      </div>
+      <AdminTopbar />
 
       <div className="flex min-h-screen">
         <AdminSidebar />

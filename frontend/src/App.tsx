@@ -21,6 +21,7 @@ import EventRegistrationPage from "./pages/EventManagementPage/EventRegistration
 import FeedbackPage from "./pages/FeedbackPage";
 import FeedbackManagementAdminPage from "./pages/FeedbackManagementAdminPage/FeedbackManagementAdminPage";
 import UserProfileLayout from "./components/UserProfileLayout";
+import EmployeeProfileLayout from "./components/EmployeeProfileLayout";
 
 export default function App() {
   return (
@@ -41,7 +42,16 @@ export default function App() {
           </Route>
         </Route>
 
-        {/* Employee Routes */}
+        {/* Emplyee profile */}
+        <Route
+          path="/admin/employee-profile"
+          element={<EmployeeProfileLayout />}
+        >
+          <Route path="test-1" element={<div>TEST 1</div>} />
+          <Route path="test-2" element={<div>TEST 2</div>} />
+        </Route>
+
+        {/* Management Routes */}
         <Route path="/admin" element={<AdminLayout />}>
           <Route
             path="employee-management"
