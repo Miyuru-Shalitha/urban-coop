@@ -12,9 +12,9 @@ import EmployeeManagementEmployeesAdminPage from "./pages/EmployeeManagementAdmi
 import EmployeeManagementRolesAdminPage from "./pages/EmployeeManagementAdminPage/EmployeeManagementRolesPage";
 import EmployeeManagementSalaryPage from "./pages/EmployeeManagementAdminPage/EmployeeManagementSalaryPage";
 //import PetDaycareBookingPage from "./pages/PetDaycareBookingPage";
-import EventRegistrationPage from "./pages/EventManagementPage/EventRegistrationPage"
-
-
+import EventRegistrationPage from "./pages/EventManagementPage/EventRegistrationPage";
+import UserProfilePage from "./pages/UserProfilePage";
+import EmployeeProfilePage from "./pages/EmployeeProfilePage";
 
 export default function App() {
   return (
@@ -24,10 +24,9 @@ export default function App() {
         <Route path="/" element={<Layout />}>
           <Route path="" element={<HomePage />} />
           <Route path="log-in" element={<LogInPage />} />
+          <Route path="userprofile" element={<UserProfilePage />} />
           <Route path="events" element={<EventPage />} />
-          <Route path="events/register" element={<EventRegistrationPage/>} />
-         
-          
+          <Route path="events/register" element={<EventRegistrationPage />} />
         </Route>
 
         {/* Employee Routes */}
@@ -48,14 +47,16 @@ export default function App() {
             path="employee-management/salary"
             element={<EmployeeManagementSalaryPage />}
           />
-          <Route path="event-dashboard" 
-          element={<EventDash />} />
+          <Route path="profile" element={<EmployeeProfilePage />} />
 
-          <Route path="event-dashboard/addEvent" 
-          element={<EventCreationForm />} />
+          <Route path="event-dashboard" element={<EventDash />} />
 
-          <Route path="event-dashboard/uptadeEvent" 
-          element={< UpdateEvent/>} />
+          <Route
+            path="event-dashboard/addEvent"
+            element={<EventCreationForm />}
+          />
+
+          <Route path="event-dashboard/uptadeEvent" element={<UpdateEvent />} />
           {/* event report generation */}
           {/* event registration */}
 
@@ -79,8 +80,6 @@ export default function App() {
 
           {/* feedback dashboard */}
         </Route>
-        
-
       </Routes>
     </BrowserRouter>
   );
