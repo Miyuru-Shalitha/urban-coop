@@ -24,12 +24,12 @@ export default function AdminSidebar() {
       {
         onClick: (index) => setActiveItemIndex(index),
         activeIndex: activeItemIndex,
-        title: "Something Management",
+        title: "Event Management",
         homeRoute: "/admin/#",
         subtitles: [
           {
-            name: "Item 1",
-            route: "/admin/#",
+            name: "Events",
+            route: "/admin/event-dashboar",
           },
         ],
       },
