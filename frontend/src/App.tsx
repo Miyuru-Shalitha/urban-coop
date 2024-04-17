@@ -13,6 +13,7 @@ import EmployeeManagementRolesAdminPage from "./pages/EmployeeManagementAdminPag
 import EmployeeManagementSalaryPage from "./pages/EmployeeManagementAdminPage/EmployeeManagementSalaryPage";
 import PetDaycareBookingPage from "./pages/PetDaycareBookingPage";
 
+
 export default function App() {
   return (
     <BrowserRouter>
@@ -69,6 +70,7 @@ export default function App() {
           {/* stock requests */}
 
           {/* feedback dashboard */}
+
         </Route>
       </Routes>
     </BrowserRouter>
