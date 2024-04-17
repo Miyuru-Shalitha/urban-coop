@@ -57,6 +57,18 @@ export default function AdminSidebar() {
           },
         ],
       },
+      {
+        onClick: (index) => setActiveItemIndex(index),
+        activeIndex: activeItemIndex,
+        title: "Feeback Management",
+        homeRoute: "/admin/feedback-dashboard",
+        subtitles: [
+          {
+            name: "Feedback",
+            route: "/admin/feedback-dashboard",
+          },
+        ],
+      },
     ]);
   }, [activeItemIndex]);
 

@@ -7,6 +7,7 @@ export default {
         primary: "#E5A700",
         primaryAccent: "#FCD34D",
         secondary: "#271520",
+        surface: "#EEE",
         white: "#FFF",
         black: "#000",
         blackA1: "#00000077",

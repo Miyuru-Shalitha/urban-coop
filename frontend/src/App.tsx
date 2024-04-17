@@ -11,9 +11,12 @@ import UpdateEvent from "./pages/EventManagementPage/UpdateEventPage";
 import EmployeeManagementEmployeesAdminPage from "./pages/EmployeeManagementAdminPage/EmployeeManagementEmployeesAdminPage";
 import EmployeeManagementRolesAdminPage from "./pages/EmployeeManagementAdminPage/EmployeeManagementRolesPage";
 import EmployeeManagementSalaryPage from "./pages/EmployeeManagementAdminPage/EmployeeManagementSalaryPage";
+import InventoryManagementPage from "./pages/InventoryManagementAdminPage/InventoryManagementAdminPage";
+import InventoryManagementDashboard from "./pages/InventoryManagementAdminPage/InventoryManagementDashboard";
+import InventoryManagementItemPage from "./pages/InventoryManagementAdminPage/InventoryManagementItemPage";
+import InventoryManagementRequestStocksPage from "./pages/InventoryManagementAdminPage/InventoryManagementRequestStocksPage";
 //import PetDaycareBookingPage from "./pages/PetDaycareBookingPage";
 import EventRegistrationPage from "./pages/EventManagementPage/EventRegistrationPage"
-import UserRegistrationForEventPage from "./pages/EventManagementPage/UserRegistrationForEventPage"
 
 
 
@@ -25,8 +28,9 @@ export default function App() {
         <Route path="/" element={<Layout />}>
           <Route path="" element={<HomePage />} />
           <Route path="log-in" element={<LogInPage />} />
+          <Route path="userprofile" element={<UserProfilePage />} />
           <Route path="events" element={<EventPage />} />
-          <Route path="events/register/:id" element={<EventRegistrationPage/>} />
+          <Route path="events/register" element={<EventRegistrationPage/>} />
          
           
         </Route>
@@ -49,18 +53,39 @@ export default function App() {
             path="employee-management/salary"
             element={<EmployeeManagementSalaryPage />}
           />
-          <Route path="event-dashboard" 
-          element={<EventDash />} />
+          <Route path="profile" element={<EmployeeProfilePage />} />
 
-          <Route path="event-dashboard/addEvent" 
-          element={<EventCreationForm />} />
+          <Route path="event-dashboard" element={<EventDash />} />
+
+          {/* Inventory Routes */}
+          <Route
+            path="inventory-management"
+            element={<InventoryManagementPage />}
+          />
+          <Route
+            path="inventory-management/dashboard"
+            element={<InventoryManagementDashboard />}
+          />
+          <Route
+            path="inventory-management/item"
+            element={<InventoryManagementItemPage />}
+          />
+
+          <Route
+            path="inventory-management/request-stocks"
+            element={<InventoryManagementRequestStocksPage />}
+          />
+
+          <Route path="event-dashboard" element={<EventDash />} />
+
+          <Route
+            path="event-dashboard/addEvent"
+            element={<EventCreationForm />}
+          />
 
           <Route path="event-dashboard/uptadeEvent" 
           element={< UpdateEvent/>} />
-          
-          <Route path="user-dashboard" 
-          element={< UserRegistrationForEventPage/>} />
-          
+          {/* event report generation */}
           {/* event registration */}
 
           {/* set daily rates */}
@@ -82,9 +107,11 @@ export default function App() {
           {/* stock requests */}
 
           {/* feedback dashboard */}
+          <Route
+            path="feedback-dashboard"
+            element={<FeedbackManagementAdminPage />}
+          />
         </Route>
-        
-
       </Routes>
     </BrowserRouter>
   );
