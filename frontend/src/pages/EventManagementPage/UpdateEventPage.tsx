@@ -3,7 +3,7 @@
 const UpdateEvent = () => {
     return (
        
-      <div className="flex justify-center items-center h-screen font-sans">
+      <div className="flex justify-center items-center h-screen w-full m-4 font-sans">
       <div className="bg-gray-200 w-full max-w-md shadow-md rounded px-8 pt-6 pb-8 mb-4">
           <h1 className="text-3xl font-bold p-4 text-center">Update Event</h1>
           <form className="px-4">
@@ -95,7 +95,7 @@ const UpdateEvent = () => {
           <div className="flex items-center justify-between">
             <button
               type="submit"
-              className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline"
+              className="bg-primaryAccent hover:bg-primary text-black font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline"
             >
               Update Event
             </button>

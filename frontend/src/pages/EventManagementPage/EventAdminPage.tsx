@@ -1,44 +1,29 @@
 import axios from "axios";
 import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
-
+import { Event, getEvents } from "../../services/eventService";
 const EventDash = () => {
-    const [events, setEvents] = useState([ {
-        title: "Event 1",
-        image: "image_url_1",
-        date: "2024-04-12",
-        time: "10:00 AM",
-        location: "Location 1",
-        maxParticipation: 100,
-        description: "Description for Event 1",
-    },
-    {
-        title: "Event 2",
-        image: "image_url_2",
-        date: "2024-04-13",
-        time: "11:00 AM",
-        location: "Location 2",
-        maxParticipation: 150,
-        description: "Description for Event 2",
-    },]);
+    const [events, setEvents] = useState<Event[]>([]);
 
-    // useEffect(() => {
-    //     const fetchData = async () => {
-    //         try {
-    //             const response = await axios.get("API_URL_HERE");
-    //             setEvents(response.data);
-    //         } catch (error) {
-    //             console.error("Error fetching events:", error);
-    //         }
-    //     };
-    //     fetchData();
-    // }, []);
-
+    useEffect(() => {
+        const fetchData = async () => {
+            try {
+                const allEvents = await getEvents();
+                setEvents(allEvents);
+            } catch (error) {
+                console.error("Error fetching events:", error);
+            }
+        };
+        fetchData();
+    }, []);
+    const eventCount = events.length
     return (
         <div className="w-3/4 ... mx-auto p-8 font-sans ">
-            <Link to={"addEvent"} className="inline-block mb-4 px-4 py-2 bg-blue-500 text-white rounded hover:bg-blue-600">
+            <Link to={"addEvent"} className="inline-block mb-4 px-4 py-2 bg-primaryAccent text-back font-bold rounded hover:bg-primary">
                 Add Event
             </Link>
+
+            <p className="text-lg font-bold mb-4">Event Count: {eventCount}</p>
             <div className="overflow-x-auto">
                 <table className="w-full border-collapse">
                     <thead>
@@ -61,16 +46,16 @@ const EventDash = () => {
                                     <td className="px-4 py-2">{event.image}</td>
                                     <td className="px-4 py-2">{event.date}</td>
                                     <td className="px-4 py-2">{event.time}</td>
-                                    <td className="px-4 py-2">{event.location}</td>
-                                    <td className="px-4 py-2">{event.maxParticipation}</td>
-                                    <td className="px-4 py-2">{event.description}</td>
-                                    <td className="px-4 py-2">
-                                        <button className="bg-red-500 text-white px-3 py-1 rounded mr-2">
+                                    <td className="px-4 py-2 w-32">{event.location}</td>
+                                    <td className="px-4 py-2 w-32">{event.maxParticipation}</td>
+                                    <td className="px-4 py-2 w-48">{event.description}</td>
+                                    <td className="px-4 py-2 flex flex-col sm:flex-row sm:items-center">
+                                        <button className="bg-red-500 text-black px-3 py-1 rounded mr-2 mb-2 sm:mb-0">
                                             <i className="fas fa-trash"></i>
                                         </button>
                                         <Link
                                             to={"uptadeEvent"}
-                                            className="bg-blue-500 text-white px-3 py-1 rounded"
+                                            className="bg-primaryAccent text-black px-3 py-1 rounded"
                                         >
                                             <i className="fas fa-pencil-alt"></i>
                                         </Link>
