@@ -1,28 +1,28 @@
 import { useEffect, useState } from "react";
 import ProtectedDiv from "../components/ProtectedDiv";
+import { Outlet, useNavigate } from "react-router-dom";
 
 interface BaseItem {
+  onClick: (index: number) => void;
   name: string;
   route: string;
 }
 
-export default function UserProfilePage() {
+export default function UserProfileLayout() {
   const [items, setItems] = useState<BaseItem[]>([]);
   const [activeItemIndex, setActiveItemIndex] = useState(-1);
 
   useEffect(() => {
     setItems([
       {
+        onClick: (index) => setActiveItemIndex(index),
         name: "Item 1",
-        route: "userprofile",
+        route: "/userprofile/test-1",
       },
       {
-        name: "Item 2",
-        route: "userprofile/#",
-      },
-      {
-        name: "Item 3",
-        route: "userprofile/#",
+        onClick: (index) => setActiveItemIndex(index),
+        name: "TEST",
+        route: "/userprofile/test-2",
       },
     ]);
   }, []);
@@ -42,7 +42,7 @@ export default function UserProfilePage() {
         </ul>
       </div>
 
-      <div className="flex-1">CONTENT</div>
+      <Outlet />
     </ProtectedDiv>
   );
 }
@@ -52,13 +52,26 @@ interface Item extends BaseItem {
   activeItemIndex: number;
 }
 
-function SidebarItem({ name, itemIndex, activeItemIndex }: Item) {
+function SidebarItem({
+  name,
+  itemIndex,
+  activeItemIndex,
+  route,
+  onClick,
+}: Item) {
+  const navigate = useNavigate();
+
+  const handleClick = () => {
+    navigate(route);
+    onClick(itemIndex);
+  };
+
   return (
     <li
       className={`${
         itemIndex === activeItemIndex ? "bg-gray0" : "bg-gray2"
       } text-white px-4 py-2 rounded cursor-pointer`}
-      // onClick={}
+      onClick={handleClick}
     >
       {name}
     </li>

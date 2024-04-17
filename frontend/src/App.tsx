@@ -16,11 +16,11 @@ import InventoryManagementDashboard from "./pages/InventoryManagementAdminPage/I
 import InventoryManagementItemPage from "./pages/InventoryManagementAdminPage/InventoryManagementItemPage";
 import InventoryManagementRequestStocksPage from "./pages/InventoryManagementAdminPage/InventoryManagementRequestStocksPage";
 //import PetDaycareBookingPage from "./pages/PetDaycareBookingPage";
-import UserProfilePage from "./pages/UserProfilePage";
 import EmployeeProfilePage from "./pages/EmployeeProfilePage";
 import EventRegistrationPage from "./pages/EventManagementPage/EventRegistrationPage";
 import FeedbackPage from "./pages/FeedbackPage";
 import FeedbackManagementAdminPage from "./pages/FeedbackManagementAdminPage/FeedbackManagementAdminPage";
+import UserProfileLayout from "./components/UserProfileLayout";
 
 export default function App() {
   return (
@@ -30,10 +30,15 @@ export default function App() {
         <Route path="/" element={<Layout />}>
           <Route path="" element={<HomePage />} />
           <Route path="log-in" element={<LogInPage />} />
-          <Route path="userprofile" element={<UserProfilePage />} />
           <Route path="events" element={<EventPage />} />
           <Route path="events/register" element={<EventRegistrationPage />} />
           <Route path="feedback" element={<FeedbackPage />} />
+
+          {/* User profile */}
+          <Route path="userprofile" element={<UserProfileLayout />}>
+            <Route path="test-1" element={<div>TEST 1</div>} />
+            <Route path="test-2" element={<div>TEST 2</div>} />
+          </Route>
         </Route>
 
         {/* Employee Routes */}
