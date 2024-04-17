@@ -1,7 +1,13 @@
-import { ReactNode, useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import { Employee, getEmployees } from "../../services/employeeService";
 import FilledButton from "../../components/Common/FilledButton";
 import EmployeeCreationPopUp from "../../components/EmployeeCreationPopUp";
+import {
+  TableColumn,
+  TableHeaderColumn,
+  TableHeaderRow,
+  TableRow,
+} from "../../components/Common/Table";
 
 export default function EmployeeManagementEmployeesAdminPage() {
   const [employees, setEmployees] = useState<Employee[]>([]);
@@ -15,13 +21,15 @@ export default function EmployeeManagementEmployeesAdminPage() {
   }, []);
 
   return (
-    <div className="relative flex-1">
-      {<EmployeeCreationPopUp />}
+    <div className="flex-1">
+      {showEmployeeCreationPopUp && (
+        <EmployeeCreationPopUp setIsVisible={setShowEmployeeCreationPopUp} />
+      )}
 
       {!showEmployeeCreationPopUp && (
         <FilledButton
           onClick={() => setShowEmployeeCreationPopUp(true)}
-          className="absolute right-4 bottom-24 text-base"
+          className="absolute right-4 bottom-6 text-base"
         >
           Add New Employee
         </FilledButton>
@@ -58,32 +66,4 @@ export default function EmployeeManagementEmployeesAdminPage() {
       </div>
     </div>
   );
-}
-
-function TableHeaderRow({ children }: { children: ReactNode }) {
-  return <tr className="bg-secondary">{children}</tr>;
-}
-
-function TableRow({
-  children,
-  rowIndex,
-}: {
-  children: ReactNode;
-  rowIndex: number;
-}) {
-  return (
-    <tr className={rowIndex % 2 === 0 ? "bg-white" : "bg-gray0"}>{children}</tr>
-  );
-}
-
-function TableHeaderColumn({ text }: { text: string }) {
-  return (
-    <th className="px-6 py-3 text-left text-xs leading-4 font-medium text-white uppercase tracking-wider">
-      {text}
-    </th>
-  );
-}
-
-function TableColumn({ text }: { text: string }) {
-  return <td className="px-6 py-4 whitespace-no-wrap">{text}</td>;
 }
