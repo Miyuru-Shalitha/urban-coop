@@ -35,8 +35,8 @@ const EventDash = () => {
     // }, []);
 
     return (
-        <div className="w-3/4 ... mx-auto p-8">
-            <Link to={"/create"} className="inline-block mb-4 px-4 py-2 bg-blue-500 text-white rounded hover:bg-blue-600">
+        <div className="w-3/4 ... mx-auto p-8 font-sans ">
+            <Link to={"addEvent"} className="inline-block mb-4 px-4 py-2 bg-blue-500 text-white rounded hover:bg-blue-600">
                 Add Event
             </Link>
             <div className="overflow-x-auto">
@@ -69,7 +69,7 @@ const EventDash = () => {
                                             <i className="fas fa-trash"></i>
                                         </button>
                                         <Link
-                                            to={"/update"}
+                                            to={"uptadeEvent"}
                                             className="bg-blue-500 text-white px-3 py-1 rounded"
                                         >
                                             <i className="fas fa-pencil-alt"></i>
