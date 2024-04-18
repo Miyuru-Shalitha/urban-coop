@@ -19,12 +19,14 @@ import InventoryManagementPage from "./pages/InventoryManagementAdminPage/Invent
 import InventoryManagementDashboard from "./pages/InventoryManagementAdminPage/InventoryManagementDashboard";
 import InventoryManagementItemPage from "./pages/InventoryManagementAdminPage/InventoryManagementItemPage";
 import InventoryManagementRequestStocksPage from "./pages/InventoryManagementAdminPage/InventoryManagementRequestStocksPage";
-//import PetDaycareBookingPage from "./pages/PetDaycareBookingPage";
 import EventRegistrationPage from "./pages/EventManagementPage/EventRegistrationPage"
 import FeedbackManagementAdminPage from "./pages/FeedbackManagementAdminPage/FeedbackManagementAdminPage";
 import EmployeeProfilePage from "./pages/EmployeeProfilePage";
-import InventoryManagementCreateItemPage from "./pages/InventoryManagementAdminPage/InventoryManagementCreateItemPage";
-import InventoryManagementUpdateItemPage from "./pages/InventoryManagementAdminPage/InventoryManagementUpdateItemPage";
+import PetDaycareBookingPage from "./pages/PetDaycareManagementPage/PetDaycareBookingPage";
+import PetDaycareMyBookings from "./pages/PetDaycareManagementAdminPage/PetDaycareMyBookings";
+import InventoryManagementCreateItemsPage from "./pages/InventoryManagementAdminPage/InventoryManagementCreateItemsPage";
+import InventoryManagementUpdateItems from "./pages/InventoryManagementAdminPage/InventoryManagementUpdateItems";
+import InventoryManagementCreateRequest from "./pages/InventoryManagementAdminPage/InventoryManagementCreateRequest";
 
 export default function App() {
   return (
@@ -39,6 +41,8 @@ export default function App() {
           <Route path="events/register" element={<EventRegistrationPage/>} />
           
           <Route path="events/register" element={<EventRegistrationPage/>} /> 
+          <Route path="petdaycare" element={<PetDaycareBookingPage/>} />       
+          <Route path="mybookings" element={<PetDaycareMyBookings/>} />
 
         </Route>
 
@@ -80,23 +84,29 @@ export default function App() {
             path="inventory-management/item"
             element={<InventoryManagementItemPage />}
           />
-  
           <Route
-            path="inventory-management/inventory-management/item/create"
-            element={<InventoryManagementCreateItemPage />}
+            path="inventory-management/item-create"
+            element={<InventoryManagementCreateItemsPage />}
           />
           <Route
-            path="inventory-management/inventory-management/item/update"
-            element={<InventoryManagementUpdateItemPage />}
+            path="inventory-management/item-update"
+            element={<InventoryManagementUpdateItems />}
           />
+         
           <Route
             path="inventory-management/request-stocks"
             element={<InventoryManagementRequestStocksPage />}
           />
-      
+          <Route
+            path="inventory-management/request-create"
+            element={<InventoryManagementCreateRequest />}
+          />
+          
+          
 
 
 
+          
           {/* Event Management Routes */}
           <Route path="event-dashboard" element={<EventDash />} />
 
@@ -117,9 +127,7 @@ export default function App() {
           {/* adoption management */}
           {/* display adoptions */}
 
-          {/* inventory dashboard */}
-          {/* inventory items */}
-          {/* request stocks */}
+       
 
           {/* expense */}
           {/* income */}

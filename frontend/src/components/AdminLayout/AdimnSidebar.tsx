@@ -60,7 +60,6 @@ export default function AdminSidebar() {
       {
         onClick: (index) => setActiveItemIndex(index),
         activeIndex: activeItemIndex,
-
         title: "Inventory Management",
         homeRoute: "/admin/inventory-management",
         subtitles: [
@@ -78,7 +77,8 @@ export default function AdminSidebar() {
           },
         ],
       },
-    {
+
+      {
         onClick: (index) => setActiveItemIndex(index),
         activeIndex: activeItemIndex,
         title: "Supplier Management",
@@ -98,7 +98,6 @@ export default function AdminSidebar() {
           },
         ],
       },
-
       {
         onClick: (index) => setActiveItemIndex(index),
         activeIndex: activeItemIndex,
@@ -111,8 +110,7 @@ export default function AdminSidebar() {
           },
         ],
       },
-    ]
-  );
+    ]);
   }, [activeItemIndex]);
 
   return (
