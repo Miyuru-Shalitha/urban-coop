@@ -36,18 +36,18 @@ export default function EmployeeManagementRolesAdminPage() {
         <table className="border-2">
           <thead>
             <TableHeaderRow>
-              <TableHeaderColumn text="Role ID" />
-              <TableHeaderColumn text="Role" />
-              <TableHeaderColumn text="Base salary" />
+              <TableHeaderColumn>Role ID</TableHeaderColumn>
+              <TableHeaderColumn>Role</TableHeaderColumn>
+              <TableHeaderColumn>Base Salary</TableHeaderColumn>
             </TableHeaderRow>
           </thead>
 
           <tbody>
             {roles.map((role, index) => (
               <TableRow key={role._id} rowIndex={index}>
-                <TableColumn text={role._id} />
-                <TableColumn text={role.name} />
-                <TableColumn text={`Rs.${role.baseSalary.toString()}.00`} />
+                <TableColumn>{role._id}</TableColumn>
+                <TableColumn>{role.name}</TableColumn>
+                <TableColumn>{`Rs.${role.baseSalary.toString()}.00`}</TableColumn>
               </TableRow>
             ))}
           </tbody>
