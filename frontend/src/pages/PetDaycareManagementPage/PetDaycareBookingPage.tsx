@@ -8,7 +8,7 @@ import Slider from "@mui/material/Slider";
 import { useSelector } from "react-redux";
 import axios from "axios";
 import { toast } from "react-toastify";
-import { RootState } from "../store/store";
+import { RootState } from "../../store/store";
 
 
 

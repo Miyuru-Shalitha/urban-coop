@@ -19,10 +19,11 @@ import InventoryManagementPage from "./pages/InventoryManagementAdminPage/Invent
 import InventoryManagementDashboard from "./pages/InventoryManagementAdminPage/InventoryManagementDashboard";
 import InventoryManagementItemPage from "./pages/InventoryManagementAdminPage/InventoryManagementItemPage";
 import InventoryManagementRequestStocksPage from "./pages/InventoryManagementAdminPage/InventoryManagementRequestStocksPage";
-//import PetDaycareBookingPage from "./pages/PetDaycareBookingPage";
 import EventRegistrationPage from "./pages/EventManagementPage/EventRegistrationPage"
 import FeedbackManagementAdminPage from "./pages/FeedbackManagementAdminPage/FeedbackManagementAdminPage";
 import EmployeeProfilePage from "./pages/EmployeeProfilePage";
+import PetDaycareBookingPage from "./pages/PetDaycareManagementPage/PetDaycareBookingPage";
+import PetDaycareMyBookings from "./pages/PetDaycareManagementAdminPage/PetDaycareMyBookings";
 
 export default function App() {
   return (
@@ -37,6 +38,8 @@ export default function App() {
           <Route path="events/register" element={<EventRegistrationPage/>} />
           
           <Route path="events/register" element={<EventRegistrationPage/>} /> 
+          <Route path="petdaycare" element={<PetDaycareBookingPage/>} />       
+          <Route path="mybookings" element={<PetDaycareMyBookings/>} />
 
         </Route>
 
