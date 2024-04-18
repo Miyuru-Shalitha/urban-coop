@@ -1,3 +1,5 @@
+import { Link } from "react-router-dom";
+
 export default function SupplierManagementManagePage() {
     return (
         <div>
@@ -42,10 +44,12 @@ export default function SupplierManagementManagePage() {
                         <td className="px-6 py-4 whitespace-nowrap">123 Main St, Cityville</td>
                         <td className="px-6 py-4 whitespace-nowrap">Dog Collar</td>
                         <td className="px-6 py-4 whitespace-nowrap">
-                            <button
-                                className="inline-flex justify-center py-2 px-4 border border-transparent shadow-sm text-sm font-medium rounded-md text-white bg-primary hover:bg-primaryAccent focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-primary">
-                                Edit
-                            </button>
+                            <Link to="/admin/supplier-management/update-suppliers">
+                                <button
+                                    className="inline-flex justify-center py-2 px-4 border border-transparent shadow-sm text-sm font-medium rounded-md text-white bg-primary hover:bg-primaryAccent focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-primary">
+                                    Edit
+                                </button>
+                            </Link>
                             <button
                                 className="inline-flex justify-center py-2 px-4 border border-transparent shadow-sm text-sm font-medium rounded-md text-white bg-secondary hover:bg-black focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-secondary">
                                 Remove
@@ -61,10 +65,12 @@ export default function SupplierManagementManagePage() {
                         <td className="px-6 py-4 whitespace-nowrap">321 Cedar St, Forestville</td>
                         <td className="px-6 py-4 whitespace-nowrap">Dog Bark</td>
                         <td className="px-6 py-4 whitespace-nowrap">
-                            <button
-                                className="inline-flex justify-center py-2 px-4 border border-transparent shadow-sm text-sm font-medium rounded-md text-white bg-primary hover:bg-primaryAccent focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-primary">
-                                Edit
-                            </button>
+                            <Link to="/admin/supplier-management/update-suppliers">
+                                <button
+                                    className="inline-flex justify-center py-2 px-4 border border-transparent shadow-sm text-sm font-medium rounded-md text-white bg-primary hover:bg-primaryAccent focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-primary">
+                                    Edit
+                                </button>
+                            </Link>
                             <button
                                 className="inline-flex justify-center py-2 px-4 border border-transparent shadow-sm text-sm font-medium rounded-md text-white bg-secondary hover:bg-black focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-secondary">
                                 Remove
@@ -80,11 +86,12 @@ export default function SupplierManagementManagePage() {
                         <td className="px-6 py-4 whitespace-nowrap">321 Cedar St, Forestville</td>
                         <td className="px-6 py-4 whitespace-nowrap">Cat Collar</td>
                         <td className="px-6 py-4 whitespace-nowrap">
-                            <button
-                                className="inline-flex justify-center py-2 px-4 border border-transparent shadow-sm text-sm font-medium rounded-md text-white bg-primary hover:bg-primaryAccent focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-primary"
-                            >
-                                Edit
-                            </button>
+                            <Link to="/admin/supplier-management/update-suppliers">
+                                <button
+                                    className="inline-flex justify-center py-2 px-4 border border-transparent shadow-sm text-sm font-medium rounded-md text-white bg-primary hover:bg-primaryAccent focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-primary">
+                                    Edit
+                                </button>
+                            </Link>
                             <button
                                 className="inline-flex justify-center py-2 px-4 border border-transparent shadow-sm text-sm font-medium rounded-md text-white bg-secondary hover:bg-black focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-secondary"
                             >
@@ -101,11 +108,12 @@ export default function SupplierManagementManagePage() {
                         <td className="px-6 py-4 whitespace-nowrap">567 Maple Ave, Sunnytown</td>
                         <td className="px-6 py-4 whitespace-nowrap">Meaow Fary</td>
                         <td className="px-6 py-4 whitespace-nowrap">
-                            <button
-                                className="inline-flex justify-center py-2 px-4 border border-transparent shadow-sm text-sm font-medium rounded-md text-white bg-primary hover:bg-primaryAccent focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-primary"
-                            >
-                                Edit
-                            </button>
+                            <Link to="/admin/supplier-management/update-suppliers">
+                                <button
+                                    className="inline-flex justify-center py-2 px-4 border border-transparent shadow-sm text-sm font-medium rounded-md text-white bg-primary hover:bg-primaryAccent focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-primary">
+                                    Edit
+                                </button>
+                            </Link>
                             <button
                                 className="inline-flex justify-center py-2 px-4 border border-transparent shadow-sm text-sm font-medium rounded-md text-white bg-secondary hover:bg-black focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-secondary"
                             >
@@ -122,10 +130,12 @@ export default function SupplierManagementManagePage() {
                         <td className="px-6 py-4 whitespace-nowrap">567 Maple Ave, Sunnytown</td>
                         <td className="px-6 py-4 whitespace-nowrap">Meaow Fary</td>
                         <td className="px-6 py-4 whitespace-nowrap">
-                            <button
-                                className="inline-flex justify-center py-2 px-4 border border-transparent shadow-sm text-sm font-medium rounded-md text-white bg-primary hover:bg-primaryAccent focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-primary">
-                                Edit
-                            </button>
+                            <Link to="/admin/supplier-management/update-suppliers">
+                                <button
+                                    className="inline-flex justify-center py-2 px-4 border border-transparent shadow-sm text-sm font-medium rounded-md text-white bg-primary hover:bg-primaryAccent focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-primary">
+                                    Edit
+                                </button>
+                            </Link>
                             <button
                                 className="inline-flex justify-center py-2 px-4 border border-transparent shadow-sm text-sm font-medium rounded-md text-white bg-secondary hover:bg-black focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-secondary">
                                 Remove
@@ -134,6 +144,12 @@ export default function SupplierManagementManagePage() {
                     </tr>
                 </tbody>
             </table>
+            <br />
+            <Link to="/admin/supplier-management/create-suppliers">
+                <button className="bg-primary text-white py-2 px-4 rounded-md hover:bg-primaryAccent focus:outline-none focus:ring-2 focus:ring-offset-2">
+                    Add Supplier
+                </button>
+            </Link>
         </div>
     );
 }
