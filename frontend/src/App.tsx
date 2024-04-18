@@ -23,6 +23,8 @@ import InventoryManagementRequestStocksPage from "./pages/InventoryManagementAdm
 import EventRegistrationPage from "./pages/EventManagementPage/EventRegistrationPage"
 import FeedbackManagementAdminPage from "./pages/FeedbackManagementAdminPage/FeedbackManagementAdminPage";
 import EmployeeProfilePage from "./pages/EmployeeProfilePage";
+import InventoryManagementCreateItemPage from "./pages/InventoryManagementAdminPage/InventoryManagementCreateItemPage";
+import InventoryManagementUpdateItemPage from "./pages/InventoryManagementAdminPage/InventoryManagementUpdateItemPage";
 
 export default function App() {
   return (
@@ -78,12 +80,23 @@ export default function App() {
             path="inventory-management/item"
             element={<InventoryManagementItemPage />}
           />
-
+  
+          <Route
+            path="inventory-management/inventory-management/item/create"
+            element={<InventoryManagementCreateItemPage />}
+          />
+          <Route
+            path="inventory-management/inventory-management/item/update"
+            element={<InventoryManagementUpdateItemPage />}
+          />
           <Route
             path="inventory-management/request-stocks"
             element={<InventoryManagementRequestStocksPage />}
           />
-          
+      
+
+
+
           {/* Event Management Routes */}
           <Route path="event-dashboard" element={<EventDash />} />
 
