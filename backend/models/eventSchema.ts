@@ -1,7 +1,6 @@
-const mongoose = require('mongoose');
-const Schema = mongoose.Schema;
+import mongoose from 'mongoose';
 
-const eventSchema = new Schema({
+const eventSchema = new mongoose.Schema({
   title: {
     type: String,
     required: true
@@ -19,7 +18,7 @@ const eventSchema = new Schema({
     required: true
   },
   image: {
-    type: String, // Assuming you'll store the image URL in the database
+    type: String, 
     required: true
   },
   maxParticipation: {
@@ -31,7 +30,7 @@ const eventSchema = new Schema({
     required: true
   }
 });
-
-module.exports = mongoose.model('Event', eventSchema);
+const Event = mongoose.models.events || mongoose.model('events', eventSchema);
+export default Event;
 
 

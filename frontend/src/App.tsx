@@ -19,6 +19,7 @@ import InventoryManagementPage from "./pages/InventoryManagementAdminPage/Invent
 import InventoryManagementDashboard from "./pages/InventoryManagementAdminPage/InventoryManagementDashboard";
 import InventoryManagementItemPage from "./pages/InventoryManagementAdminPage/InventoryManagementItemPage";
 import InventoryManagementRequestStocksPage from "./pages/InventoryManagementAdminPage/InventoryManagementRequestStocksPage";
+
 import EventRegistrationPage from "./pages/EventManagementPage/EventRegistrationPage"
 import FeedbackManagementAdminPage from "./pages/FeedbackManagementAdminPage/FeedbackManagementAdminPage";
 import EmployeeProfilePage from "./pages/EmployeeProfilePage";
@@ -27,6 +28,9 @@ import PetDaycareMyBookings from "./pages/PetDaycareManagementAdminPage/PetDayca
 import InventoryManagementCreateItemsPage from "./pages/InventoryManagementAdminPage/InventoryManagementCreateItemsPage";
 import InventoryManagementUpdateItems from "./pages/InventoryManagementAdminPage/InventoryManagementUpdateItems";
 import InventoryManagementCreateRequest from "./pages/InventoryManagementAdminPage/InventoryManagementCreateRequest";
+
+
+import Userdash from "./pages/EventManagementPage/UserRegistrationForEventPage";
 
 export default function App() {
   return (
@@ -37,10 +41,7 @@ export default function App() {
           <Route path="" element={<HomePage />} />
           <Route path="log-in" element={<LogInPage />} />
           <Route path="events" element={<EventPage />} />
-
           <Route path="events/register" element={<EventRegistrationPage/>} />
-          
-          <Route path="events/register" element={<EventRegistrationPage/>} /> 
           <Route path="petdaycare" element={<PetDaycareBookingPage/>} />       
           <Route path="mybookings" element={<PetDaycareMyBookings/>} />
 
@@ -102,11 +103,7 @@ export default function App() {
             element={<InventoryManagementCreateRequest />}
           />
           
-          
-
-
-
-          
+                   
           {/* Event Management Routes */}
           <Route path="event-dashboard" element={<EventDash />} />
 
@@ -115,8 +112,13 @@ export default function App() {
             element={<EventCreationForm />}
           />
 
-          <Route path="event-dashboard/uptadeEvent" 
+          <Route path="event-dashboard/uptadeEvent/:id" 
           element={< UpdateEvent/>} />
+
+
+
+          <Route path="user-registerdashboard" 
+          element={< Userdash/>} />
 
           {/* event report generation */}
 

@@ -1,4 +1,4 @@
-import axios from "axios";
+
 import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import { Event, getEvents } from "../../services/eventService";
@@ -40,8 +40,8 @@ const EventDash = () => {
                     </thead>
                     <tbody>
                         {events && events.length > 0 ? (
-                            events.map((event, index) => (
-                                <tr key={index}>
+                            events.map((event) => (
+                                <tr key={event._id}>
                                     <td className="px-4 py-2">{event.title}</td>
                                     <td className="px-4 py-2">{event.image}</td>
                                     <td className="px-4 py-2">{event.date}</td>
@@ -54,7 +54,7 @@ const EventDash = () => {
                                             <i className="fas fa-trash"></i>
                                         </button>
                                         <Link
-                                            to={"uptadeEvent"}
+                                            to={"uptadeEvent/" + event._id}
                                             className="bg-primaryAccent text-black px-3 py-1 rounded"
                                         >
                                             <i className="fas fa-pencil-alt"></i>

@@ -1,7 +1,7 @@
-import { useState } from "react";
+import {useState} from "react";
 import axios from 'axios';
 import toast from "react-hot-toast";
-import { useNavigate } from "react-router-dom";
+import {useNavigate} from "react-router-dom"; 
 
 export default function EventCreationForm() {
   const [formState, setFormState] = useState({
@@ -32,28 +32,28 @@ export default function EventCreationForm() {
 
   const handleSubmit = async (e:any) => {
     e.preventDefault();
-
-    const formData = new FormData();
-    formData.append('title', formState.title);
-    formData.append('date', formState.date);
-    formData.append('time', formState.time);
-    formData.append('location', formState.location);
-    formData.append('image', formState.image);
-    formData.append('maxAttendance', formState.maxAttendance);
-    formData.append('description', formState.description);
-
-   
+  
+    const eventData = {
+      title: formState.title,
+      date: formState.date,
+      time: formState.time,
+      location: formState.location,
+      image: formState.image,
+      maxAttendance: formState.maxAttendance,
+      description: formState.description
+    };
+  
     try {
-      const response = await axios.post('http://localhost:5000/api/events', formData);
-      console.log(response.data);
-      toast.success('Event created successfully!',{position:"top-right"});
-      Navigate('/event-dashboard');
+      const response = await axios.post('http://localhost:5000/api/events', eventData);
+      toast.success('Event created successfully!');
+      
+    } catch (error) {  
+      console.error('Error creating event:', error);
+      
 
-    } catch (error: any) { 
-      alert('Something went wrong!');
+      toast.error('Something went wrong!');
     }
   };
-
   return (
     
     <div className=" flex flex-col items-center justify-center h-screen w-full m-4 font-sans">
