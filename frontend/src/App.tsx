@@ -12,6 +12,10 @@ import EmployeeManagementEmployeesAdminPage from "./pages/EmployeeManagementAdmi
 import EmployeeManagementRolesAdminPage from "./pages/EmployeeManagementAdminPage/EmployeeManagementRolesPage";
 import EmployeeManagementSalaryPage from "./pages/EmployeeManagementAdminPage/EmployeeManagementSalaryPage";
 import PetDaycareBookingPage from "./pages/PetDaycareBookingPage";
+import SupplierManagementAdminPage from "./pages/SupplierManagementAdminPage/SupplierManagementAdminPage";
+import SupplierManagementDashboard from "./pages/SupplierManagementAdminPage/SupplierManagementDashboard";
+import SupplierManagementManagePage from "./pages/SupplierManagementAdminPage/SupplierManagementManagePage";
+import SupplierManagementStockReq from "./pages/SupplierManagementAdminPage/SupplierManagementStockReq";
 
 export default function App() {
   return (
@@ -46,7 +50,9 @@ export default function App() {
             path="employee-management/salary"
             element={<EmployeeManagementSalaryPage />}
           />
+
           <Route path="event-dashboar" element={<EventDash />} />
+          
           {/* event report generation */}
           {/* event registration */}
 
@@ -63,33 +69,30 @@ export default function App() {
           {/* expense */}
           {/* income */}
           {/* expense */}
+          
+          {/* Supplier Management Routes */}
+          <Route
+            path = "supplier-management"
+            element = {<SupplierManagementAdminPage />}
+          />
 
-          {/* supllier dashboard */}
-          {/* manage suppliers */}
-          {/* stock requests */}
+          <Route
+            path = "supplier-management/supplier-dashboard"
+            element = {<SupplierManagementDashboard />}
+          />
+
+          <Route
+            path = "supplier-management/manage-suppliers"
+            element = {<SupplierManagementManagePage />}
+          />
+
+          <Route
+            path = "supplier-management/stock-requests"
+            element = {<SupplierManagementStockReq />}
+          />
 
           {/* feedback dashboard */}
         </Route>
-
-        {/* Supplier Management Routes
-        <Route path="/admin" element={<AdminLayout />}>
-          <Route
-            path="supplier-management"
-            element={<EmployeeManagementAdminPage />}
-          />
-          <Route
-            path="employee-management/employees"
-            element={<EmployeeManagementEmployeesAdminPage />}
-          />
-          <Route
-            path="employee-management/roles"
-            element={<EmployeeManagementRolesAdminPage />}
-          />
-          <Route
-            path="employee-management/salary"
-            element={<EmployeeManagementSalaryPage />}
-          />
-        </Route> */}
         
       </Routes>
     </BrowserRouter>
