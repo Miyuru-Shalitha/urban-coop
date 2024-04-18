@@ -28,7 +28,6 @@ export default function App() {
           <Route path="log-in" element={<LogInPage />} />
           <Route path="events" element={<EventPage />} />
           <Route path="events/register" element={<EventRegistrationPage/>} />
-         
           
         </Route>
 
