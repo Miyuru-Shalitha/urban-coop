@@ -43,11 +43,11 @@ export default function SupplierManagementManagePage() {
                     <td className="px-6 py-4 whitespace-nowrap">
                         <button
                             className="inline-flex justify-center py-2 px-4 border border-transparent shadow-sm text-sm font-medium rounded-md text-white bg-primary hover:bg-primaryAccent focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-primary">
-                            Add
+                            Edit
                         </button>
                         <button
                             className="inline-flex justify-center py-2 px-4 border border-transparent shadow-sm text-sm font-medium rounded-md text-white bg-secondary hover:bg-black focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-secondary">
-                            Cancel
+                            Remove
                         </button>
                     </td>
                 </tr>
@@ -62,11 +62,11 @@ export default function SupplierManagementManagePage() {
                     <td className="px-6 py-4 whitespace-nowrap">
                         <button
                             className="inline-flex justify-center py-2 px-4 border border-transparent shadow-sm text-sm font-medium rounded-md text-white bg-primary hover:bg-primaryAccent focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-primary">
-                            Add
+                            Edit
                         </button>
                         <button
                             className="inline-flex justify-center py-2 px-4 border border-transparent shadow-sm text-sm font-medium rounded-md text-white bg-secondary hover:bg-black focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-secondary">
-                            Cancel
+                            Remove
                         </button>
                     </td>
                 </tr>
@@ -82,12 +82,12 @@ export default function SupplierManagementManagePage() {
                         <button
                             className="inline-flex justify-center py-2 px-4 border border-transparent shadow-sm text-sm font-medium rounded-md text-white bg-primary hover:bg-primaryAccent focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-primary"
                         >
-                            Add
+                            Edit
                         </button>
                         <button
                             className="inline-flex justify-center py-2 px-4 border border-transparent shadow-sm text-sm font-medium rounded-md text-white bg-secondary hover:bg-black focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-secondary"
                         >
-                            Cancel
+                            Remove
                         </button>
                     </td>
                 </tr>
@@ -103,17 +103,34 @@ export default function SupplierManagementManagePage() {
                         <button
                             className="inline-flex justify-center py-2 px-4 border border-transparent shadow-sm text-sm font-medium rounded-md text-white bg-primary hover:bg-primaryAccent focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-primary"
                         >
-                            Add
+                            Edit
                         </button>
                         <button
                             className="inline-flex justify-center py-2 px-4 border border-transparent shadow-sm text-sm font-medium rounded-md text-white bg-secondary hover:bg-black focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-secondary"
                         >
-                            Cancel
+                            Remove
                         </button>
                     </td>
                 </tr>
 
-
+                <tr>
+                    <td className="px-6 py-4 whitespace-nowrap">5</td>
+                    <td className="px-6 py-4 whitespace-nowrap">Joy Tails</td>
+                    <td className="px-6 py-4 whitespace-nowrap">810-657-4537</td>
+                    <td className="px-6 py-4 whitespace-nowrap">info@happytails.com</td>
+                    <td className="px-6 py-4 whitespace-nowrap">567 Maple Ave, Sunnytown</td>
+                    <td className="px-6 py-4 whitespace-nowrap">Meaow Fary</td>
+                    <td className="px-6 py-4 whitespace-nowrap">
+                        <button
+                            className="inline-flex justify-center py-2 px-4 border border-transparent shadow-sm text-sm font-medium rounded-md text-white bg-primary hover:bg-primaryAccent focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-primary">
+                            Edit
+                        </button>
+                        <button
+                            className="inline-flex justify-center py-2 px-4 border border-transparent shadow-sm text-sm font-medium rounded-md text-white bg-secondary hover:bg-black focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-secondary">
+                            Remove
+                        </button>
+                    </td>
+                </tr>
             </tbody>
         </table>
     </div>;

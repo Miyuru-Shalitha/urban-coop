@@ -17,6 +17,7 @@ export default {
         gray2: "#2C2C2C",
         gray3: "#1E1E1E",
         grayAlpha1: "#1E1E1E99",
+        green1: "#22C55E",
       },
       fontFamily: {
         "jockey-one-regular": ["Jockey One", "sans-serif"],

@@ -60,6 +60,26 @@ export default function AdminSidebar() {
       {
         onClick: (index) => setActiveItemIndex(index),
         activeIndex: activeItemIndex,
+        title: "Supplier Management",
+        homeRoute: "/admin/supplier-management",
+        subtitles: [
+          {
+            name: "Dashboard",
+            route: "/admin/supplier-management/supplier-dashboard",
+          },
+          {
+            name: "Manage Suppliers",
+            route: "/admin/supplier-management/manage-suppliers",
+          },
+          {
+            name: "Stock Requests",
+            route: "/admin/supplier-management/stock-requests",
+          },
+        ],
+      },
+      {
+        onClick: (index) => setActiveItemIndex(index),
+        activeIndex: activeItemIndex,
         title: "Feeback Management",
         homeRoute: "/admin/feedback-dashboard",
         subtitles: [
