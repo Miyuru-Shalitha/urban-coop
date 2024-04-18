@@ -28,9 +28,9 @@ export default function InventoryManagementRequestStocksPage() {
             <td className="p-2">10</td>
             <td className="p-2">Pending</td>
             <td className="p-2">
-              <button className="bg-yellow-600 hover:bg-yellow-700 text-white font-bold py-1 px-2 rounded focus:outline-none focus:shadow-outline">
-                Received
-              </button>
+            <button className="inline-flex justify-center py-2 px-4 border border-transparent shadow-sm text-sm font-medium rounded-md text-white bg-green-500 hover:bg-primary focus:outline-none focus:ring-2 focus:ring-offset-2">
+              Received <span className="ml-2">&#x2714;</span>
+            </button>
             </td>
           </tr>
           <tr className="border-b border-black" >
@@ -41,9 +41,9 @@ export default function InventoryManagementRequestStocksPage() {
             <td className="p-2">15</td>
             <td className="p-2">Delivered</td>
             <td className="p-2">
-              <button className="bg-yellow-600 hover:bg-yellow-700 text-white font-bold py-1 px-2 rounded focus:outline-none focus:shadow-outline">
-                Received
-              </button>
+            <button className="inline-flex justify-center py-2 px-4 border border-transparent shadow-sm text-sm font-medium rounded-md text-white bg-green-500 hover:bg-primary focus:outline-none focus:ring-2 focus:ring-offset-2">
+              Received <span className="ml-2">&#x2714;</span>
+            </button>
             </td>
           </tr>
           <tr className="border-b border-black" >
@@ -54,9 +54,9 @@ export default function InventoryManagementRequestStocksPage() {
             <td className="p-2">20</td>
             <td className="p-2">Pending</td>
             <td className="p-2">
-              <button className="bg-yellow-600 hover:bg-yellow-700 text-white font-bold py-1 px-2 rounded focus:outline-none focus:shadow-outline">
-                Received
-              </button>
+            <button className="inline-flex justify-center py-2 px-4 border border-transparent shadow-sm text-sm font-medium rounded-md text-white bg-green-500 hover:bg-primary focus:outline-none focus:ring-2 focus:ring-offset-2">
+              Received <span className="ml-2">&#x2714;</span>
+            </button>
             </td>
           </tr>
           <tr className="border-b border-black" >
@@ -67,9 +67,9 @@ export default function InventoryManagementRequestStocksPage() {
             <td className="p-2">8</td>
             <td className="p-2">Delivered</td>
             <td className="p-2">
-              <button className="bg-yellow-600 hover:bg-yellow-700 text-white font-bold py-1 px-2 rounded focus:outline-none focus:shadow-outline">
-                Received
-              </button>
+            <button className="inline-flex justify-center py-2 px-4 border border-transparent shadow-sm text-sm font-medium rounded-md text-white bg-green-500 hover:bg-primary focus:outline-none focus:ring-2 focus:ring-offset-2">
+              Received <span className="ml-2">&#x2714;</span>
+            </button>
             </td>
           </tr>
           <tr className="border-b border-black" >
@@ -80,9 +80,10 @@ export default function InventoryManagementRequestStocksPage() {
             <td className="p-2">12</td>
             <td className="p-2">Delivered</td>
             <td className="p-2">
-              <button className="bg-yellow-600 hover:bg-yellow-700 text-white font-bold py-1 px-2 rounded focus:outline-none focus:shadow-outline">
-                Received
-              </button>
+            <button className="inline-flex justify-center py-2 px-4 border border-transparent shadow-sm text-sm font-medium rounded-md text-white bg-green-500 hover:bg-primary focus:outline-none focus:ring-2 focus:ring-offset-2">
+              Received <span className="ml-2">&#x2714;</span>
+            </button>
+
             </td>
           </tr>
         </tbody>

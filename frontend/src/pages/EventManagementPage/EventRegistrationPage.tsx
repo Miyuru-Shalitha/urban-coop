@@ -58,7 +58,7 @@ const EventRegistrationForm = () => {
           <div>
             <button
               type="submit"
-              className="w-full rounded-lg bg-blue-500 px-4 py-2 text-white font-medium uppercase hover:bg-blue-600"
+              className="w-full rounded-lg bg-primaryAccent px-4 py-2 text-black font-medium uppercase hover:bg-primary"
             >
               Register
             </button>
