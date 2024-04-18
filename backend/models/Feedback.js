@@ -12,12 +12,12 @@ const FeedbackSchema = new Schema({
     },
 
     email:{
-        type:String,
+        type: String,
         required:true
     },
 
     contact:{
-        type:String,
+        type: Number,
         required:true
     },
 

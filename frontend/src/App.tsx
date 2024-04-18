@@ -29,7 +29,7 @@ import FeedbackManagementAdminPage from "./pages/FeedbackManagementAdminPage/Fee
 import EmployeeProfilePage from "./pages/EmployeeProfilePage";
 import PetDaycareBookingPage from "./pages/PetDaycareManagementPage/PetDaycareBookingPage";
 import PetDaycareMyBookings from "./pages/PetDaycareManagementAdminPage/PetDaycareMyBookings";
-
+import Userdash from "./pages/EventManagementPage/UserRegistrationForEventPage";
 
 export default function App() {
   return (
@@ -46,6 +46,10 @@ export default function App() {
           <Route path="events/register" element={<EventRegistrationPage />} />
           <Route path="petdaycare" element={<PetDaycareBookingPage />} />
           <Route path="mybookings" element={<PetDaycareMyBookings />} />
+
+          <Route path="events/register" element={<EventRegistrationPage/>} />
+          <Route path="petdaycare" element={<PetDaycareBookingPage/>} />       
+          <Route path="mybookings" element={<PetDaycareMyBookings/>} />
 
         </Route>
 
@@ -105,11 +109,6 @@ export default function App() {
             element={<InventoryManagementCreateRequest />}
           />
 
-
-
-
-
-
           {/* Event Management Routes */}
           <Route path="event-dashboard" element={<EventDash />} />
 
@@ -120,6 +119,12 @@ export default function App() {
 
           <Route path="event-dashboard/uptadeEvent"
             element={< UpdateEvent />} />
+
+          <Route path="event-dashboard/uptadeEvent/:id" 
+          element={< UpdateEvent/>} />
+
+          <Route path="user-registerdashboard" 
+          element={< Userdash/>} />
 
           {/* event report generation */}
 
