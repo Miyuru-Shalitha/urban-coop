@@ -11,17 +11,22 @@ import UpdateEvent from "./pages/EventManagementPage/UpdateEventPage";
 import EmployeeManagementEmployeesAdminPage from "./pages/EmployeeManagementAdminPage/EmployeeManagementEmployeesAdminPage";
 import EmployeeManagementRolesAdminPage from "./pages/EmployeeManagementAdminPage/EmployeeManagementRolesPage";
 import EmployeeManagementSalaryPage from "./pages/EmployeeManagementAdminPage/EmployeeManagementSalaryPage";
+import SupplierManagementAdminPage from "./pages/SupplierManagementAdminPage/SupplierManagementAdminPage";
+import SupplierManagementDashboard from "./pages/SupplierManagementAdminPage/SupplierManagementDashboard";
+import SupplierManagementManagePage from "./pages/SupplierManagementAdminPage/SupplierManagementManagePage";
+import SupplierManagementStockReq from "./pages/SupplierManagementAdminPage/SupplierManagementStockReq";
 import InventoryManagementPage from "./pages/InventoryManagementAdminPage/InventoryManagementAdminPage";
 import InventoryManagementDashboard from "./pages/InventoryManagementAdminPage/InventoryManagementDashboard";
 import InventoryManagementItemPage from "./pages/InventoryManagementAdminPage/InventoryManagementItemPage";
 import InventoryManagementRequestStocksPage from "./pages/InventoryManagementAdminPage/InventoryManagementRequestStocksPage";
-//import PetDaycareBookingPage from "./pages/PetDaycareBookingPage";
-import EmployeeProfilePage from "./pages/EmployeeProfilePage";
-import EventRegistrationPage from "./pages/EventManagementPage/EventRegistrationPage";
-import FeedbackPage from "./pages/FeedbackPage";
+import EventRegistrationPage from "./pages/EventManagementPage/EventRegistrationPage"
 import FeedbackManagementAdminPage from "./pages/FeedbackManagementAdminPage/FeedbackManagementAdminPage";
-import UserProfileLayout from "./components/UserProfileLayout";
-import EmployeeProfileLayout from "./components/EmployeeProfileLayout";
+import EmployeeProfilePage from "./pages/EmployeeProfilePage";
+import PetDaycareBookingPage from "./pages/PetDaycareManagementPage/PetDaycareBookingPage";
+import PetDaycareMyBookings from "./pages/PetDaycareManagementAdminPage/PetDaycareMyBookings";
+import InventoryManagementCreateItemsPage from "./pages/InventoryManagementAdminPage/InventoryManagementCreateItemsPage";
+import InventoryManagementUpdateItems from "./pages/InventoryManagementAdminPage/InventoryManagementUpdateItems";
+import InventoryManagementCreateRequest from "./pages/InventoryManagementAdminPage/InventoryManagementCreateRequest";
 
 export default function App() {
   return (
@@ -32,23 +37,13 @@ export default function App() {
           <Route path="" element={<HomePage />} />
           <Route path="log-in" element={<LogInPage />} />
           <Route path="events" element={<EventPage />} />
-          <Route path="events/register" element={<EventRegistrationPage />} />
-          <Route path="feedback" element={<FeedbackPage />} />
 
-          {/* User profile */}
-          <Route path="userprofile" element={<UserProfileLayout />}>
-            <Route path="test-1" element={<div>TEST 1</div>} />
-            <Route path="test-2" element={<div>TEST 2</div>} />
-          </Route>
-        </Route>
+          <Route path="events/register" element={<EventRegistrationPage/>} />
+          
+          <Route path="events/register" element={<EventRegistrationPage/>} /> 
+          <Route path="petdaycare" element={<PetDaycareBookingPage/>} />       
+          <Route path="mybookings" element={<PetDaycareMyBookings/>} />
 
-        {/* Emplyee profile */}
-        <Route
-          path="/admin/employee-profile"
-          element={<EmployeeProfileLayout />}
-        >
-          <Route path="test-1" element={<div>TEST 1</div>} />
-          <Route path="test-2" element={<div>TEST 2</div>} />
         </Route>
 
         {/* Management Routes */}
@@ -69,6 +64,9 @@ export default function App() {
             path="employee-management/salary"
             element={<EmployeeManagementSalaryPage />}
           />
+
+          <Route path="event-dashboar" element={<EventDash />} />
+          
           <Route path="profile" element={<EmployeeProfilePage />} />
 
           <Route path="event-dashboard" element={<EventDash />} />
@@ -86,12 +84,30 @@ export default function App() {
             path="inventory-management/item"
             element={<InventoryManagementItemPage />}
           />
-
+          <Route
+            path="inventory-management/item-create"
+            element={<InventoryManagementCreateItemsPage />}
+          />
+          <Route
+            path="inventory-management/item-update"
+            element={<InventoryManagementUpdateItems />}
+          />
+         
           <Route
             path="inventory-management/request-stocks"
             element={<InventoryManagementRequestStocksPage />}
           />
+          <Route
+            path="inventory-management/request-create"
+            element={<InventoryManagementCreateRequest />}
+          />
+          
+          
 
+
+
+          
+          {/* Event Management Routes */}
           <Route path="event-dashboard" element={<EventDash />} />
 
           <Route
@@ -99,9 +115,11 @@ export default function App() {
             element={<EventCreationForm />}
           />
 
-          <Route path="event-dashboard/uptadeEvent" element={<UpdateEvent />} />
+          <Route path="event-dashboard/uptadeEvent" 
+          element={< UpdateEvent/>} />
+
           {/* event report generation */}
-          {/* event registration */}
+
 
           {/* set daily rates */}
           {/* bookings */}
@@ -109,17 +127,32 @@ export default function App() {
           {/* adoption management */}
           {/* display adoptions */}
 
-          {/* inventory dashboard */}
-          {/* inventory items */}
-          {/* request stocks */}
+       
 
           {/* expense */}
           {/* income */}
           {/* expense */}
+          
+          {/* Supplier Management Routes */}
+          <Route
+            path = "supplier-management"
+            element = {<SupplierManagementAdminPage />}
+          />
 
-          {/* supllier dashboard */}
-          {/* manage suppliers */}
-          {/* stock requests */}
+          <Route
+            path = "supplier-management/supplier-dashboard"
+            element = {<SupplierManagementDashboard />}
+          />
+
+          <Route
+            path = "supplier-management/manage-suppliers"
+            element = {<SupplierManagementManagePage />}
+          />
+
+          <Route
+            path = "supplier-management/stock-requests"
+            element = {<SupplierManagementStockReq />}
+          />
 
           {/* feedback dashboard */}
           <Route

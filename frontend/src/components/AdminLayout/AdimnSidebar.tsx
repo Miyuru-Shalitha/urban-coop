@@ -29,7 +29,7 @@ export default function AdminSidebar() {
         subtitles: [
           {
             name: "User Registration",
-            route: "/admin/user-dashboard",
+            route: "/admin/user-registerdashboard",
           },
           {
             name: "Report Generation",
@@ -54,6 +54,47 @@ export default function AdminSidebar() {
           {
             name: "Salary",
             route: "/admin/employee-management/salary",
+          },
+        ],
+      },
+      {
+        onClick: (index) => setActiveItemIndex(index),
+        activeIndex: activeItemIndex,
+        title: "Inventory Management",
+        homeRoute: "/admin/inventory-management",
+        subtitles: [
+          {
+            name: "Dashboard",
+            route: "/admin/inventory-management/dashboard",
+          },
+          {
+            name: "Item",
+            route: "/admin/inventory-management/item",
+          },
+          {
+            name: "Request Stocks",
+            route: "/admin/inventory-management/request-stocks",
+          },
+        ],
+      },
+
+      {
+        onClick: (index) => setActiveItemIndex(index),
+        activeIndex: activeItemIndex,
+        title: "Supplier Management",
+        homeRoute: "/admin/supplier-management",
+        subtitles: [
+          {
+            name: "Dashboard",
+            route: "/admin/supplier-management/supplier-dashboard",
+          },
+          {
+            name: "Manage Suppliers",
+            route: "/admin/supplier-management/manage-suppliers",
+          },
+          {
+            name: "Stock Requests",
+            route: "/admin/supplier-management/stock-requests",
           },
         ],
       },

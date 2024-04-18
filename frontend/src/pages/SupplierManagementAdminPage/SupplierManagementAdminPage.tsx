@@ -1,3 +1,6 @@
-export default function EmployeeManagementAdminPage() {
-    return <div>EMPLOYEE MANAGEMENT ADMIN PAGE</div>;
-}  
+export default function SupplierManagementAdminPage() {
+    return (<div>
+        
+    </div>
+    );
+}
