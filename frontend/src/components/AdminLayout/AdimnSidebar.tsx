@@ -60,6 +60,7 @@ export default function AdminSidebar() {
       {
         onClick: (index) => setActiveItemIndex(index),
         activeIndex: activeItemIndex,
+<<<<<<< HEAD
         title: "Inventory Management",
         homeRoute: "/admin/inventory-management",
         subtitles: [
@@ -74,6 +75,22 @@ export default function AdminSidebar() {
           {
             name: "Request Stocks",
             route: "/admin/inventory-management/request-stocks",
+=======
+        title: "Supplier Management",
+        homeRoute: "/admin/supplier-management",
+        subtitles: [
+          {
+            name: "Dashboard",
+            route: "/admin/supplier-management/supplier-dashboard",
+          },
+          {
+            name: "Manage Suppliers",
+            route: "/admin/supplier-management/manage-suppliers",
+          },
+          {
+            name: "Stock Requests",
+            route: "/admin/supplier-management/stock-requests",
+>>>>>>> 189c16749a6c83059c166e8061e21bcdf2c4c4cf
           },
         ],
       },
