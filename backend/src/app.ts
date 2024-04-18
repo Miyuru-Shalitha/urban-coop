@@ -9,8 +9,8 @@ import authRoute from "../routes/auth.route";
 import roleRoute from "../routes/role.route";
 
 
-import EventRoute from "../routes/Event.route";
-
+import eventRoute from "../routes/Event.route";
+import regroute from "../routes/eventRegister.route";
 const app = express();
 const port = process.env.PORT!;
 
@@ -30,8 +30,8 @@ app.use("/api/employees", employeeRoute);
 app.use("/api/roles", roleRoute);
 
 
-app.use("/api/events",EventRoute);
-
+app.use("/api/events",eventRoute);
+app.use("/api/reg",regroute);
 
 
 

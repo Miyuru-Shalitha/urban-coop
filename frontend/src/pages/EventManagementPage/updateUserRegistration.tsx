@@ -1,60 +1,75 @@
 import axios from 'axios';
-import { useState, FormEvent, ChangeEvent } from 'react';
-import { useParams } from 'react-router-dom';
+import { useState, FormEvent, ChangeEvent, useEffect } from 'react';
 import toast from 'react-hot-toast';
+import { useParams } from 'react-router-dom';
 import {useNavigate} from "react-router-dom"; 
-const EventRegistrationForm = () => {
-  const {eventId}  = useParams();
-  const Navigate = useNavigate();
 
-  const [name, setName] = useState<string>('');
-  const [email, setEmail] = useState<string>('');
-  const [mobile, setMobile] = useState<string>('');
-  const [attendees, setAttendees] = useState<number | ''>('');
+const UpdateRegistrationForm = () => {
+    const Navigate = useNavigate();
+    const { id } = useParams();
+    const [name, setName] = useState<string>('');
+    const [email, setEmail] = useState<string>('');
+    const [mobile, setMobile] = useState<string>('');
+    const [attendees, setAttendees] = useState<number | ''>('');
 
-  const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
-    e.preventDefault();
-    console.log("Form submitted:", { eventId,name, email, mobile, attendees });
-    try {
-      const response = await axios.post('http://localhost:5000/api/reg', {
-        eventId,
-        name,
-        email,
-        mobile,
-        attendees,
-      });
-      toast.success('Registration updated successfully!');
-      Navigate('/events');
-      console.log("Server response:", response.data);
-    } catch (error) {
-      console.log(error);
-    }
-  };
+    const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
+        e.preventDefault();
+        
+        try {
+            const response = await axios.put(`http://localhost:5000/api/reg/${id}`, {
+                name,
+                email,
+                mobile,
+                attendees,
+            });
+            console.log("Server response:", response.data);
+            toast.success('Registration updated successfully!');
+            Navigate('/admin/user-registerdashboard');
 
-  const handleInputChange = (e: ChangeEvent<HTMLInputElement>) => {
-    const { name, value } = e.target;
-    switch (name) {
-      case 'name':
-        setName(value);
-        break;
-      case 'email':
-        setEmail(value);
-        break;
-      case 'mobile':
-        setMobile(value); // No need to parse as integer since it's a string
-        break;
-      case 'attendees':
-        setAttendees(value === '' ? '' : parseInt(value));
-        break;
-      default:
-        break;
-    }
-  };
+        } catch (error) {
+            console.log(error);
+        }
+    };
+
+    const handleInputChange = (e: ChangeEvent<HTMLInputElement>) => {
+        const { name, value } = e.target;
+        switch (name) {
+            case 'name':
+                setName(value);
+                break;
+            case 'email':
+                setEmail(value);
+                break;
+            case 'mobile':
+                setMobile(value); // No need to parse as integer since it's a string
+                break;
+            case 'attendees':
+                setAttendees(value === '' ? '' : parseInt(value));
+                break;
+            default:
+                break;
+        }
+    };
+
+    useEffect(() => {
+        const fetchData = async () => {
+            try {
+                const allUser = await axios.get(`http://localhost:5000/api/reg/${id}`);
+                setName(allUser.data.name);
+                setEmail(allUser.data.email);
+                setMobile(allUser.data.mobile);
+                setAttendees(allUser.data.attendees);
+            } catch (error) {
+                console.error("Error fetching events:", error);
+            }
+        };
+        fetchData();
+    }, [id]); // Add id to the dependency array
 
   return (
     <div className="flex flex-col items-center justify-center h-screen bg-gray-100 font-sans">
       <div className="bg-white p-8 rounded-lg shadow-md w-96">
-        <h1 className="text-2xl font-bold mb-4">Update Registration</h1>
+        <h1 className="text-2xl font-bold mb-4">Event Registration</h1>
         <form onSubmit={handleSubmit} className="space-y-4">
           <div>
             <label htmlFor="name" className="block text-gray-700 font-medium mb-2">
@@ -67,7 +82,7 @@ const EventRegistrationForm = () => {
               value={name}
               onChange={handleInputChange}
               className="w-full border border-gray-300 p-2 rounded-lg"
-              placeholder="Enter your name"
+             
             />
           </div>
           <div>
@@ -81,7 +96,7 @@ const EventRegistrationForm = () => {
               value={email}
               onChange={handleInputChange}
               className="w-full border border-gray-300 p-2 rounded-lg"
-              placeholder="Enter your email address"
+              
             />
           </div>
           <div>
@@ -95,7 +110,7 @@ const EventRegistrationForm = () => {
               value={mobile}
               onChange={handleInputChange}
               className="w-full border border-gray-300 p-2 rounded-lg"
-              placeholder="Enter your contact number"
+              
             />
           </div>
           <div>
@@ -109,7 +124,7 @@ const EventRegistrationForm = () => {
               value={attendees === '' ? '' : String(attendees)}
               onChange={handleInputChange}
               className="w-full border border-gray-300 p-2 rounded-lg"
-              placeholder="Enter the number of attendees"
+              
             />
           </div>
           <div>
@@ -126,4 +141,4 @@ const EventRegistrationForm = () => {
   );
 };
 
-export default EventRegistrationForm;
+export default UpdateRegistrationForm;

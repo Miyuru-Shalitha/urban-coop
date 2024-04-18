@@ -28,7 +28,7 @@ import PetDaycareMyBookings from "./pages/PetDaycareManagementAdminPage/PetDayca
 import InventoryManagementCreateItemsPage from "./pages/InventoryManagementAdminPage/InventoryManagementCreateItemsPage";
 import InventoryManagementUpdateItems from "./pages/InventoryManagementAdminPage/InventoryManagementUpdateItems";
 import InventoryManagementCreateRequest from "./pages/InventoryManagementAdminPage/InventoryManagementCreateRequest";
-
+import UpdateRegistrationForm from "./pages/EventManagementPage/updateUserRegistration";
 
 import Userdash from "./pages/EventManagementPage/UserRegistrationForEventPage";
 
@@ -41,7 +41,7 @@ export default function App() {
           <Route path="" element={<HomePage />} />
           <Route path="log-in" element={<LogInPage />} />
           <Route path="events" element={<EventPage />} />
-          <Route path="events/register" element={<EventRegistrationPage/>} />
+          <Route path="events/register/:id" element={<EventRegistrationPage/>} />
           <Route path="petdaycare" element={<PetDaycareBookingPage/>} />       
           <Route path="mybookings" element={<PetDaycareMyBookings/>} />
 
@@ -120,6 +120,8 @@ export default function App() {
           <Route path="user-registerdashboard" 
           element={< Userdash/>} />
 
+        <Route path="user-registerdashboard/updateRegistration/:id" 
+          element={<UpdateRegistrationForm />} />
           {/* event report generation */}
 
 

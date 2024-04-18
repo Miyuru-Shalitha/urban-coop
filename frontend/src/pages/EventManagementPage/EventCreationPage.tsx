@@ -44,9 +44,9 @@ export default function EventCreationForm() {
     };
   
     try {
-      const response = await axios.post('http://localhost:5000/api/events', eventData);
+      await axios.post('http://localhost:5000/api/events',eventData);
       toast.success('Event created successfully!');
-      
+     
     } catch (error) {  
       console.error('Error creating event:', error);
       

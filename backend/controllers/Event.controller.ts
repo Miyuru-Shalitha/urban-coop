@@ -1,31 +1,9 @@
 import { Request, Response } from "express";
-import multer from 'multer';
 const EventSchema= require('../models/eventSchema')
 
 // Create an event
-const storage = multer.diskStorage({
-  destination: function (req, file, cb) {
-    cb(null, 'backend/uploads/'); 
-  },
-  filename: function (req, file, cb) {
-    cb(null, Date.now() + '-' + file.originalname); 
-  }
-});
-
-const fileFilter = (req: Request, file: Express.Multer.File, cb: any) => {
-  if (file.mimetype.startsWith('image/')) {
-    cb(null, true);
-  } else {
-    cb(new Error('File type not supported'), false);
-  }
-};
-
-const upload = multer({ storage: storage, fileFilter: fileFilter });
-
-// Create Event endpoint
 const createEvent = async (req: Request, res: Response) => {
   try {
-   
     if (!req.file) {
       throw new Error('No file uploaded');
     }
