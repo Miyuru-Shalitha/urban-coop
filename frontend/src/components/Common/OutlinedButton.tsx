@@ -1,6 +1,6 @@
 import { MouseEventHandler, ReactNode } from "react";
 
-export default function FilledButton({
+export default function OutlinedButton({
   children,
   className,
   type,
@@ -13,7 +13,7 @@ export default function FilledButton({
 }) {
   return (
     <button
-      className={`bg-primary active:bg-primaryAccent text-2xl py-1.5 px-8
+      className={`border-2 border-primary active:bg-primaryAccent text-2xl py-1.5 px-8
         rounded-full self-start transition-colors ${className}`}
       type={type}
       onClick={onClick}

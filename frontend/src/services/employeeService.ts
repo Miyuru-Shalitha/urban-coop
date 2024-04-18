@@ -60,4 +60,48 @@ const getEmployees = async () => {
   return employees;
 };
 
-export { type Employee, getEmployees };
+interface Role {
+  _id: string;
+  role: string;
+  baseSalary: number;
+  timestamp: string;
+}
+
+const getRoles = async () => {
+  const roles: Role[] = [
+    {
+      _id: "si3ldfkds",
+      role: "Employee Manager",
+      baseSalary: 750000,
+      timestamp: "12/12/2023",
+    },
+    {
+      _id: "sideffkds",
+      role: "Employee Manager",
+      baseSalary: 750000,
+      timestamp: "12/12/2023",
+    },
+    {
+      _id: "sidelfkds",
+      role: "Employee Manager",
+      baseSalary: 750000,
+      timestamp: "12/12/2023",
+    },
+    {
+      _id: "siliifkds",
+      role: "Employee Manager",
+      baseSalary: 750000,
+      timestamp: "12/12/2023",
+    },
+    {
+      _id: "siaowfkds",
+      role: "Employee Manager",
+      baseSalary: 750000,
+      timestamp: "12/12/2023",
+    },
+  ];
+
+  return roles;
+};
+
+export { type Employee, getEmployees, type Role, getRoles };

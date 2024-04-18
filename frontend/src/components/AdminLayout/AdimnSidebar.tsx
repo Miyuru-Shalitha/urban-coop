@@ -25,11 +25,15 @@ export default function AdminSidebar() {
         onClick: (index) => setActiveItemIndex(index),
         activeIndex: activeItemIndex,
         title: "Event Management",
-        homeRoute: "/admin/#",
+        homeRoute: "/admin/event-dashboard",
         subtitles: [
           {
-            name: "Events",
-            route: "/admin/event-dashboar",
+            name: "User Registration",
+            route: "/admin/user-registerdashboard",
+          },
+          {
+            name: "Report Generation",
+            route: "",
           },
         ],
       },
@@ -50,6 +54,18 @@ export default function AdminSidebar() {
           {
             name: "Salary",
             route: "/admin/employee-management/salary",
+          },
+        ],
+      },
+      {
+        onClick: (index) => setActiveItemIndex(index),
+        activeIndex: activeItemIndex,
+        title: "Feeback Management",
+        homeRoute: "/admin/feedback-dashboard",
+        subtitles: [
+          {
+            name: "Feedback",
+            route: "/admin/feedback-dashboard",
           },
         ],
       },
