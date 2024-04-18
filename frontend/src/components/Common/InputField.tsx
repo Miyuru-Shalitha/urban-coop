@@ -1,11 +1,17 @@
-import { HTMLInputTypeAttribute } from "react";
+import { ChangeEventHandler, HTMLInputTypeAttribute } from "react";
 
 export default function InputField({
   type,
   label,
+  onChange,
+  value,
+  required,
 }: {
   type: HTMLInputTypeAttribute;
   label: string;
+  onChange: ChangeEventHandler<HTMLInputElement> | undefined;
+  value: string | number | readonly string[] | undefined;
+  required?: boolean | undefined;
 }) {
   return (
     <div className="relative">
@@ -13,6 +19,9 @@ export default function InputField({
         className="peer px-4 py-2 rounded focus:placeholder-transparent w-full border-2"
         type={type}
         placeholder={label}
+        onChange={onChange}
+        value={value}
+        required={required}
       />
       <label
         className="bg-white absolute invisible left-2 top-2 px-2

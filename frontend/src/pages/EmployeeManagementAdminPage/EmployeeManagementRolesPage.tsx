@@ -5,43 +5,40 @@ import {
   TableHeaderRow,
   TableRow,
 } from "../../components/Common/Table";
-import { getRoles, Role } from "../../services/employeeService";
-import FilledButton from "../../components/Common/FilledButton";
-import RoleCreationPopUp from "../../components/RolesCreationPopUp";
+import { getRoles, Role } from "../../services/roleService";
+// import FilledButton from "../../components/Common/FilledButton";
 
 export default function EmployeeManagementRolesAdminPage() {
   const [roles, setRoles] = useState<Role[]>([]);
-  const [showRoleCreationPopUp, setShowRoleCreationPopUp] = useState(false);
+  const [isLoading, setIsLoading] = useState(false);
 
   useEffect(() => {
     (async () => {
-      setRoles(await getRoles());
+      setIsLoading(true);
+      const fetchedRoles = await getRoles();
+      if (fetchedRoles) {
+        setRoles(fetchedRoles);
+      } else {
+        alert("Something went wrong!");
+      }
+      setIsLoading(false);
     })();
   }, []);
 
   return (
     <div>
-      {showRoleCreationPopUp && (
-        <RoleCreationPopUp setIsVisible={setShowRoleCreationPopUp} />
-      )}
-
-      {!showRoleCreationPopUp && (
-        <FilledButton
-          className="absolute right-4 bottom-6 text-base"
-          onClick={() => setShowRoleCreationPopUp(true)}
-        >
-          Add New Role
-        </FilledButton>
-      )}
+      {/* <FilledButton className="absolute right-4 bottom-6 text-base">
+        Create Roles
+      </FilledButton> */}
 
       <div className="p-4 h-screen overflow-auto">
+        {isLoading && <h1>LOADING...</h1>}
         <table className="border-2">
           <thead>
             <TableHeaderRow>
               <TableHeaderColumn text="Role ID" />
               <TableHeaderColumn text="Role" />
               <TableHeaderColumn text="Base salary" />
-              <TableHeaderColumn text="Timestamp" />
             </TableHeaderRow>
           </thead>
 
@@ -49,9 +46,8 @@ export default function EmployeeManagementRolesAdminPage() {
             {roles.map((role, index) => (
               <TableRow key={role._id} rowIndex={index}>
                 <TableColumn text={role._id} />
-                <TableColumn text={role.role} />
+                <TableColumn text={role.name} />
                 <TableColumn text={`Rs.${role.baseSalary.toString()}.00`} />
-                <TableColumn text={role.timestamp} />
               </TableRow>
             ))}
           </tbody>

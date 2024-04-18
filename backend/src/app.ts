@@ -1,13 +1,15 @@
 import "dotenv/config";
 import express from "express";
-import employeeRoute from "../routes/employee.route";
-import authRoute from "../routes/auth.route";
-import logger from "../middlewares/logger.middleware";
 import cors from "cors";
 import bodyParser from "body-parser";
 import connect from "../config/db.config";
+import logger from "../middlewares/logger.middleware";
 
+import employeeRoute from "../routes/employee.route";
+import authRoute from "../routes/auth.route";
 import router from "../routes/Event.route";
+import roleRoute from "../routes/role.route";
+
 const app = express();
 const port = process.env.PORT!;
 
@@ -24,6 +26,7 @@ app.use(bodyParser.urlencoded({ extended: true })); // for parsing application/x
 // Routes
 app.use("/api/auth", authRoute);
 app.use("/api/employees", employeeRoute);
+app.use("/api/roles", roleRoute);
 
 app.use("/api/event", router);
 
