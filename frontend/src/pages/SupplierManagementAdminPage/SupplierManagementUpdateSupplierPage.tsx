@@ -1,3 +1,4 @@
+import { Link } from "react-router-dom";
 export default function SupplierManagementUpdateSupplierPage() {
     return (
         <div>
@@ -11,7 +12,7 @@ export default function SupplierManagementUpdateSupplierPage() {
                             </label>
                             <input
                                 className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
-                                id="itemCode"
+                                id="SupID"
                                 type="text"
                                 placeholder="Enter Supplier ID"
                             />
@@ -22,7 +23,7 @@ export default function SupplierManagementUpdateSupplierPage() {
                             </label>
                             <input
                                 className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
-                                id="itemName"
+                                id="SupName"
                                 type="text"
                                 placeholder="Enter Name"
                             />
@@ -33,7 +34,7 @@ export default function SupplierManagementUpdateSupplierPage() {
                             </label>
                             <input
                                 className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
-                                id="itemBrand"
+                                id="SupPhone"
                                 type="text"
                                 placeholder="Enter Phone Number"
                             />
@@ -44,7 +45,7 @@ export default function SupplierManagementUpdateSupplierPage() {
                             </label>
                             <input
                                 className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
-                                id="itemCategory"
+                                id="SupEmail"
                                 type="text"
                                 placeholder="Enter Email"
                             />
@@ -55,9 +56,20 @@ export default function SupplierManagementUpdateSupplierPage() {
                             </label>
                             <input
                                 className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
-                                id="itemQuantity"
+                                id="SupAddress"
                                 type="text"
                                 placeholder="Enter Address"
+                            />
+                        </div>
+                        <div className="mb-4">
+                            <label className="block text-gray-700 text-sm font-bold mb-2" htmlFor="itemQuantity">
+                                Category
+                            </label>
+                            <input
+                                className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+                                id="SupCategory"
+                                type="text"
+                                placeholder="Enter Category"
                             />
                         </div>
                         <button
@@ -66,6 +78,14 @@ export default function SupplierManagementUpdateSupplierPage() {
                         >
                             Update
                         </button>
+                        <Link to="/admin/supplier-management/manage-suppliers">
+                        <button
+                            className="bg-gray-500 hover:bg-gray-700 text-white py-2 px-4 rounded focus:outline-none focus:shadow-outline"
+                            type="button"
+                        >
+                            Cancel
+                        </button>
+                        </Link>
                     </form>
                 </div>
             </div>
