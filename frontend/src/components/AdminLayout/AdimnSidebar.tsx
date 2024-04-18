@@ -1,4 +1,6 @@
 import { useEffect, useState } from "react";
+import Bullet from "../../assets/icons/bullet.svg";
+import { useNavigate } from "react-router-dom";
 
 interface Subtitle {
   name: string;
@@ -55,28 +57,6 @@ export default function AdminSidebar() {
           },
         ],
       },
-
-      {
-        onClick: (index) => setActiveItemIndex(index),
-        activeIndex: activeItemIndex,
-        title: "Inventory Management",
-        homeRoute: "/admin/inventory-management",
-        subtitles: [
-          {
-            name: "Dashboard",
-            route: "/admin/inventory-management/dashboard",
-          },
-          {
-            name: "Item",
-            route: "/admin/inventory-management/item",
-          },
-          {
-            name: "Request Stocks",
-            route: "/admin/inventory-management/request-stocks",
-          },
-        ],
-      },
-
       {
         onClick: (index) => setActiveItemIndex(index),
         activeIndex: activeItemIndex,
@@ -97,7 +77,6 @@ export default function AdminSidebar() {
           },
         ],
       },
-
       {
         onClick: (index) => setActiveItemIndex(index),
         activeIndex: activeItemIndex,
