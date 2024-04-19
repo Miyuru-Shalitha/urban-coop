@@ -7,18 +7,18 @@ const router = express.Router();
 // Define routes
 
 // Create a booking
-router.post('/bookings', bookingController.createBooking);
+router.post('/', bookingController.createBooking);
 
 // Get all bookings
-router.get('/bookings', bookingController.getAllBookings);
+router.get('/', bookingController.getAllBookings);
 
 // Get booking by ID
-router.get('/bookings/:id', bookingController.getBookingById);
+router.get('/:id', bookingController.getBookingById);
 
 // Update booking by ID
-router.put('/bookings/:id', bookingController.updateBookingById);
+router.put('/:id', bookingController.updateBookingById);
 
 // Delete booking by ID
-router.delete('/bookings/:id', bookingController.deleteBookingById);
+router.delete('/:id', bookingController.deleteBookingById);
 
 export default router;

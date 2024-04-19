@@ -7,6 +7,7 @@ import logger from "../middlewares/logger.middleware";
 import employeeRoute from "../routes/employee.route";
 import authRoute from "../routes/auth.route";
 import roleRoute from "../routes/role.route";
+import bookingRoute from "../routes/booking.route";
 
 
 import eventRoute from "../routes/Event.route";
@@ -32,6 +33,8 @@ app.use("/api/roles", roleRoute);
 
 app.use("/api/events",eventRoute);
 app.use("/api/reg",regroute);
+
+app.use("/api/bookings",bookingRoute);
 
 
 
