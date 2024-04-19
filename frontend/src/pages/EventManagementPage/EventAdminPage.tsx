@@ -1,21 +1,39 @@
-
+import axios from "axios";
 import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
-import { Event, getEvents } from "../../services/eventService";
-const EventDash = () => {
-    const [events, setEvents] = useState<Event[]>([]);
+import toast from 'react-hot-toast';
 
+const EventDash = () => {
+    const [events, setEvents] = useState([]);
     useEffect(() => {
-        const fetchData = async () => {
-            try {
-                const allEvents = await getEvents();
-                setEvents(allEvents);
-            } catch (error) {
-                console.error("Error fetching events:", error);
-            }
+        const fetchEvents = async () => {
+          try {
+            const response = await axios.get('http://localhost:5000/api/events');
+            const allEvents = response.data;
+    
+            setEvents(allEvents);
+          } catch (error) { 
+            console.error("Error fetching events:", error);
+          }
         };
-        fetchData();
-    }, []);
+    
+        fetchEvents();
+      }, [])
+      const deleteEvent = async (EventId:any) => {
+        try {
+          
+          const response = await axios.delete(`http://localhost:5000/api/events/${EventId}`);
+          if (response.status === 200) {
+            toast.success('Event deleted successfully!');
+            setEvents((prevUsers: any) => prevUsers.filter((user: any) => user._id !== EventId));
+          } else {
+            toast.error('Failed to delete Event. Please try again later.');
+          }
+        } catch (error) {
+          console.error('Error deleting Event:', error);
+          toast.error('An error occurred while deleting Event. Please try again later.');
+        }
+      };
     const eventCount = events.length
     return (
         <div className="w-3/4 ... mx-auto p-8 font-sans ">
@@ -43,18 +61,18 @@ const EventDash = () => {
                             events.map((event) => (
                                 <tr key={event._id}>
                                     <td className="px-4 py-2">{event.title}</td>
-                                    <td className="px-4 py-2">{event.image}</td>
+                                    <td className="px-4 py-2"><img src={`http://localhost:5000/${event.image}`} alt="ERROR" /></td>
                                     <td className="px-4 py-2">{event.date}</td>
                                     <td className="px-4 py-2">{event.time}</td>
                                     <td className="px-4 py-2 w-32">{event.location}</td>
                                     <td className="px-4 py-2 w-32">{event.maxParticipation}</td>
                                     <td className="px-4 py-2 w-48">{event.description}</td>
                                     <td className="px-4 py-2 flex flex-col sm:flex-row sm:items-center">
-                                        <button className="bg-red-500 text-black px-3 py-1 rounded mr-2 mb-2 sm:mb-0">
+                                        <button  onClick={() => deleteEvent(event._id)} className="bg-red-500 text-black px-3 py-1 rounded mr-2 mb-2 sm:mb-0">
                                             <i className="fas fa-trash"></i>
                                         </button>
                                         <Link
-                                            to={"uptadeEvent/" + event._id}
+                                            to={"uptadeEvent/"+event._id}
                                             className="bg-primaryAccent text-black px-3 py-1 rounded"
                                         >
                                             <i className="fas fa-pencil-alt"></i>

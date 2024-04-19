@@ -7,12 +7,27 @@ interface Employee {
   email: string;
   address: string;
   dateJoined: string;
-  role: string;
+  roleId: string;
 }
 
 const getEmployees = async (): Promise<Employee[] | null> => {
   try {
     const response = await axios.get("http://localhost:5000/api/employees");
+    if (response.status === 200) {
+      return response.data;
+    }
+  } catch (error: any) {
+    alert("Something went wrong!");
+  }
+
+  return null;
+};
+
+const getEmployeeById = async (id: string): Promise<Employee | null> => {
+  try {
+    const response = await axios.get(
+      "http://localhost:5000/api/employees/" + id
+    );
     if (response.status === 200) {
       return response.data;
     }
@@ -49,6 +64,37 @@ const createEmployee = async (
   return false;
 };
 
+const updateEmployee = async (
+  id: string,
+  firstName: string,
+  lastName: string,
+  email: string,
+  address: string,
+  roleId: string
+): Promise<boolean> => {
+  try {
+    const response = await axios.put(
+      "http://localhost:5000/api/employees/" + id,
+      {
+        id,
+        firstName,
+        lastName,
+        email,
+        address,
+        roleId,
+      }
+    );
+
+    if (response.status === 200) {
+      return true;
+    }
+  } catch (error: any) {
+    alert("Something went wrong!");
+  }
+
+  return false;
+};
+
 const deleteEmployeeById = async (id: string): Promise<boolean> => {
   try {
     const response = await axios.delete(
@@ -65,4 +111,11 @@ const deleteEmployeeById = async (id: string): Promise<boolean> => {
   return false;
 };
 
-export { type Employee, getEmployees, createEmployee, deleteEmployeeById };
+export {
+  type Employee,
+  getEmployees,
+  getEmployeeById,
+  createEmployee,
+  deleteEmployeeById,
+  updateEmployee,
+};

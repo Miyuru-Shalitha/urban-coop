@@ -3,6 +3,7 @@ import {
   deleteEmployeeById,
   Employee,
   getEmployees,
+  updateEmployee,
 } from "../../services/employeeService";
 import FilledButton from "../../components/Common/FilledButton";
 import EmployeeCreationPopUp from "../../components/EmployeeCreationPopUp";
@@ -13,18 +14,23 @@ import {
   TableRow,
 } from "../../components/Common/Table";
 import OutlinedButton from "../../components/Common/OutlinedButton";
+import EmployeeUpdateProfile from "../../components/EmployeeUpdatePopUp";
+import ProtectedEmployeeDiv from "../../components/ProtectedEmployeeDiv";
 
 export default function EmployeeManagementEmployeesAdminPage() {
   const [employees, setEmployees] = useState<Employee[]>([]);
   const [showEmployeeCreationPopUp, setShowEmployeeCreationPopUp] =
     useState(false);
+  const [employeeIdForUpdating, setEmployeeIdForUpdating] = useState<
+    string | null
+  >(null);
   const [isLoading, setIsLoading] = useState(false);
 
   useEffect(() => {
     if (!showEmployeeCreationPopUp) {
       fetchEmployees();
     }
-  }, [showEmployeeCreationPopUp]);
+  }, [showEmployeeCreationPopUp, employeeIdForUpdating]);
 
   const fetchEmployees = async () => {
     setIsLoading(true);
@@ -44,11 +50,11 @@ export default function EmployeeManagementEmployeesAdminPage() {
   };
 
   const handleClickEditEmployee = async (id: string) => {
-    console.log(id);
+    setEmployeeIdForUpdating(id);
   };
 
   return (
-    <div className="flex-1">
+    <ProtectedEmployeeDiv className="flex-1">
       {showEmployeeCreationPopUp && (
         <EmployeeCreationPopUp
           setIsVisible={setShowEmployeeCreationPopUp}
@@ -63,6 +69,13 @@ export default function EmployeeManagementEmployeesAdminPage() {
         >
           Add New Employee
         </FilledButton>
+      )}
+
+      {employeeIdForUpdating !== null && (
+        <EmployeeUpdateProfile
+          setEmployeeId={setEmployeeIdForUpdating}
+          employeeId={employeeIdForUpdating!}
+        />
       )}
 
       <div className="p-4 h-screen overflow-auto">
@@ -89,7 +102,7 @@ export default function EmployeeManagementEmployeesAdminPage() {
                 <TableColumn>{employee.email}</TableColumn>
                 <TableColumn>{employee.address}</TableColumn>
                 <TableColumn>{employee.dateJoined}</TableColumn>
-                <TableColumn>{employee.role}</TableColumn>
+                <TableColumn>{employee.roleId}</TableColumn>
                 <TableColumn>
                   <div className="flex gap-2">
                     <OutlinedButton
@@ -111,6 +124,6 @@ export default function EmployeeManagementEmployeesAdminPage() {
           </tbody>
         </table>
       </div>
-    </div>
+    </ProtectedEmployeeDiv>
   );
 }

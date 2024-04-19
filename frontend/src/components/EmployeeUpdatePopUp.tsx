@@ -1,35 +1,45 @@
 import { FormEvent, useEffect, useState } from "react";
-import FilledButton from "./Common/FilledButton";
-import InputField from "./Common/InputField";
-import OutlinedButton from "./Common/OutlinedButton";
 import { getRoles, Role } from "../services/roleService";
-import { createEmployee } from "../services/employeeService";
+import InputField from "./Common/InputField";
+import FilledButton from "./Common/FilledButton";
+import OutlinedButton from "./Common/OutlinedButton";
+import { getEmployeeById, updateEmployee } from "../services/employeeService";
 
-export default function EmployeeCreationPopUp({
-  setIsVisible,
-  fetchEmployee,
+export default function EmployeeUpdateProfile({
+  setEmployeeId,
+  employeeId,
 }: {
-  setIsVisible: React.Dispatch<React.SetStateAction<boolean>>;
-  fetchEmployee: () => Promise<void>;
+  setEmployeeId: React.Dispatch<React.SetStateAction<string | null>>;
+  employeeId: string;
 }) {
   const [employeeData, setEmployeeData] = useState({
+    _id: "",
     firstName: "",
     lastName: "",
     email: "",
     address: "",
+    dateJoined: "",
     roleId: "",
   });
   const [roles, setRoles] = useState<Role[]>([]);
   const [isLoading, setIsLoading] = useState(false);
 
   useEffect(() => {
+    // Get roles
     (async () => {
       const fetchedRoles = await getRoles();
       if (fetchedRoles) {
         setRoles(fetchedRoles);
-        setEmployeeData({ ...employeeData, roleId: fetchedRoles[0]._id });
       } else {
         alert("Something went wrong!");
+      }
+    })();
+
+    // Get employee by id
+    (async () => {
+      const employee = await getEmployeeById(employeeId);
+      if (employee) {
+        setEmployeeData({ ...employee });
       }
     })();
   }, []);
@@ -37,16 +47,19 @@ export default function EmployeeCreationPopUp({
   const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     setIsLoading(true);
-    const result = await createEmployee(
+    const result = await updateEmployee(
+      employeeId,
       employeeData.firstName,
       employeeData.lastName,
       employeeData.email,
       employeeData.address,
       employeeData.roleId
     );
+
     if (result) {
-      setIsVisible(false);
+      setEmployeeId(null);
     }
+
     setIsLoading(false);
   };
 
@@ -58,6 +71,15 @@ export default function EmployeeCreationPopUp({
         onSubmit={handleSubmit}
         className="absolute flex flex-col gap-2 bg-white px-16 py-16 rounded w-1/2"
       >
+        <InputField
+          type="text"
+          label="Employee ID"
+          disabled={true}
+          value={employeeData._id}
+          onChange={(e) =>
+            setEmployeeData({ ...employeeData, firstName: e.target.value })
+          }
+        />
         <InputField
           type="text"
           label="First Name"
@@ -91,6 +113,15 @@ export default function EmployeeCreationPopUp({
           }
         />
 
+        <InputField
+          type="date"
+          label="Date Joined"
+          value={employeeData.dateJoined}
+          onChange={(e) =>
+            setEmployeeData({ ...employeeData, dateJoined: e.target.value })
+          }
+        />
+
         <select
           value={employeeData.roleId}
           onChange={(e) =>
@@ -106,11 +137,11 @@ export default function EmployeeCreationPopUp({
 
         <div className="flex gap-2">
           <FilledButton className="text-base" type="submit">
-            Add Role
+            Save Changes
           </FilledButton>
           <OutlinedButton
             className="text-base"
-            onClick={() => setIsVisible(false)}
+            onClick={() => setEmployeeId(null)}
           >
             Cancel
           </OutlinedButton>

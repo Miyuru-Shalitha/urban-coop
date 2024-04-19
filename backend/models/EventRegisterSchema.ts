@@ -1,10 +1,10 @@
 import mongoose from "mongoose";
 
 const eventRegisterSchema = new mongoose.Schema({
-    eventId: {
+   eventName: {
         type: String,
         required: [true, "Please provide the event id"],
-        unique: true,
+       
     },
     name: {
         type: String,
