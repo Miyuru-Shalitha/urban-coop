@@ -67,9 +67,9 @@ const UpdateRegistrationForm = () => {
     }, [id]); // Add id to the dependency array
 
   return (
-    <div className="flex flex-col items-center justify-center h-screen bg-gray-100 font-sans">
+    <div className="w-full flex flex-col items-center justify-center h-screen bg-gray-100 font-sans">
       <div className="bg-white p-8 rounded-lg shadow-md w-96">
-        <h1 className="text-2xl font-bold mb-4">Event Registration</h1>
+        <h1 className="text-2xl font-bold mb-4">Update Registration</h1>
         <form onSubmit={handleSubmit} className="space-y-4">
           <div>
             <label htmlFor="name" className="block text-gray-700 font-medium mb-2">
@@ -132,7 +132,7 @@ const UpdateRegistrationForm = () => {
               type="submit"
               className="w-full rounded-lg bg-primaryAccent px-4 py-2 text-black font-medium uppercase hover:bg-primary"
             >
-              Register
+             Update
             </button>
           </div>
         </form>
