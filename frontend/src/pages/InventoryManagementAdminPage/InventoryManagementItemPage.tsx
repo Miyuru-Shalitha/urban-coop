@@ -20,10 +20,14 @@ export default function InventoryManagementItemPage() {
           <td className="p-2">Dog Food</td>
           <td className="p-2">100 </td>
           <td className="p-2">
-            <a href="/admin/inventory-management/item-update" className="text-primary mr-2">
-              Edit
-            </a>
-            <button>Delete</button>
+            <Link to="/admin/inventory-management/item-update">
+              <button className="bg-primary text-white py-2 px-4 rounded-md">
+                Edit
+              </button>
+            </Link>
+            <button className="bg-secondary text-white py-2 px-4 rounded-md">
+              Delete
+            </button>
           </td>
         </tr>
         <tr className="border-b border-black">
@@ -33,10 +37,14 @@ export default function InventoryManagementItemPage() {
           <td className="p-2">Cat Food</td>
           <td className="p-2">75 </td>
           <td className="p-2">
-            <a href="/admin/inventory-management/item-update" className="text-primary mr-2">
-              Edit
-            </a>
-            <button>Delete</button>
+            <Link to="/admin/inventory-management/item-update">
+              <button className="bg-primary text-white py-2 px-4 rounded-md">
+                Edit
+              </button>
+            </Link>
+            <button className="bg-secondary text-white py-2 px-4 rounded-md">
+              Delete
+            </button>
           </td>
         </tr>
         <tr className="border-b border-black">
@@ -46,10 +54,14 @@ export default function InventoryManagementItemPage() {
           <td className="p-2">Dog Accessory</td>
           <td className="p-2">30 </td>
           <td className="p-2">
-            <a href="/admin/inventory-management/item-update" className="text-primary mr-2">
-              Edit
-            </a>
-            <button>Delete</button>
+            <Link to="/admin/inventory-management/item-update">
+              <button className="bg-primary text-white py-2 px-4 rounded-md">
+                Edit
+              </button>
+            </Link>
+            <button className="bg-secondary text-white py-2 px-4 rounded-md">
+              Delete
+            </button>
           </td>
         </tr>
         <tr className="border-b border-black">
@@ -59,10 +71,14 @@ export default function InventoryManagementItemPage() {
           <td className="p-2">Cat Accessory</td>
           <td className="p-2">50 </td>
           <td className="p-2">
-            <a href="/admin/inventory-management/item-update" className="text-primary mr-2">
-              Edit
-            </a>
-            <button>Delete</button>
+            <Link to="/admin/inventory-management/item-update">
+              <button className="bg-primary text-white py-2 px-4 rounded-md">
+                Edit
+              </button>
+            </Link>
+            <button className="bg-secondary text-white py-2 px-4 rounded-md">
+              Delete
+            </button>
           </td>
         </tr>
         <tr className="border-b border-black">
@@ -72,10 +88,14 @@ export default function InventoryManagementItemPage() {
           <td className="p-2">Dog Accessory</td>
           <td className="p-2">100 </td>
           <td className="p-2">
-            <a href="/admin/inventory-management/item-update" className="text-primary mr-2">
-              Edit
-            </a>
-            <button>Delete</button>
+            <Link to="/admin/inventory-management/item-update">
+              <button className="bg-primary text-white py-2 px-4 rounded-md">
+                Edit
+              </button>
+            </Link>
+            <button className="bg-secondary text-white py-2 px-4 rounded-md">
+              Delete
+            </button>
           </td>
         </tr>
         <tr className="border-b border-black">
@@ -85,10 +105,14 @@ export default function InventoryManagementItemPage() {
           <td className="p-2">Cat Accessory</td>
           <td className="p-2">40 </td>
           <td className="p-2">
-            <a href="/admin/inventory-management/item-update" className="text-primary mr-2">
-              Edit
-            </a>
-            <button>Delete</button>
+            <Link to="/admin/inventory-management/item-update">
+              <button className="bg-primary text-white py-2 px-4 rounded-md">
+                Edit
+              </button>
+            </Link>
+            <button className="bg-secondary text-white py-2 px-4 rounded-md">
+              Delete
+            </button>
           </td>
         </tr>
       </table>
