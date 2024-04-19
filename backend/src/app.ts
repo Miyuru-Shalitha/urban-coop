@@ -8,6 +8,7 @@ import employeeRoute from "../routes/employee.route";
 import authRoute from "../routes/auth.route";
 import employeeAuthRoute from "../routes/employeeAuth.route";
 import roleRoute from "../routes/role.route";
+import bookingRoute from "../routes/booking.route";
 
 import eventRoute from "../routes/Event.route";
 import regroute from "../routes/eventRegister.route";
@@ -37,6 +38,8 @@ app.use("/api/roles", roleRoute);
 
 app.use("/api/events", eventRoute);
 app.use("/api/reg", regroute);
+
+app.use("/api/bookings",bookingRoute);
 
 app.listen(port, () => {
   console.log(`Server is listening on port ${port}`);
