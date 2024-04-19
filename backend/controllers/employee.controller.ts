@@ -3,6 +3,7 @@ import { Request, Response } from "express";
 import connect from "../config/db.config";
 import Employee from "../models/employee.model";
 import Role from "../models/role.model";
+import bcrypt from "bcrypt";
 
 // connect();
 
@@ -41,14 +42,19 @@ const createEmployee = async (req: Request, res: Response) => {
 
     await Role.findById(roleId); // If there is no document for the roleId it throws an error
 
+    const salt = await bcrypt.genSalt(10);
+    const hashedPassword = await bcrypt.hash(email, salt); // Default password is also email and this is a temporary password.
+
     const newEmployee = new Employee({
       firstName,
       lastName,
       email,
       address,
       roleId,
+      password: hashedPassword,
     });
     newEmployee.save();
+
     return res
       .status(201)
       .json({ message: "Employee created successfully", newEmployee });

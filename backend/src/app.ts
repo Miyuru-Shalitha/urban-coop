@@ -6,8 +6,8 @@ import connect from "../config/db.config";
 import logger from "../middlewares/logger.middleware";
 import employeeRoute from "../routes/employee.route";
 import authRoute from "../routes/auth.route";
+import employeeAuthRoute from "../routes/employeeAuth.route";
 import roleRoute from "../routes/role.route";
-
 
 import eventRoute from "../routes/Event.route";
 import regroute from "../routes/eventRegister.route";
@@ -16,7 +16,12 @@ const port = process.env.PORT!;
 
 // Middlewares
 app.use(express.json());
-app.use(cors());
+app.use(
+  cors({
+    origin: "http://localhost:3000",
+    credentials: true,
+  })
+);
 app.use(logger);
 
 connect();
@@ -26,14 +31,12 @@ app.use(bodyParser.urlencoded({ extended: true })); // for parsing application/x
 
 // Routes
 app.use("/api/auth", authRoute);
+app.use("/api/employee-auth", employeeAuthRoute);
 app.use("/api/employees", employeeRoute);
 app.use("/api/roles", roleRoute);
 
-
-app.use("/api/events",eventRoute);
-app.use("/api/reg",regroute);
-
-
+app.use("/api/events", eventRoute);
+app.use("/api/reg", regroute);
 
 app.listen(port, () => {
   console.log(`Server is listening on port ${port}`);

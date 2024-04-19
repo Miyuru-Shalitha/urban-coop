@@ -15,6 +15,7 @@ import {
 } from "../../components/Common/Table";
 import OutlinedButton from "../../components/Common/OutlinedButton";
 import EmployeeUpdateProfile from "../../components/EmployeeUpdatePopUp";
+import ProtectedEmployeeDiv from "../../components/ProtectedEmployeeDiv";
 
 export default function EmployeeManagementEmployeesAdminPage() {
   const [employees, setEmployees] = useState<Employee[]>([]);
@@ -53,7 +54,7 @@ export default function EmployeeManagementEmployeesAdminPage() {
   };
 
   return (
-    <div className="flex-1">
+    <ProtectedEmployeeDiv className="flex-1">
       {showEmployeeCreationPopUp && (
         <EmployeeCreationPopUp
           setIsVisible={setShowEmployeeCreationPopUp}
@@ -123,6 +124,6 @@ export default function EmployeeManagementEmployeesAdminPage() {
           </tbody>
         </table>
       </div>
-    </div>
+    </ProtectedEmployeeDiv>
   );
 }

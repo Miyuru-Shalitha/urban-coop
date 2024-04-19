@@ -105,7 +105,7 @@ export default function EmployeeCreationPopUp({
         </select>
 
         <div className="flex gap-2">
-          <FilledButton className="text-base" onClick={() => {}} type="submit">
+          <FilledButton className="text-base" type="submit">
             Add Role
           </FilledButton>
           <OutlinedButton
