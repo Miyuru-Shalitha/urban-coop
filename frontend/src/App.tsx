@@ -30,7 +30,7 @@ import EmployeeProfilePage from "./pages/EmployeeProfilePage";
 import PetDaycareBookingPage from "./pages/PetDaycareManagementPage/PetDaycareBookingPage";
 import PetDaycareMyBookings from "./pages/PetDaycareManagementAdminPage/PetDaycareMyBookings";
 
-
+import Check from "./pages/SupplierManagementAdminPage/Check";
 
 import UpdateRegistrationForm from "./pages/EventManagementPage/updateUserRegistration";
 
@@ -165,6 +165,11 @@ export default function App() {
           <Route
             path="supplier-management/create-suppliers"
             element={<SupplierManagementCreateSupplierPage />}
+          />
+
+          <Route
+            path="supplier-management/check"
+            element={<Check/>}          
           />
 
           <Route
