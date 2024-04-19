@@ -24,18 +24,22 @@ import InventoryManagementRequestStocksPage from "./pages/InventoryManagementAdm
 import InventoryManagementCreateItemsPage from "./pages/InventoryManagementAdminPage/InventoryManagementCreateItemsPage";
 import InventoryManagementUpdateItems from "./pages/InventoryManagementAdminPage/InventoryManagementUpdateItems";
 import InventoryManagementCreateRequest from "./pages/InventoryManagementAdminPage/InventoryManagementCreateRequest";
-import EventRegistrationPage from "./pages/EventManagementPage/EventRegistrationPage"
+import EventRegistrationPage from "./pages/EventManagementPage/EventRegistrationPage";
 import FeedbackManagementAdminPage from "./pages/FeedbackManagementAdminPage/FeedbackManagementAdminPage";
 import EmployeeProfilePage from "./pages/EmployeeProfilePage";
 import PetDaycareBookingPage from "./pages/PetDaycareManagementPage/PetDaycareBookingPage";
 import PetDaycareMyBookings from "./pages/PetDaycareManagementAdminPage/PetDaycareMyBookings";
 
+<<<<<<< HEAD
+import Check from "./pages/SupplierManagementAdminPage/Check";
 
-
+=======
+>>>>>>> ee5ebd878200b7017bd6e1b157bc526c40628ff4
 import UpdateRegistrationForm from "./pages/EventManagementPage/updateUserRegistration";
 
-
 import Userdash from "./pages/EventManagementPage/UserRegistrationForEventPage";
+import EmployeeProfileLayout from "./components/EmployeeProfileLayout";
+import EmployeeLogInPage from "./pages/EmployeeLogInPage";
 
 export default function App() {
   return (
@@ -47,13 +51,23 @@ export default function App() {
           <Route path="log-in" element={<LogInPage />} />
           <Route path="events" element={<EventPage />} />
 
-          <Route path="events/register/:id" element={<EventRegistrationPage/>} />
+          <Route
+            path="events/register/:id"
+            element={<EventRegistrationPage />}
+          />
 
           <Route path="petdaycare" element={<PetDaycareBookingPage />} />
           <Route path="mybookings" element={<PetDaycareMyBookings />} />
-          <Route path="petdaycare" element={<PetDaycareBookingPage/>} />       
-          <Route path="mybookings" element={<PetDaycareMyBookings/>} />
+          <Route path="petdaycare" element={<PetDaycareBookingPage />} />
+          <Route path="mybookings" element={<PetDaycareMyBookings />} />
+        </Route>
 
+        {/* Employee Log In Page */}
+        <Route path="/admin/login" element={<EmployeeLogInPage />} />
+
+        {/* Employee Profile Routes */}
+        <Route path="/admin/profile" element={<EmployeeProfileLayout />}>
+          <Route path="" element={<EmployeeProfilePage />} />
         </Route>
 
         {/* Management Routes */}
@@ -76,8 +90,6 @@ export default function App() {
           />
 
           <Route path="event-dashboar" element={<EventDash />} />
-
-          <Route path="profile" element={<EmployeeProfilePage />} />
 
           <Route path="event-dashboard" element={<EventDash />} />
 
@@ -120,27 +132,26 @@ export default function App() {
             element={<EventCreationForm />}
           />
 
-          <Route path="event-dashboard/uptadeEvent"
-            element={< UpdateEvent />} />
+          <Route path="event-dashboard/uptadeEvent" element={<UpdateEvent />} />
 
-          <Route path="event-dashboard/uptadeEvent/:id" 
-          element={< UpdateEvent/>} />
+          <Route
+            path="event-dashboard/uptadeEvent/:id"
+            element={<UpdateEvent />}
+          />
 
-          <Route path="user-registerdashboard" 
-          element={< Userdash/>} />
+          <Route path="user-registerdashboard" element={<Userdash />} />
 
-        <Route path="user-registerdashboard/updateRegistration/:id" 
-          element={<UpdateRegistrationForm />} />
+          <Route
+            path="user-registerdashboard/updateRegistration/:id"
+            element={<UpdateRegistrationForm />}
+          />
           {/* event report generation */}
-
 
           {/* set daily rates */}
           {/* bookings */}
 
           {/* adoption management */}
           {/* display adoptions */}
-
-
 
           {/* expense */}
           {/* income */}
@@ -161,10 +172,15 @@ export default function App() {
             path="supplier-management/manage-suppliers"
             element={<SupplierManagementManagePage />}
           />
-          
+
           <Route
             path="supplier-management/create-suppliers"
             element={<SupplierManagementCreateSupplierPage />}
+          />
+
+          <Route
+            path="supplier-management/check"
+            element={<Check/>}          
           />
 
           <Route

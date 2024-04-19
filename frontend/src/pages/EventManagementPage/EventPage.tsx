@@ -1,34 +1,31 @@
 import { useEffect, useState } from "react";
-import { Event, getEvents } from "../../services/eventService";
 import { Link } from "react-router-dom";
 import { isAfter } from "date-fns";
+import axios from "axios";
 
 const EventPage = () => {
-  const [events, setEvents] = useState<Event[]>([]);
+  const [events, setEvents] = useState([]);
 
   useEffect(() => {
     const fetchEvents = async () => {
       try {
-        
-        const allEvents = await getEvents();
-        
-        //filter event (Only display upcomming events)
+        const response = await axios.get('http://localhost:5000/api/events');
+        const allEvents = response.data;
+
         const futureEvents = allEvents.filter(event => {
-          const eventDate = new Date(event.date); 
-          const currentDate = new Date(); 
+          const eventDate = new Date(event.date);
+          const currentDate = new Date();
           return isAfter(eventDate, currentDate);
         });
-        
-        // Set the state with the filtered events
+
         setEvents(futureEvents);
-      } catch (error) {
+      } catch (error) { 
         console.error("Error fetching events:", error);
       }
     };
 
     fetchEvents();
-  }, []);
-
+  }, [])
   
   return (
     <div className="w-screen mx-auto bg-orange-50 pt-10 pl-20 pr-20 font-sans">
@@ -59,9 +56,9 @@ const EventPage = () => {
             placeholder="Search Event..."
           />
         </div>
-      </div>
+      </div>  
       <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 animate-slide-in-left">
-        {events.map((event) => (
+        {events === null ? "": events.map((event,) => (
           <div
             key={event._id}
             className="bg-white shadow-lg rounded-lg overflow-hidden m-4 p-4 transform transition-transform duration-500 ease-in-out delay-100 hover:-translate-y-2 hover:shadow-2xl"
@@ -70,7 +67,7 @@ const EventPage = () => {
             <div className="flex" style={{ height: "100%" }}>
               <img
                 className="w-2/3 h-auto object-cover object-center"
-                src={event.image}
+                src={`http://localhost:5000/${event.image}`}
                 alt={event.title}
               />
               <div className=" p-4 w-2/3  max-h-full ...w-ful">

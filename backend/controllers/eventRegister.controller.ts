@@ -1,15 +1,35 @@
 import e, { Request, Response } from "express";
 import registration from "../models/eventRegisterSchema"
+import Event from '../models/eventSchema'; 
 
-// Create an event
 const createReg = async (req: Request, res: Response) => {
   try {
-    const eventData = req.body;
-    const event = new registration(eventData);
-    await event.save();
-    res.status(201).json(event);
+   
+    const { eventId, ...registrationData } = req.body;
+
+
+    if (!eventId) {
+      return res.status(400).json({ error: 'Event ID is required' });
+    }
+
+ 
+    const event = await Event.findById(eventId);
+
+  
+    if (!event) {
+      return res.status(404).json({ error: 'Event not found' });
+    }
+    const Registration = new registration({
+      eventName: event.title, 
+      ...registrationData, 
+    });
+    
+    console.log(Registration)
+    await Registration.save();   
+
+    res.status(201).json(registration);
   } catch (error) {
-    console.error('Error creating event:', error);
+    console.error('Error creating registration:', error);
     res.status(500).json({ error: 'Internal server error' });
   }
 };
@@ -45,5 +65,26 @@ const updateone = async (req: Request, res: Response) => {
     console.error("Error updating registration:", error);
     res.status(500).json({ error: 'Internal server error' });
   }
+
 };
-export { createReg , getReg, getone, updateone};
+
+const deleteEventById = async (req: Request, res: Response) => {
+  try {
+    const eventId = req.params.id;//why need this
+
+    const event = await registration.findById(eventId);//findById dispaly error
+    if (!event) {
+      return res.status(404).json({ error: 'Event not found' });
+    }
+
+    // If the event exists, delete it
+    await registration.findByIdAndDelete(eventId);//findByIdAndDelete display error
+
+    // Return a success message
+    res.json({ message: 'Event deleted successfully' });
+  } catch (error) {
+    console.error('Error deleting event:', error);
+    res.status(500).json({ error: 'Internal server error' });
+  }
+};
+export { createReg , getReg, getone, updateone,deleteEventById};
