@@ -10,7 +10,7 @@ export default function InputField({
 }: {
   type: HTMLInputTypeAttribute;
   label: string;
-  onChange: ChangeEventHandler<HTMLInputElement> | undefined;
+  onChange?: ChangeEventHandler<HTMLInputElement> | undefined;
   value: string | number | readonly string[] | undefined;
   required?: boolean | undefined;
   disabled?: boolean | undefined;
