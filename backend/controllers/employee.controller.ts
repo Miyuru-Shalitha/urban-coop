@@ -18,11 +18,12 @@ const getEmployees = async (req: Request, res: Response) => {
 const getEmployee = async (req: Request, res: Response) => {
   try {
     const { id } = req.params;
-    // const employee = await Employee.findById(id);
-    const employee = {
-      id: "sdlfkjsldf",
-      name: "David Jones",
-    };
+    const employee = await Employee.findById(id);
+
+    if (!employee) {
+      return res.status(404).json({ message: "Employee not found." });
+    }
+
     return res.status(200).json(employee);
   } catch (error: any) {
     return res.status(500).json({ message: error.message });
@@ -48,7 +49,38 @@ const createEmployee = async (req: Request, res: Response) => {
       roleId,
     });
     newEmployee.save();
-    return res.status(201).json({ message: "Employee created successfully" });
+    return res
+      .status(201)
+      .json({ message: "Employee created successfully", newEmployee });
+  } catch (error: any) {
+    return res.status(500).json({ message: error.message });
+  }
+};
+
+const updateEmployee = async (req: Request, res: Response) => {
+  const { id } = req.params;
+  const { firstName, lastName, email, address, roleId } = req.body;
+
+  try {
+    const updatedEmployee = await Employee.findByIdAndUpdate(
+      id,
+      {
+        firstName,
+        lastName,
+        email,
+        address,
+        roleId,
+      },
+      { new: true } // { new: true } will returns the updated document.
+    );
+
+    if (!updatedEmployee) {
+      return res.status(404).json({ message: "Employee not found!" });
+    }
+
+    return res
+      .status(200)
+      .json({ message: "Employee updated successfully", updatedEmployee });
   } catch (error: any) {
     return res.status(500).json({ message: error.message });
   }
@@ -69,4 +101,10 @@ const deleteEmployee = async (req: Request, res: Response) => {
   }
 };
 
-export { getEmployees, getEmployee, createEmployee, deleteEmployee };
+export {
+  getEmployees,
+  getEmployee,
+  createEmployee,
+  updateEmployee,
+  deleteEmployee,
+};
