@@ -1,36 +1,31 @@
-const mongoose = require('mongoose');
+const mongoose = require("mongoose");
 
-
-//model
-const Schema = mongoose.Schema;
-
-const FeedbackSchema = new Schema({
-
-    name: {
-        type: String,
-        required: true
+const feedbackSchema = new mongoose.Schema(
+  {
+    customer: {
+      type: mongoose.Schema.Types.ObjectId,
+      ref: "User",
+      required: true,
     },
-
-    email:{
-        type:String,
-        required:true
+    rating: {
+      type: Number,
+      required: true,
+      min: 1, // Minimum rating value
+      max: 5, // Maximum rating value
     },
-
-    contact:{
-        type:String,
-        required:true
+    service: {
+      type: String,
+      required: true,
     },
-
-    feedback:{
-        type:String,
-        required:true
+    comment: {
+      type: String,
+      required: true,
+      maxlength: 500, // Limit comment length
     },
+  },
+  {
+    timestamps: true,
+  }
+);
 
-
-}, {
-    timestamps: true
-})
-
-const Feedback = mongoose.model("Feedback", FeedbackSchema);
-
-module.exports = Feedback;
+module.exports = mongoose.model("Feedback", feedbackSchema);
