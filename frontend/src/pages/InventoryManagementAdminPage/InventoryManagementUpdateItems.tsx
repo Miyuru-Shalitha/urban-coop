@@ -2,7 +2,7 @@ export default function InventoryManagementUpdateItems() {
   return (
     <div>
       INVENTORY MANAGEMENT UPDATE ITEM
-      <div className="max-w-md mx-auto bg-white shadow-md rounded px-8 py-6">
+      <div className="max-w-md mx-auto bg-white shadow-md rounded px-8 py-6 ">
         <h2 className="text-xl font-bold mb-4">Update Item</h2>
         <form>
           <div className="mb-4">
