@@ -1,22 +1,25 @@
-import connect from "../config/db.config";
-import { create } from "domain";
 import { Request, Response } from "express";
-const multer = require("multer");
-const EventSchema = require("../models/eventSchema")
-// Create an event
-    const createEvent = async (req: Request, res: Response) => {
-      try {
-        const eventData = new EventSchema(req.body); 
-        if (!eventData) {
-          res.status(400).json({ message: 'Event not created' });
-        }
-        const saveData = await eventData.save();
-        res.status(200).json(saveData);
+const EventSchema= require('../models/eventSchema')
 
-      } catch (error) {
-        res.status(500).json({ error: error })
-      }
+// Create an event
+const createEvent = async (req: Request, res: Response) => {
+  try {
+    if (!req.file) {
+      throw new Error('No file uploaded');
     }
+
+    const eventData = req.body;
+    const image = req.file.path;
+
+    const event = new EventSchema({ ...eventData, image });
+    await event.save();
+
+    res.status(201).json(event);
+  } catch (error) {
+    console.error('Error creating event:', error);
+    res.status(500).json({ error: 'Internal server error' });
+  }
+};
 // Get all events
     const getAllevents = async (req: Request, res: Response) => {
 

@@ -1,5 +1,9 @@
 import { useEffect, useState } from "react";
-import { Employee, getEmployees } from "../../services/employeeService";
+import {
+  deleteEmployeeById,
+  Employee,
+  getEmployees,
+} from "../../services/employeeService";
 import FilledButton from "../../components/Common/FilledButton";
 import EmployeeCreationPopUp from "../../components/EmployeeCreationPopUp";
 import {
@@ -8,62 +12,105 @@ import {
   TableHeaderRow,
   TableRow,
 } from "../../components/Common/Table";
+import OutlinedButton from "../../components/Common/OutlinedButton";
 
 export default function EmployeeManagementEmployeesAdminPage() {
   const [employees, setEmployees] = useState<Employee[]>([]);
   const [showEmployeeCreationPopUp, setShowEmployeeCreationPopUp] =
     useState(false);
+  const [isLoading, setIsLoading] = useState(false);
 
   useEffect(() => {
-    (async () => {
-      setEmployees(await getEmployees());
-    })();
-  }, []);
+    if (!showEmployeeCreationPopUp) {
+      fetchEmployees();
+    }
+  }, [showEmployeeCreationPopUp]);
+
+  const fetchEmployees = async () => {
+    setIsLoading(true);
+    const employees = await getEmployees();
+    if (employees) {
+      setEmployees(employees);
+    }
+    setIsLoading(false);
+  };
+
+  const handleClickDeleteEmployee = async (id: string) => {
+    const result = await deleteEmployeeById(id);
+
+    if (result) {
+      await fetchEmployees();
+    }
+  };
+
+  const handleClickEditEmployee = async (id: string) => {
+    console.log(id);
+  };
 
   return (
     <div className="flex-1">
-    {showEmployeeCreationPopUp && (
-      <EmployeeCreationPopUp setIsVisible={setShowEmployeeCreationPopUp} />
-    )}
+      {showEmployeeCreationPopUp && (
+        <EmployeeCreationPopUp
+          setIsVisible={setShowEmployeeCreationPopUp}
+          fetchEmployee={fetchEmployees}
+        />
+      )}
 
-    {!showEmployeeCreationPopUp && (
-      <FilledButton
-        onClick={() => setShowEmployeeCreationPopUp(true)}
-        className="absolute right-4 bottom-6 text-base"
-      >
-        Add New Employee
-      </FilledButton>
-    )}
+      {!showEmployeeCreationPopUp && (
+        <FilledButton
+          onClick={() => setShowEmployeeCreationPopUp(true)}
+          className="absolute right-4 bottom-6 text-base"
+        >
+          Add New Employee
+        </FilledButton>
+      )}
 
-    <div className="p-4 h-screen overflow-auto">
-      <table className="border-2">
-        <thead>
-          <TableHeaderRow>
-            <TableHeaderColumn text="Employee ID" />
-            <TableHeaderColumn text="First Name" />
-            <TableHeaderColumn text="Last Name" />
-            <TableHeaderColumn text="Email" />
-            <TableHeaderColumn text="Address" />
-            <TableHeaderColumn text="Date Joined" />
-            <TableHeaderColumn text="Role" />
-          </TableHeaderRow>
-        </thead>
+      <div className="p-4 h-screen overflow-auto">
+        <table className="border-2">
+          <thead>
+            <TableHeaderRow>
+              <TableHeaderColumn>Employee ID</TableHeaderColumn>
+              <TableHeaderColumn>First Name</TableHeaderColumn>
+              <TableHeaderColumn>Last Name</TableHeaderColumn>
+              <TableHeaderColumn>Email</TableHeaderColumn>
+              <TableHeaderColumn>Address</TableHeaderColumn>
+              <TableHeaderColumn>Date Joined</TableHeaderColumn>
+              <TableHeaderColumn>Role</TableHeaderColumn>
+              <TableHeaderColumn>Controls</TableHeaderColumn>
+            </TableHeaderRow>
+          </thead>
 
-        <tbody>
-          {employees.map((employee, index) => (
-            <TableRow key={employee._id} rowIndex={index}>
-              <TableColumn text={employee._id} />
-              <TableColumn text={employee.firstName} />
-              <TableColumn text={employee.lastName} />
-              <TableColumn text={employee.email} />
-              <TableColumn text={employee.address} />
-              <TableColumn text={employee.dateJoined} />
-              <TableColumn text={employee.role} />
-            </TableRow>
-          ))}
-        </tbody>
-      </table>
+          <tbody>
+            {employees.map((employee, index) => (
+              <TableRow key={employee._id} rowIndex={index}>
+                <TableColumn>{employee._id}</TableColumn>
+                <TableColumn>{employee.firstName}</TableColumn>
+                <TableColumn>{employee.lastName}</TableColumn>
+                <TableColumn>{employee.email}</TableColumn>
+                <TableColumn>{employee.address}</TableColumn>
+                <TableColumn>{employee.dateJoined}</TableColumn>
+                <TableColumn>{employee.role}</TableColumn>
+                <TableColumn>
+                  <div className="flex gap-2">
+                    <OutlinedButton
+                      className="text-sm"
+                      onClick={() => handleClickEditEmployee(employee._id)}
+                    >
+                      Edit
+                    </OutlinedButton>
+                    <OutlinedButton
+                      className="text-sm"
+                      onClick={() => handleClickDeleteEmployee(employee._id)}
+                    >
+                      Delete
+                    </OutlinedButton>
+                  </div>
+                </TableColumn>
+              </TableRow>
+            ))}
+          </tbody>
+        </table>
+      </div>
     </div>
-  </div>
   );
 }

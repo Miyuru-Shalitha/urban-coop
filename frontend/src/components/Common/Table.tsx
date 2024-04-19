@@ -16,16 +16,16 @@ function TableRow({
   );
 }
 
-function TableHeaderColumn({ text }: { text: string }) {
+function TableHeaderColumn({ children }: { children: ReactNode }) {
   return (
     <th className="px-6 py-3 text-left text-xs leading-4 font-medium text-white uppercase tracking-wider">
-      {text}
+      {children}
     </th>
   );
 }
 
-function TableColumn({ text }: { text: string }) {
-  return <td className="px-6 py-4 whitespace-no-wrap">{text}</td>;
+function TableColumn({ children }: { children: ReactNode }) {
+  return <td className="px-6 py-4 whitespace-no-wrap">{children}</td>;
 }
 
 export { TableHeaderRow, TableRow, TableHeaderColumn, TableColumn };
