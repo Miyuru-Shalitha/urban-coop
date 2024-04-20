@@ -68,10 +68,10 @@ export default function AdminSidebar() {
             name: "Roles",
             route: "/admin/employee-management/roles",
           },
-          {
-            name: "Salary",
-            route: "/admin/employee-management/salary",
-          },
+          // {
+          //   name: "Salary",
+          //   route: "/admin/employee-management/salary",
+          // },
         ],
       },
       {

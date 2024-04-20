@@ -13,7 +13,7 @@ import EmployeeManagementRolesAdminPage from "./pages/EmployeeManagementAdminPag
 import EmployeeManagementSalaryPage from "./pages/EmployeeManagementAdminPage/EmployeeManagementSalaryPage";
 import SupplierManagementAdminPage from "./pages/SupplierManagementAdminPage/SupplierManagementAdminPage";
 import SupplierManagementDashboard from "./pages/SupplierManagementAdminPage/SupplierManagementDashboard";
-import SupplierManagementManagePage from "./pages/SupplierManagementAdminPage/SupplierManagementManagePage";
+// import SupplierManagementManagePage from "./pages/SupplierManagementAdminPage/SupplierManagementManagePage";
 import SupplierManagementStockReq from "./pages/SupplierManagementAdminPage/SupplierManagementStockReq";
 import SupplierManagementUpdateSupplierPage from "./pages/SupplierManagementAdminPage/SupplierManagementUpdateSupplierPage";
 import SupplierManagementCreateSupplierPage from "./pages/SupplierManagementAdminPage/SupplierManagementCreateSupplierPage";
@@ -35,6 +35,8 @@ import BookingTable from "./pages/PetDaycareManagementAdminPage/BookingTable";
 
 import Check from "./pages/SupplierManagementAdminPage/Check";
 
+=======
+>>>>>>> ee5ebd878200b7017bd6e1b157bc526c40628ff4
 import UpdateRegistrationForm from "./pages/EventManagementPage/updateUserRegistration";
 
 import Userdash from "./pages/EventManagementPage/UserRegistrationForEventPage";
@@ -172,23 +174,25 @@ export default function App() {
             element={<SupplierManagementDashboard />}
           />
 
-          <Route
+          {/* <Route
             path="supplier-management/manage-suppliers"
             element={<SupplierManagementManagePage />}
-          />
+          /> */}
 
           <Route
             path="supplier-management/create-suppliers"
             element={<SupplierManagementCreateSupplierPage />}
           />
 
-          <Route
-            path="supplier-management/check"
-            element={<Check/>}          
-          />
+          <Route path="supplier-management/check" element={<Check />} />
+
+          {/* <Route
+            path="supplier-management/update-suppliers"
+            element={<SupplierManagementUpdateSupplierPage />}
+          /> */}
 
           <Route
-            path="supplier-management/update-suppliers"
+            path="supplier-management/update-supplier/:supplierId"
             element={<SupplierManagementUpdateSupplierPage />}
           />
 

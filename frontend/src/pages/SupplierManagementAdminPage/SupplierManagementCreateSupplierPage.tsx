@@ -46,7 +46,7 @@ export default function SupplierManagementCreateSupplierPage() {
                 <form
                     onSubmit={handleSubmit}>
                     <div className="mb-4">
-                        <label className="block text-gray-700 text-sm font-bold mb-2" htmlFor="itemCode">
+                        <label className="block text-gray-700 text-sm font-bold mb-2" >
                             Supplier ID
                         </label>
                         <input
@@ -58,7 +58,7 @@ export default function SupplierManagementCreateSupplierPage() {
                         />
                     </div>
                     <div className="mb-4">
-                        <label className="block text-gray-700 text-sm font-bold mb-2" htmlFor="itemCode">
+                        <label className="block text-gray-700 text-sm font-bold mb-2" >
                             Supplier Name
                         </label>
                         <input
@@ -70,7 +70,7 @@ export default function SupplierManagementCreateSupplierPage() {
                         />
                     </div>
                     <div className="mb-4">
-                        <label className="block text-gray-700 text-sm font-bold mb-2" htmlFor="itemCode">
+                        <label className="block text-gray-700 text-sm font-bold mb-2" >
                             Phone Number
                         </label>
                         <input
@@ -82,7 +82,7 @@ export default function SupplierManagementCreateSupplierPage() {
                         />
                     </div>
                     <div className="mb-4">
-                        <label className="block text-gray-700 text-sm font-bold mb-2" htmlFor="itemCode">
+                        <label className="block text-gray-700 text-sm font-bold mb-2" >
                             Email
                         </label>
                         <input
@@ -94,7 +94,7 @@ export default function SupplierManagementCreateSupplierPage() {
                         />
                     </div>
                     <div className="mb-4">
-                        <label className="block text-gray-700 text-sm font-bold mb-2" htmlFor="itemCode">
+                        <label className="block text-gray-700 text-sm font-bold mb-2" >
                             Address
                         </label>
                         <input
@@ -106,7 +106,7 @@ export default function SupplierManagementCreateSupplierPage() {
                         />
                     </div>
                     <div className="mb-4">
-                        <label className="block text-gray-700 text-sm font-bold mb-2" htmlFor="itemQuantity">
+                        <label className="block text-gray-700 text-sm font-bold mb-2" >
                             Category
                         </label>
                         <input
