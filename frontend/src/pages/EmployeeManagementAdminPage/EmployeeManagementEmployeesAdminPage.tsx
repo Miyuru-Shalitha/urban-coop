@@ -16,9 +16,11 @@ import {
 import OutlinedButton from "../../components/Common/OutlinedButton";
 import EmployeeUpdateProfile from "../../components/EmployeeUpdatePopUp";
 import ProtectedEmployeeDiv from "../../components/ProtectedEmployeeDiv";
+import { getRoleById, Role } from "../../services/roleService";
 
 export default function EmployeeManagementEmployeesAdminPage() {
   const [employees, setEmployees] = useState<Employee[]>([]);
+  const [roles, setRoles] = useState<(Role | null)[]>([]);
   const [showEmployeeCreationPopUp, setShowEmployeeCreationPopUp] =
     useState(false);
   const [employeeIdForUpdating, setEmployeeIdForUpdating] = useState<
@@ -32,6 +34,10 @@ export default function EmployeeManagementEmployeesAdminPage() {
     }
   }, [showEmployeeCreationPopUp, employeeIdForUpdating]);
 
+  useEffect(() => {
+    fetchRoles();
+  }, [employees]);
+
   const fetchEmployees = async () => {
     setIsLoading(true);
     const employees = await getEmployees();
@@ -39,6 +45,14 @@ export default function EmployeeManagementEmployeesAdminPage() {
       setEmployees(employees);
     }
     setIsLoading(false);
+  };
+
+  const fetchRoles = async () => {
+    const employeeRolePromises = employees.map((employee) =>
+      getRoleById(employee.roleId)
+    );
+    const employeeRoles = await Promise.all(employeeRolePromises);
+    setRoles(employeeRoles);
   };
 
   const handleClickDeleteEmployee = async (id: string) => {
@@ -101,8 +115,14 @@ export default function EmployeeManagementEmployeesAdminPage() {
                 <TableColumn>{employee.lastName}</TableColumn>
                 <TableColumn>{employee.email}</TableColumn>
                 <TableColumn>{employee.address}</TableColumn>
-                <TableColumn>{employee.dateJoined}</TableColumn>
-                <TableColumn>{employee.roleId}</TableColumn>
+                <TableColumn>{`${new Date(
+                  employee.dateJoined
+                ).getDay()} / ${new Date(
+                  employee.dateJoined
+                ).getMonth()} / ${new Date(
+                  employee.dateJoined
+                ).getFullYear()}`}</TableColumn>
+                <TableColumn>{roles[index]?.name}</TableColumn>
                 <TableColumn>
                   <div className="flex gap-2">
                     <OutlinedButton

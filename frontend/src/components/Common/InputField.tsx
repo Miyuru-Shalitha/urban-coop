@@ -26,9 +26,13 @@ export default function InputField({
         required={required}
         disabled={disabled}
       />
-      <label
+      {/* <label
         className="bg-white absolute invisible left-2 top-2 px-2
                 peer-focus:visible peer-focus:left-2 peer-focus:-top-3 peer-focus:transition-all"
+      > */}
+      <label
+        className="bg-white absolute left-2 -top-3 px-2
+                    peer-placeholder-shown:top-2 peer-focus:-top-3 transition-all"
       >
         {label}
       </label>
