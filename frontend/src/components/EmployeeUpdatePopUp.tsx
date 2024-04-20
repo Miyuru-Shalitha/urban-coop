@@ -114,9 +114,12 @@ export default function EmployeeUpdateProfile({
         />
 
         <InputField
-          type="date"
+          type="text"
           label="Date Joined"
-          value={employeeData.dateJoined}
+          disabled={true}
+          value={`${new Date(employeeData.dateJoined).getDay()} / ${new Date(
+            employeeData.dateJoined
+          ).getMonth()} / ${new Date(employeeData.dateJoined).getFullYear()}`}
           onChange={(e) =>
             setEmployeeData({ ...employeeData, dateJoined: e.target.value })
           }

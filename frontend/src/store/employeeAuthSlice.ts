@@ -30,8 +30,15 @@ const employeeAuthSlice = createSlice({
       state.employee.lastName = lastName;
       state.employee.email = email;
     },
+    logOut: (state, action) => {
+      state.employee.isAuthenticated = false;
+      state.employee._id = "";
+      state.employee.firstName = "";
+      state.employee.lastName = "";
+      state.employee.email = "";
+    },
   },
 });
 
-export const { logIn } = employeeAuthSlice.actions;
+export const { logIn, logOut } = employeeAuthSlice.actions;
 export default employeeAuthSlice.reducer;
