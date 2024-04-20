@@ -13,7 +13,7 @@ import EmployeeManagementRolesAdminPage from "./pages/EmployeeManagementAdminPag
 import EmployeeManagementSalaryPage from "./pages/EmployeeManagementAdminPage/EmployeeManagementSalaryPage";
 import SupplierManagementAdminPage from "./pages/SupplierManagementAdminPage/SupplierManagementAdminPage";
 import SupplierManagementDashboard from "./pages/SupplierManagementAdminPage/SupplierManagementDashboard";
-import SupplierManagementManagePage from "./pages/SupplierManagementAdminPage/SupplierManagementManagePage";
+// import SupplierManagementManagePage from "./pages/SupplierManagementAdminPage/SupplierManagementManagePage";
 import SupplierManagementStockReq from "./pages/SupplierManagementAdminPage/SupplierManagementStockReq";
 import SupplierManagementUpdateSupplierPage from "./pages/SupplierManagementAdminPage/SupplierManagementUpdateSupplierPage";
 import SupplierManagementCreateSupplierPage from "./pages/SupplierManagementAdminPage/SupplierManagementCreateSupplierPage";
@@ -30,11 +30,8 @@ import EmployeeProfilePage from "./pages/EmployeeProfilePage";
 import PetDaycareBookingPage from "./pages/PetDaycareManagementPage/PetDaycareBookingPage";
 import PetDaycareMyBookings from "./pages/PetDaycareManagementAdminPage/PetDaycareMyBookings";
 
-<<<<<<< HEAD
-import Check from "./pages/SupplierManagementAdminPage/Check";
+import Check from "./pages/SupplierManagementAdminPage/AllSupplierDetails";
 
-=======
->>>>>>> ee5ebd878200b7017bd6e1b157bc526c40628ff4
 import UpdateRegistrationForm from "./pages/EventManagementPage/updateUserRegistration";
 
 import Userdash from "./pages/EventManagementPage/UserRegistrationForEventPage";
@@ -168,10 +165,10 @@ export default function App() {
             element={<SupplierManagementDashboard />}
           />
 
-          <Route
+          {/* <Route
             path="supplier-management/manage-suppliers"
             element={<SupplierManagementManagePage />}
-          />
+          /> */}
 
           <Route
             path="supplier-management/create-suppliers"
@@ -183,8 +180,13 @@ export default function App() {
             element={<Check/>}          
           />
 
-          <Route
+          {/* <Route
             path="supplier-management/update-suppliers"
+            element={<SupplierManagementUpdateSupplierPage />}
+          /> */}
+
+          <Route
+            path="supplier-management/update-supplier/:supplierId"
             element={<SupplierManagementUpdateSupplierPage />}
           />
 
