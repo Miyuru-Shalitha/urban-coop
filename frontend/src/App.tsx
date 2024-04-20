@@ -28,13 +28,11 @@ import EventRegistrationPage from "./pages/EventManagementPage/EventRegistration
 import FeedbackManagementAdminPage from "./pages/FeedbackManagementAdminPage/FeedbackManagementAdminPage";
 import EmployeeProfilePage from "./pages/EmployeeProfilePage";
 import PetDaycareBookingPage from "./pages/PetDaycareManagementPage/PetDaycareBookingPage";
-import PetDaycareMyBookings from "./pages/PetDaycareManagementAdminPage/PetDaycareMyBookings";
+import PetDaycareMyBookings from "./pages/PetDaycareManagementPage/PetDaycareMyBookings";
+import PetDaycareBookingUpdatePage from "./pages/PetDaycareManagementPage/PetDaycareBookingUpdatePage";
 
-<<<<<<< HEAD
 import Check from "./pages/SupplierManagementAdminPage/Check";
 
-=======
->>>>>>> ee5ebd878200b7017bd6e1b157bc526c40628ff4
 import UpdateRegistrationForm from "./pages/EventManagementPage/updateUserRegistration";
 
 import Userdash from "./pages/EventManagementPage/UserRegistrationForEventPage";
@@ -58,8 +56,9 @@ export default function App() {
 
           <Route path="petdaycare" element={<PetDaycareBookingPage />} />
           <Route path="mybookings" element={<PetDaycareMyBookings />} />
-          <Route path="petdaycare" element={<PetDaycareBookingPage />} />
-          <Route path="mybookings" element={<PetDaycareMyBookings />} />
+          <Route path="mybookings/update/:id" element={<PetDaycareBookingUpdatePage />} />
+          <Route path="up" element={<PetDaycareBookingUpdatePage />} />
+
         </Route>
 
         {/* Employee Log In Page */}
