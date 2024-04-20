@@ -3,18 +3,25 @@ import { useState, FormEvent, ChangeEvent } from 'react';
 import { useParams } from 'react-router-dom';
 import toast from 'react-hot-toast';
 import {useNavigate} from "react-router-dom"; 
+
 const EventRegistrationForm = () => {
-  const {eventId}  = useParams();
+  const {id:eventId} = useParams();
+ 
+  
   const Navigate = useNavigate();
+
 
   const [name, setName] = useState<string>('');
   const [email, setEmail] = useState<string>('');
   const [mobile, setMobile] = useState<string>('');
   const [attendees, setAttendees] = useState<number | ''>('');
 
+  
   const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
+
     console.log("Form submitted:", { eventId,name, email, mobile, attendees });
+    
     try {
       const response = await axios.post('http://localhost:5000/api/reg', {
         eventId,
@@ -23,7 +30,7 @@ const EventRegistrationForm = () => {
         mobile,
         attendees,
       });
-      toast.success('Registration updated successfully!');
+      toast.success('Registration  successfully!');
       Navigate('/events');
       console.log("Server response:", response.data);
     } catch (error) {

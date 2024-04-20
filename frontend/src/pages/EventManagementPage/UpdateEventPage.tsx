@@ -14,7 +14,7 @@ const UpdateEvent = () => {
     time: '',
     location: '',
     image: '',
-    maxAttendance: '',
+    maxParticipation: '',
     description: '',
   });
   const handleInputChange = (e: any) => {
@@ -37,13 +37,13 @@ const UpdateEvent = () => {
     formData.append('time', Event.time);
     formData.append('location', Event.location);
     formData.append('image', Event.image);
-    formData.append('maxAttendance', Event.maxAttendance);
+    formData.append('maxAttendance', Event.maxParticipation);
     formData.append('description', Event.description);
     try {
-      const response = await axios.put(`http://localhost:5000/api/events/${id}`, formData);
-      console.log(response.data);
+      await axios.put(`http://localhost:5000/api/events/${id}`,formData);
+    
       toast.success('Event updated successfully!', { position: "top-right" });
-      Navigate('/event-dashboard');
+      Navigate("/admin/event-dashboard")
     } catch (error) {
       console.error('Error updating event:', error);
       toast.error('Something went wrong!');
@@ -53,6 +53,7 @@ const UpdateEvent = () => {
     const fetchData = async () => {
       const response = await axios.get(`http://localhost:5000/api/events/${id}`);
       SetEvent(response.data);
+     
     };
     fetchData();
   }, []);
@@ -71,6 +72,7 @@ const UpdateEvent = () => {
               type="text"
               name="title"
               id="title"
+              value={Event.title}
               onChange={handleInputChange}
               className="appearance-none border rounded-md w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline text-sm"
             />
@@ -84,6 +86,7 @@ const UpdateEvent = () => {
                 type="date"
                 name="date"
                 id="date"
+                value={Event.date}
                 onChange={handleInputChange}
                 className="appearance-none border rounded-md w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline text-sm"
               />
@@ -96,6 +99,7 @@ const UpdateEvent = () => {
                 type="time"
                 name="time"
                 id="time"
+                value={Event.time}
                 onChange={handleInputChange}
                 className="appearance-none border rounded-md w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline text-sm"
               />
@@ -109,6 +113,7 @@ const UpdateEvent = () => {
               type="text"
               name="location"
               id="location"
+              value={Event.location}
               onChange={handleInputChange}
               className="appearance-none border rounded-md w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline text-sm"
             />
@@ -133,6 +138,7 @@ const UpdateEvent = () => {
               type="number"
               name="maxAttendance"
               id="maxAttendance"
+              value={Event.maxParticipation}
               onChange={handleInputChange}
               className="appearance-none border rounded-md w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline text-sm"
             />
@@ -144,6 +150,7 @@ const UpdateEvent = () => {
             <textarea
               name="description"
               id="description"
+              value={Event.description}
               onChange={handleInputChange}
               className="appearance-none border rounded-md w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline text-sm"
             />

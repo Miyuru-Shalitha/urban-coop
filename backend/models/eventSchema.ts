@@ -30,7 +30,8 @@ const eventSchema = new mongoose.Schema({
     required: true
   }
 });
-const Event = mongoose.models.events || mongoose.model('events', eventSchema);
+
+// Define the model with the name 'Event'
+const Event = mongoose.models.Event || mongoose.model('Event', eventSchema);
+
 export default Event;
-
-

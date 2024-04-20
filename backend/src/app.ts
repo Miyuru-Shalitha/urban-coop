@@ -12,6 +12,10 @@ import bookingRoute from "../routes/booking.route";
 
 import eventRoute from "../routes/Event.route";
 import regroute from "../routes/eventRegister.route";
+
+import supplierRoute from "../routes/supplier.route";
+
+
 const app = express();
 const port = process.env.PORT!;
 
@@ -29,7 +33,7 @@ connect();
 
 app.use(bodyParser.json()); // for parsing application/json
 app.use(bodyParser.urlencoded({ extended: true })); // for parsing application/x-www-form-urlencoded
-
+app.use(express.static('backend'))
 // Routes
 app.use("/api/auth", authRoute);
 app.use("/api/employee-auth", employeeAuthRoute);
@@ -38,6 +42,11 @@ app.use("/api/roles", roleRoute);
 
 app.use("/api/events", eventRoute);
 app.use("/api/reg", regroute);
+
+app.use("/api/events",eventRoute);
+app.use("/api/reg",regroute);
+
+app.use("/api/suppliers", supplierRoute);
 
 app.use("/api/bookings",bookingRoute);
 
