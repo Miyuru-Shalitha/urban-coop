@@ -29,12 +29,7 @@ import FeedbackManagementAdminPage from "./pages/FeedbackManagementAdminPage/Fee
 import EmployeeProfilePage from "./pages/EmployeeProfilePage";
 import PetDaycareBookingPage from "./pages/PetDaycareManagementPage/PetDaycareBookingPage";
 import PetDaycareMyBookings from "./pages/PetDaycareManagementAdminPage/PetDaycareMyBookings";
-
-<<<<<<< HEAD
 import Check from "./pages/SupplierManagementAdminPage/Check";
-
-=======
->>>>>>> ee5ebd878200b7017bd6e1b157bc526c40628ff4
 import UpdateRegistrationForm from "./pages/EventManagementPage/updateUserRegistration";
 
 import Userdash from "./pages/EventManagementPage/UserRegistrationForEventPage";
@@ -178,10 +173,7 @@ export default function App() {
             element={<SupplierManagementCreateSupplierPage />}
           />
 
-          <Route
-            path="supplier-management/check"
-            element={<Check/>}          
-          />
+          <Route path="supplier-management/check" element={<Check />} />
 
           <Route
             path="supplier-management/update-suppliers"
