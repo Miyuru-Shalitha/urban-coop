@@ -11,7 +11,7 @@ export default function AdminTopbar() {
       <div className="relative">
         <ProfilePhoto />
 
-        <DropDown />
+        {/* <DropDown /> */}
       </div>
     </div>
   );

@@ -30,6 +30,8 @@ import EmployeeProfilePage from "./pages/EmployeeProfilePage";
 import PetDaycareBookingPage from "./pages/PetDaycareManagementPage/PetDaycareBookingPage";
 import PetDaycareMyBookings from "./pages/PetDaycareManagementPage/PetDaycareMyBookings";
 import PetDaycareBookingUpdatePage from "./pages/PetDaycareManagementPage/PetDaycareBookingUpdatePage";
+import MyBookingsPage from "./pages/PetDaycareManagementAdminPage/MyBookingsReport";
+import BookingTable from "./pages/PetDaycareManagementAdminPage/BookingTable";
 
 import Check from "./pages/SupplierManagementAdminPage/Check";
 
@@ -145,6 +147,9 @@ export default function App() {
             element={<UpdateRegistrationForm />}
           />
           {/* event report generation */}
+
+          <Route path="allbookings" element={<BookingTable />} />
+          <Route path="report" element={<MyBookingsPage />} />
 
           {/* set daily rates */}
           {/* bookings */}
