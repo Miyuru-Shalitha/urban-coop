@@ -18,7 +18,7 @@ import supplierRoute from "../routes/supplier.route";
 
 const app = express();
 const port = process.env.PORT!;
-app.use(express.static('uploads'));
+
 // Middlewares
 app.use(express.json());
 app.use(
@@ -33,7 +33,7 @@ connect();
 
 app.use(bodyParser.json()); // for parsing application/json
 app.use(bodyParser.urlencoded({ extended: true })); // for parsing application/x-www-form-urlencoded
-
+app.use(express.static('backend'))
 // Routes
 app.use("/api/auth", authRoute);
 app.use("/api/employee-auth", employeeAuthRoute);

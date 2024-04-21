@@ -25,7 +25,6 @@ import InventoryManagementCreateItemsPage from "./pages/InventoryManagementAdmin
 import InventoryManagementUpdateItems from "./pages/InventoryManagementAdminPage/InventoryManagementUpdateItems";
 import InventoryManagementCreateRequest from "./pages/InventoryManagementAdminPage/InventoryManagementCreateRequest";
 import EventRegistrationPage from "./pages/EventManagementPage/EventRegistrationPage";
-import EventReport from "./pages/EventManagementPage/EventReport";
 import FeedbackManagementAdminPage from "./pages/FeedbackManagementAdminPage/FeedbackManagementAdminPage";
 import EmployeeProfilePage from "./pages/EmployeeProfilePage";
 
@@ -149,11 +148,6 @@ export default function App() {
           <Route
             path="user-registerdashboard/updateRegistration/:id"
             element={<UpdateRegistrationForm />}
-          />
-
-          <Route
-            path="report-generation"
-            element={<EventReport />}
           />
           {/* event report generation */}
 

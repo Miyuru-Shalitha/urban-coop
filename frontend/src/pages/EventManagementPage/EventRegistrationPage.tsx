@@ -19,25 +19,6 @@ const EventRegistrationForm = () => {
   
   const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    // Basic validation
-  if (!name || !email || !mobile) {
-    toast.error('Please fill in all required fields.');
-    return;
-  }
-
-  // Additional validation for email format
-  const emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-  if (!emailPattern.test(email)) {
-    toast.error('Please enter a valid email address.');
-    return;
-  }
-
-  // Validate attendance count
-  if (attendees === '' || attendees > 5) {
-    toast.error('Please enter a valid attendance count (maximum 5).');
-    return;
-  }
-  
 
     console.log("Form submitted:", { eventId,name, email, mobile, attendees });
     
@@ -80,7 +61,7 @@ const EventRegistrationForm = () => {
   return (
     <div className="flex flex-col items-center justify-center h-screen bg-gray-100 font-sans">
       <div className="bg-white p-8 rounded-lg shadow-md w-96">
-        <h1 className="text-2xl font-bold mb-4">User Registration</h1>
+        <h1 className="text-2xl font-bold mb-4">Update Registration</h1>
         <form onSubmit={handleSubmit} className="space-y-4">
           <div>
             <label htmlFor="name" className="block text-gray-700 font-medium mb-2">

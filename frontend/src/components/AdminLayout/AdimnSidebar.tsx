@@ -50,7 +50,7 @@ export default function AdminSidebar() {
           },
           {
             name: "Report Generation",
-            route: "/admin/report-generation",
+            route: "",
           },
         ],
       },
