@@ -14,7 +14,8 @@ import eventRoute from "../routes/Event.route";
 import regroute from "../routes/eventRegister.route";
 
 import supplierRoute from "../routes/supplier.route";
-
+import register from "../routes/UserRegister.route"
+import login from "../routes/userLogin.route"
 
 const app = express();
 const port = process.env.PORT!;
@@ -49,6 +50,11 @@ app.use("/api/reg",regroute);
 app.use("/api/suppliers", supplierRoute);
 
 app.use("/api/bookings",bookingRoute);
+
+app.use("/api/register",register);
+app.use("/api",login);
+
+
 
 app.listen(port, () => {
   console.log(`Server is listening on port ${port}`);

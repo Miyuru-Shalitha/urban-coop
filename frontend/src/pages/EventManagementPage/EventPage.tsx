@@ -22,7 +22,7 @@ const EventPage = () => {
   }, []);
 
   const handleSearchInputChange = (e:any) => {
-    setSearchQuery(e.target.value);
+    setSearchQuery(e.target.value);  
   };
 
   const filteredEvents = events.filter((event:any) =>
