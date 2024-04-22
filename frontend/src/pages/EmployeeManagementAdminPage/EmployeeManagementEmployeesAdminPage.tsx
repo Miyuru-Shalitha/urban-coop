@@ -17,6 +17,7 @@ import OutlinedButton from "../../components/Common/OutlinedButton";
 import EmployeeUpdateProfile from "../../components/EmployeeUpdatePopUp";
 import ProtectedEmployeeDiv from "../../components/ProtectedEmployeeDiv";
 import { getRoleById, Role } from "../../services/roleService";
+import InputField from "../../components/Common/InputField";
 
 export default function EmployeeManagementEmployeesAdminPage() {
   const [employees, setEmployees] = useState<Employee[]>([]);
@@ -27,6 +28,7 @@ export default function EmployeeManagementEmployeesAdminPage() {
     string | null
   >(null);
   const [isLoading, setIsLoading] = useState(false);
+  const [search, setSearch] = useState("");
 
   useEffect(() => {
     if (!showEmployeeCreationPopUp) {
@@ -67,8 +69,21 @@ export default function EmployeeManagementEmployeesAdminPage() {
     setEmployeeIdForUpdating(id);
   };
 
+  const handleSearch = (e: any) => {
+    setSearch(e.target.value);
+  };
+
   return (
     <ProtectedEmployeeDiv className="flex-1">
+      <div className="p-4">
+        <InputField
+          label="Search"
+          type="text"
+          value={search}
+          onChange={handleSearch}
+        />
+      </div>
+
       {showEmployeeCreationPopUp && (
         <EmployeeCreationPopUp
           setIsVisible={setShowEmployeeCreationPopUp}
