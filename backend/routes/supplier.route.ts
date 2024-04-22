@@ -19,6 +19,23 @@ router.get("/get", (req, res) => {
         });
 });
 
+router.get("/get/:supplierId", (req, res) => {
+    const id = req.params.supplierId;
+
+    Supplier.findOne({ supplierId: id }) // Assuming 'supplierId' is the field in your schema
+        .then((supplier) => {
+            if (!supplier) {
+                return res.status(404).send({ status: "Supplier not found" });
+            }
+            res.json(supplier);
+        })
+        .catch((err) => {
+            console.log(err);
+            res.status(500).send({ status: "Error retrieving supplier", error: err.message });
+        });
+});
+
+
 // Update supplier details
 router.put("/update/:id", (req, res) => {
     const { id } = req.params;

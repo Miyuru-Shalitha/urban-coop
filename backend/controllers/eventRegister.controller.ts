@@ -1,10 +1,10 @@
 import e, { Request, Response } from "express";
 import registration from "../models/eventRegisterSchema"
-import Event from '../models/eventSchema'; 
+import Event from '../models/eventSchema';
 
 const createReg = async (req: Request, res: Response) => {
   try {
-   
+
     const { eventId, ...registrationData } = req.body;
 
 
@@ -12,20 +12,20 @@ const createReg = async (req: Request, res: Response) => {
       return res.status(400).json({ error: 'Event ID is required' });
     }
 
- 
+
     const event = await Event.findById(eventId);
 
-  
+
     if (!event) {
       return res.status(404).json({ error: 'Event not found' });
     }
     const Registration = new registration({
-      eventName: event.title, 
-      ...registrationData, 
+      eventName: event.title,
+      ...registrationData,
     });
-    
+
     console.log(Registration)
-    await Registration.save();   
+    await Registration.save();
 
     res.status(201).json(registration);
   } catch (error) {
@@ -54,7 +54,7 @@ const getone = async (req: Request, res: Response) => {
 const updateone = async (req: Request, res: Response) => {
   try {
     const updatedRegistration = await registration.findByIdAndUpdate(req.params.id, req.body, { new: true });
-    
+
 
     if (!updatedRegistration) {
       return res.status(404).json({ error: 'Registration not found' });
@@ -87,4 +87,4 @@ const deleteEventById = async (req: Request, res: Response) => {
     res.status(500).json({ error: 'Internal server error' });
   }
 };
-export { createReg , getReg, getone, updateone,deleteEventById};
+export { createReg, getReg, getone, updateone, deleteEventById };

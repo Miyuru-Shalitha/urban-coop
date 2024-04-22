@@ -13,7 +13,7 @@ import EmployeeManagementRolesAdminPage from "./pages/EmployeeManagementAdminPag
 import EmployeeManagementSalaryPage from "./pages/EmployeeManagementAdminPage/EmployeeManagementSalaryPage";
 import SupplierManagementAdminPage from "./pages/SupplierManagementAdminPage/SupplierManagementAdminPage";
 import SupplierManagementDashboard from "./pages/SupplierManagementAdminPage/SupplierManagementDashboard";
-import SupplierManagementManagePage from "./pages/SupplierManagementAdminPage/SupplierManagementManagePage";
+// import SupplierManagementManagePage from "./pages/SupplierManagementAdminPage/SupplierManagementManagePage";
 import SupplierManagementStockReq from "./pages/SupplierManagementAdminPage/SupplierManagementStockReq";
 import SupplierManagementUpdateSupplierPage from "./pages/SupplierManagementAdminPage/SupplierManagementUpdateSupplierPage";
 import SupplierManagementCreateSupplierPage from "./pages/SupplierManagementAdminPage/SupplierManagementCreateSupplierPage";
@@ -25,11 +25,20 @@ import InventoryManagementCreateItemsPage from "./pages/InventoryManagementAdmin
 import InventoryManagementUpdateItems from "./pages/InventoryManagementAdminPage/InventoryManagementUpdateItems";
 import InventoryManagementCreateRequest from "./pages/InventoryManagementAdminPage/InventoryManagementCreateRequest";
 import EventRegistrationPage from "./pages/EventManagementPage/EventRegistrationPage";
+import EventReport from "./pages/EventManagementPage/EventReport";
 import FeedbackManagementAdminPage from "./pages/FeedbackManagementAdminPage/FeedbackManagementAdminPage";
 import EmployeeProfilePage from "./pages/EmployeeProfilePage";
+
+
+//Pet Daycare Management Pages
 import PetDaycareBookingPage from "./pages/PetDaycareManagementPage/PetDaycareBookingPage";
-import PetDaycareMyBookings from "./pages/PetDaycareManagementAdminPage/PetDaycareMyBookings";
-import Check from "./pages/SupplierManagementAdminPage/Check";
+import PetDaycareMyBookings from "./pages/PetDaycareManagementPage/PetDaycareMyBookings";
+import PetDaycareBookingUpdatePage from "./pages/PetDaycareManagementPage/PetDaycareBookingUpdatePage";
+import MyBookingsPage from "./pages/PetDaycareManagementAdminPage/MyBookingsReport";
+import BookingTable from "./pages/PetDaycareManagementAdminPage/BookingTable";
+
+
+
 import UpdateRegistrationForm from "./pages/EventManagementPage/updateUserRegistration";
 
 import Userdash from "./pages/EventManagementPage/UserRegistrationForEventPage";
@@ -53,8 +62,9 @@ export default function App() {
 
           <Route path="petdaycare" element={<PetDaycareBookingPage />} />
           <Route path="mybookings" element={<PetDaycareMyBookings />} />
-          <Route path="petdaycare" element={<PetDaycareBookingPage />} />
-          <Route path="mybookings" element={<PetDaycareMyBookings />} />
+          <Route path="mybookings/update/:id" element={<PetDaycareBookingUpdatePage />} />
+          <Route path="up" element={<PetDaycareBookingUpdatePage />} />
+
         </Route>
 
         {/* Employee Log In Page */}
@@ -140,7 +150,15 @@ export default function App() {
             path="user-registerdashboard/updateRegistration/:id"
             element={<UpdateRegistrationForm />}
           />
+
+          <Route
+            path="report-generation"
+            element={<EventReport />}
+          />
           {/* event report generation */}
+
+          <Route path="allbookings" element={<BookingTable />} />
+          <Route path="report" element={<MyBookingsPage />} />
 
           {/* set daily rates */}
           {/* bookings */}
@@ -163,20 +181,24 @@ export default function App() {
             element={<SupplierManagementDashboard />}
           />
 
-          <Route
+          {/* <Route
             path="supplier-management/manage-suppliers"
             element={<SupplierManagementManagePage />}
-          />
+          /> */}
 
           <Route
             path="supplier-management/create-suppliers"
             element={<SupplierManagementCreateSupplierPage />}
           />
 
-          <Route path="supplier-management/check" element={<Check />} />
+
+          {/* <Route
+            path="supplier-management/update-suppliers"
+            element={<SupplierManagementUpdateSupplierPage />}
+          /> */}
 
           <Route
-            path="supplier-management/update-suppliers"
+            path="supplier-management/update-supplier/:supplierId"
             element={<SupplierManagementUpdateSupplierPage />}
           />
 
