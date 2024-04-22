@@ -1,6 +1,7 @@
 import { BrowserRouter, Route, Routes } from "react-router-dom";
 import HomePage from "./pages/HomePage";
-import LogInPage from "./pages/LogInPage";
+import RegisterPage from "./pages/UserLoginPage/RegisterPage";
+import UserLoginPage from "./pages/UserLoginPage/LoginPage";
 import EventPage from "./pages/EventManagementPage/EventPage";
 import EventCreationForm from "./pages/EventManagementPage/EventCreationPage";
 import EmployeeManagementAdminPage from "./pages/EmployeeManagementAdminPage/EmployeeManagementAdminPage";
@@ -50,20 +51,20 @@ export default function App() {
     <BrowserRouter>
       <Routes>
         {/* User Routes */}
+
+        <Route path="/login" element={<UserLoginPage />} />
+        <Route path="register" element={<RegisterPage />} />
+
         <Route path="/" element={<Layout />}>
-          <Route path="" element={<HomePage />} />
-          <Route path="log-in" element={<LogInPage />} />
-          <Route path="events" element={<EventPage />} />
+        <Route path="" element={<HomePage />} />
 
-          <Route
-            path="events/register/:id"
-            element={<EventRegistrationPage />}
-          />
+        <Route path="events" element={<EventPage />} />
+        <Route path="events/register/:id" element={<EventRegistrationPage />} />
 
-          <Route path="petdaycare" element={<PetDaycareBookingPage />} />
-          <Route path="mybookings" element={<PetDaycareMyBookings />} />
-          <Route path="mybookings/update/:id" element={<PetDaycareBookingUpdatePage />} />
-          <Route path="up" element={<PetDaycareBookingUpdatePage />} />
+        <Route path="petdaycare" element={<PetDaycareBookingPage />} />
+        <Route path="mybookings" element={<PetDaycareMyBookings />} />
+        <Route path="mybookings/update/:id" element={<PetDaycareBookingUpdatePage />} />
+        <Route path="up" element={<PetDaycareBookingUpdatePage />} />
 
         </Route>
 
