@@ -57,6 +57,8 @@ const PetDaycareBookingUpdatePage = () => {
     return (
         <div className="w-full bg-bgsec pt-[60px] pb-[70px]">
             <div className="max-w-2xl mx-auto bg-white p-16 border-[2px] rounded-[15px]">
+            <h1 className="text-2xl font-bold mb-6">Update Booking</h1>
+
                 <form onSubmit={handleSubmit}>
                     <div className="grid gap-6 mb-6 mt-4 lg:grid-cols-1">
                         {/* Customer Name Field */}
@@ -155,12 +157,11 @@ const PetDaycareBookingUpdatePage = () => {
                     </div>
 
                     {/* Submit Button */}
-                    <button
-                        type="submit"
-                        className="flex ml-auto text-[15px] w rounded-[5px] text-white bg-[#FF9F00] hover:bg-[#E38E00] font-bold text-sm w-full sm:w-auto px-5 py-2.5 text-center"
-                    >
-                        Submit
-                    </button>
+
+                    <button className="bg-primaryAccent text-black px-4 py-2 rounded">
+                  Update Booking
+                </button>
+
                 </form>
             </div>
         </div>

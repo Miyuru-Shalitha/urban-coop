@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import TextField from "@mui/material/TextField";
 import { useSelector } from "react-redux";
 import axios from "axios";
@@ -18,13 +18,19 @@ type TFormData = {
     contactNumber: string;
     petName: string;
     petType: string;
+    total: number;
 };
 
 function PetDaycareBookingPage() {
-    // Get user data from the store
     const { user } = useSelector((state: RootState) => state.auth);
 
-    // Initialize form state with the TFormData type
+    const [total, setTotal] = useState(0);
+
+    const DOG_DAILY_RATE = 2000; // Daily rate for booking a dog
+    const CAT_DAILY_RATE = 1000; // Daily rate for booking a cat
+
+
+
     const [formState, setFormState] = useState<TFormData>({
         cus_id: user._id,
         customerName: "",
@@ -35,13 +41,14 @@ function PetDaycareBookingPage() {
         contactNumber: "",
         petName: "",
         petType: "",
+        total: total,
+
     });
 
-    // Initialize state for error messages
     const [errors, setErrors] = useState<{ [key: string]: string }>({});
+    const [isDateValid, setIsDateValid] = useState(false);
 
-    // Get the navigate function
-    const navigate = useNavigate();
+
 
     // Handle input changes
     const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -49,6 +56,8 @@ function PetDaycareBookingPage() {
         setFormState((prevFormState) => ({
             ...prevFormState,
             [name]: value,
+            total: total,
+
         }));
     };
 
@@ -69,7 +78,7 @@ function PetDaycareBookingPage() {
             errors.email = "Email is required.";
         } else if (!/\S+@\S+\.\S+/.test(formState.email)) {
             valid = false;
-            errors.email = "Email format is invalid.";
+            errors.email = "Invalid email format.";
         }
 
         // Validate description
@@ -88,6 +97,14 @@ function PetDaycareBookingPage() {
         if (!formState.endDate) {
             valid = false;
             errors.endDate = "End date is required.";
+        }
+
+        // Validate date range
+        if (new Date(formState.startDate) > new Date(formState.endDate)) {
+            valid = false;
+            errors.startDate = "Start date cannot be later than end date.";
+            errors.endDate = "Start date cannot be later than end date.";
+
         }
 
         // Validate contact number
@@ -111,12 +128,46 @@ function PetDaycareBookingPage() {
             errors.petType = "Pet type is required.";
         }
 
+
+        console.log('Errors:', errors);
+
         // Set errors state
         setErrors(errors);
 
         // Return validation status
         return valid;
     };
+
+    const calculateTotal = () => {
+        const startDate = new Date(formState.startDate);
+        const endDate = new Date(formState.endDate);
+
+        if (startDate > endDate) {
+            setIsDateValid(false);
+            return;
+        }
+
+        setIsDateValid(true);
+
+        // Calculate the difference in time (in milliseconds) and convert to days
+        const diffTime = Math.abs(endDate.getTime() - startDate.getTime());
+        const diffDays = Math.ceil(diffTime / (1000 * 60 * 60 * 24));
+
+        // Determine the daily rate based on the pet type
+        let dailyRate = 0;
+        if (formState.petType === "Dog") {
+            dailyRate = DOG_DAILY_RATE;
+        } else if (formState.petType === "Cat") {
+            dailyRate = CAT_DAILY_RATE;
+        }
+
+        // Calculate the total price
+        const totalPrice = diffDays * dailyRate;
+
+        // Format the total price to two decimal places and update the state
+        setTotal(Number(totalPrice.toFixed(2)));
+    };
+
 
     // Handle form submission
     const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
@@ -139,6 +190,7 @@ function PetDaycareBookingPage() {
             contactNumber: formState.contactNumber,
             petName: formState.petName,
             petType: formState.petType,
+            total: formState.total,
         };
 
         try {
@@ -157,6 +209,7 @@ function PetDaycareBookingPage() {
                 contactNumber: "",
                 petName: "",
                 petType: "",
+                total: total,
             });
 
             // Redirect user to a different page if needed
@@ -167,11 +220,25 @@ function PetDaycareBookingPage() {
         }
     };
 
+    useEffect(() => {
+        calculateTotal();
+    }, [formState.startDate, formState.endDate, formState.petType]);
+
+    useEffect(() => {
+        setFormState((prevState) => ({
+            ...prevState,
+            total: total, // Update the total price in formState
+        }));
+    }, [total]);
+
+
     // Render the form
     return (
         <>
             <div className="w-full bg-bgsec pt-[60px] pb-[70px]">
                 <div className="max-w-2xl mx-auto bg-white p-16 border-[2px] rounded-[15px]">
+                <h1 className="text-2xl font-bold mb-6">Pet Daycare Booking</h1>
+
                     <form onSubmit={handleSubmit}>
                         <div className="grid gap-6 mb-6 mt-4 lg:grid-cols-1">
 
@@ -183,7 +250,6 @@ function PetDaycareBookingPage() {
                                 variant="outlined"
                                 type="text"
                                 value={formState.customerName}
-                                required
                                 onChange={handleInputChange}
                                 error={!!errors.customerName}
                                 helperText={errors.customerName}
@@ -197,7 +263,6 @@ function PetDaycareBookingPage() {
                                 variant="outlined"
                                 type="email"
                                 value={formState.email}
-                                required
                                 onChange={handleInputChange}
                                 error={!!errors.email}
                                 helperText={errors.email}
@@ -211,7 +276,6 @@ function PetDaycareBookingPage() {
                                 variant="outlined"
                                 type="tel"
                                 value={formState.contactNumber}
-                                required
                                 onChange={handleInputChange}
                                 error={!!errors.contactNumber}
                                 helperText={errors.contactNumber}
@@ -252,7 +316,6 @@ function PetDaycareBookingPage() {
                                 label="Pet Name"
                                 variant="outlined"
                                 value={formState.petName}
-                                required
                                 onChange={handleInputChange}
                                 error={!!errors.petName}
                                 helperText={errors.petName}
@@ -265,7 +328,6 @@ function PetDaycareBookingPage() {
                                 label="Description"
                                 variant="outlined"
                                 value={formState.description}
-                                required
                                 onChange={handleInputChange}
                                 error={!!errors.description}
                                 helperText={errors.description}
@@ -280,10 +342,15 @@ function PetDaycareBookingPage() {
                                     value={formState.petType}
                                     onChange={handleInputChange}
                                 >
-                                    <FormControlLabel value="dog" control={<Radio />} label="Dog" />
-                                    <FormControlLabel value="cat" control={<Radio />} label="Cat" />
+                                    <FormControlLabel value="Dog" control={<Radio />} label="Dog" />
+                                    <FormControlLabel value="Cat" control={<Radio />} label="Cat" />
                                 </RadioGroup>
                             </FormControl>
+
+                            <div>
+                                <label>Total estimated price: Rs</label>
+                                <span> {total}</span> {/* Format total price to two decimal places */}
+                            </div>
 
                         </div>
 
