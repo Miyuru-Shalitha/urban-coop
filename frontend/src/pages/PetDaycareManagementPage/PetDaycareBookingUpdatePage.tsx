@@ -24,7 +24,22 @@ const PetDaycareBookingUpdatePage = () => {
         const fetchData = async () => {
             try {
                 const response = await axios.get(`http://localhost:5000/api/bookings/${id}`);
-                setFormState(response.data);
+                
+                // Extract date in YYYY-MM-DD format from ISO 8601 format
+                const formatDate = (dateString) => {
+                    const date = new Date(dateString);
+                    const year = date.getFullYear();
+                    const month = String(date.getMonth() + 1).padStart(2, '0');
+                    const day = String(date.getDate()).padStart(2, '0');
+                    return `${year}-${month}-${day}`;
+                };
+    
+                const data = response.data;
+                data.startDate = formatDate(data.startDate);
+                data.endDate = formatDate(data.endDate);
+                
+                console.log('Fetched and formatted data:', data);
+                setFormState(data);
             } catch (error) {
                 console.error('Error fetching booking data:', error);
                 toast.error('Failed to fetch booking data.');
@@ -32,6 +47,7 @@ const PetDaycareBookingUpdatePage = () => {
         };
         fetchData();
     }, [id]);
+    
 
     const handleInputChange = (e: ChangeEvent<HTMLInputElement>) => {
         const { name, value } = e.target;
@@ -103,9 +119,12 @@ const PetDaycareBookingUpdatePage = () => {
                             name="startDate"
                             type="date"
                             id="startDate"
+                            InputLabelProps={{ shrink: true, }}
+                            inputProps={{ min: new Date().toISOString().substr(0, 10), }}
                             value={formState.startDate}
                             required
                             onChange={handleInputChange}
+                        
                         />
 
                         {/* End Date Field */}
@@ -114,6 +133,8 @@ const PetDaycareBookingUpdatePage = () => {
                             name="endDate"
                             type="date"
                             id="endDate"
+                            InputLabelProps={{ shrink: true, }}
+                            inputProps={{ min: new Date().toISOString().substr(0, 10), }}
                             value={formState.endDate}
                             required
                             onChange={handleInputChange}
@@ -139,6 +160,7 @@ const PetDaycareBookingUpdatePage = () => {
                             value={formState.description}
                             required
                             onChange={handleInputChange}
+
                         />
 
                         {/* Pet Type Radio Buttons */}
@@ -150,8 +172,8 @@ const PetDaycareBookingUpdatePage = () => {
                                 value={formState.petType}
                                 onChange={handleInputChange}
                             >
-                                <FormControlLabel value="dog" control={<Radio />} label="Dog" />
-                                <FormControlLabel value="cat" control={<Radio />} label="Cat" />
+                                <FormControlLabel value="Dog" control={<Radio />} label="Dog" />
+                                <FormControlLabel value="Cat" control={<Radio />} label="Cat" />
                             </RadioGroup>
                         </FormControl>
                     </div>
