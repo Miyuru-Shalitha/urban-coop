@@ -26,15 +26,15 @@ export default function AdminSidebar() {
         onClick: (index) => setActiveItemIndex(index),
         activeIndex: activeItemIndex,
         title: "Pet Daycare Management",
-        homeRoute: "/admin/daycare-dashboard",
+        homeRoute: "/admin/bookingsOverview",
         subtitles: [
+          {
+            name: "Overview",
+            route: "/admin/bookingsOverview",
+          },
           {
             name: "Pet Daycare Bookings",
             route: "/admin/allbookings",
-          },
-          {
-            name: "Report Generation",
-            route: "/admin/report",
           },
         ],
       },

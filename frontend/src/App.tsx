@@ -37,6 +37,7 @@ import PetDaycareMyBookings from "./pages/PetDaycareManagementPage/PetDaycareMyB
 import PetDaycareBookingUpdatePage from "./pages/PetDaycareManagementPage/PetDaycareBookingUpdatePage";
 import MyBookingsPage from "./pages/PetDaycareManagementAdminPage/MyBookingsReport";
 import BookingTable from "./pages/PetDaycareManagementAdminPage/BookingTable";
+import PetDaycareDashboard from "./pages/PetDaycareManagementAdminPage/PetDaycareDashboard";
 
 
 
@@ -159,7 +160,7 @@ export default function App() {
           {/* event report generation */}
 
           <Route path="allbookings" element={<BookingTable />} />
-          <Route path="report" element={<MyBookingsPage />} />
+          <Route path="bookingsOverview" element={<PetDaycareDashboard />} />
 
           {/* set daily rates */}
           {/* bookings */}

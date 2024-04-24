@@ -18,7 +18,6 @@ export default function AdminLayout({ className }: Props) {
         <Outlet />
       </div>
 
-      <Footer />
     </ProtectedDiv>
   );
 }
