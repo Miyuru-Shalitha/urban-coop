@@ -33,12 +33,15 @@ import EmployeeProfilePage from "./pages/EmployeeProfilePage";
 
 //Pet Daycare Management Pages
 import PetDaycareBookingPage from "./pages/PetDaycareManagementPage/PetDaycareBookingPage";
+// Remove the duplicate import statement for 'PetDaycareMyBookings'
+// import PetDaycareMyBookings from "./pages/PetDaycareManagementAdminPage/PetDaycareMyBookings";
+
+
+import AllSupplierDetails from "./pages/SupplierManagementAdminPage/AllSupplierDetails";
 import PetDaycareMyBookings from "./pages/PetDaycareManagementPage/PetDaycareMyBookings";
 import PetDaycareBookingUpdatePage from "./pages/PetDaycareManagementPage/PetDaycareBookingUpdatePage";
-import MyBookingsPage from "./pages/PetDaycareManagementAdminPage/MyBookingsReport";
 import BookingTable from "./pages/PetDaycareManagementAdminPage/BookingTable";
 import PetDaycareDashboard from "./pages/PetDaycareManagementAdminPage/PetDaycareDashboard";
-
 
 
 import UpdateRegistrationForm from "./pages/EventManagementPage/updateUserRegistration";
@@ -223,6 +226,10 @@ export default function App() {
             path="supplier-management/stock-requests"
             element={<SupplierManagementStockReq />}
           />
+
+          <Route path="supplier-management/allsup" element={<AllSupplierDetails />} />
+
+          <Route path="supplier-management/allsup/:id" element={<SupplierManagementUpdateSupplierPage />} />
 
           {/* feedback dashboard */}
           <Route
