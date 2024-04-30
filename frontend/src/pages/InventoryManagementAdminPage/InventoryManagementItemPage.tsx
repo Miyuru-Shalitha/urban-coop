@@ -1,127 +1,116 @@
+import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
+import axios from "axios";
 
-export default function InventoryManagementItemPage() {
+const InventoryManagement = () => {
+  const [items, setItems] = useState([]);
+  const [searchQuery, setSearchQuery] = useState('');
+
+  useEffect(() => {
+    const fetchItems = async () => {
+      try {
+        const response = await axios.get("http://localhost:5000/api/items");
+        setItems(response.data);
+      } catch (error) {
+        console.error("Error fetching items:", error);
+      }
+    };
+    fetchItems();
+  }, []);
+
+  const handleSearch = (e) => {
+    setSearchQuery(e.target.value);
+  };
+
+  const deleteEvent = async (itemId) => {
+    try {
+      const response = await axios.delete(`http://localhost:5000/api/items/${itemId}`);
+      if (response.status === 200) {
+        alert('Event deleted successfully!');
+        setItems((prevItems) => prevItems.filter((item) => item._id !== itemId));
+      } else {
+        alert('Failed to delete Event. Please try again later.');
+      }
+    } catch (error) {
+      console.error('Error deleting Event:', error);
+      alert('An error occurred while deleting Event. Please try again later.');
+    }
+  };
+
+  const filteredItems = items.filter((item) =>
+    item.itemName.toLowerCase().includes(searchQuery.toLowerCase())
+  );
+
   return (
-    <div className="p-4">
-      <h1 className="text-xl font-bold mb-4">INVENTORY MANAGEMENT All ITEMS</h1>
-      <table className="border border-black">
-        <tr className="bg-primary text-black border-b border-black ">
-          <th>Item Code</th>
-          <th>Item Name</th>
-          <th>Item Brand</th>
-          <th>Category</th>
-          <th>Quantity</th>
-          <th>Action</th>
-        </tr>
-        <tr className="border-b border-black ">
-          <td className="p-2">I001</td>
-          <td className="p-2">Dry Dog Food</td>
-          <td className="p-2">Pedigree</td>
-          <td className="p-2">Dog Food</td>
-          <td className="p-2">100 </td>
-          <td className="p-2">
-            <Link to="/admin/inventory-management/item-update">
-              <button className="bg-primary text-white py-2 px-4 rounded-md">
-                Edit
-              </button>
-            </Link>
-            <button className="bg-secondary text-white py-2 px-4 rounded-md">
-              Delete
-            </button>
-          </td>
-        </tr>
-        <tr className="border-b border-black">
-          <td className="p-2">I002</td>
-          <td className="p-2">Wet Cat Food</td>
-          <td className="p-2">Fancy Feast</td>
-          <td className="p-2">Cat Food</td>
-          <td className="p-2">75 </td>
-          <td className="p-2">
-            <Link to="/admin/inventory-management/item-update">
-              <button className="bg-primary text-white py-2 px-4 rounded-md">
-                Edit
-              </button>
-            </Link>
-            <button className="bg-secondary text-white py-2 px-4 rounded-md">
-              Delete
-            </button>
-          </td>
-        </tr>
-        <tr className="border-b border-black">
-          <td className="p-2">I003</td>
-          <td className="p-2">Dog Collar</td>
-          <td className="p-2">Kong</td>
-          <td className="p-2">Dog Accessory</td>
-          <td className="p-2">30 </td>
-          <td className="p-2">
-            <Link to="/admin/inventory-management/item-update">
-              <button className="bg-primary text-white py-2 px-4 rounded-md">
-                Edit
-              </button>
-            </Link>
-            <button className="bg-secondary text-white py-2 px-4 rounded-md">
-              Delete
-            </button>
-          </td>
-        </tr>
-        <tr className="border-b border-black">
-          <td className="p-2">I004</td>
-          <td className="p-2">Cat Toy</td>
-          <td className="p-2">Jackson Galaxy</td>
-          <td className="p-2">Cat Accessory</td>
-          <td className="p-2">50 </td>
-          <td className="p-2">
-            <Link to="/admin/inventory-management/item-update">
-              <button className="bg-primary text-white py-2 px-4 rounded-md">
-                Edit
-              </button>
-            </Link>
-            <button className="bg-secondary text-white py-2 px-4 rounded-md">
-              Delete
-            </button>
-          </td>
-        </tr>
-        <tr className="border-b border-black">
-          <td className="p-2">I005</td>
-          <td className="p-2">Dog Chew Toy</td>
-          <td className="p-2">Nylabone</td>
-          <td className="p-2">Dog Accessory</td>
-          <td className="p-2">100 </td>
-          <td className="p-2">
-            <Link to="/admin/inventory-management/item-update">
-              <button className="bg-primary text-white py-2 px-4 rounded-md">
-                Edit
-              </button>
-            </Link>
-            <button className="bg-secondary text-white py-2 px-4 rounded-md">
-              Delete
-            </button>
-          </td>
-        </tr>
-        <tr className="border-b border-black">
-          <td className="p-2">I006</td>
-          <td className="p-2">Catnip Toy</td>
-          <td className="p-2">Yeowww!</td>
-          <td className="p-2">Cat Accessory</td>
-          <td className="p-2">40 </td>
-          <td className="p-2">
-            <Link to="/admin/inventory-management/item-update">
-              <button className="bg-primary text-white py-2 px-4 rounded-md">
-                Edit
-              </button>
-            </Link>
-            <button className="bg-secondary text-white py-2 px-4 rounded-md">
-              Delete
-            </button>
-          </td>
-        </tr>
-      </table>
-      <br />
-      <Link to="/admin/inventory-management/item-create">
-        <button className="bg-primary text-white py-2 px-4 rounded-md">
-          Create
-        </button>
-      </Link>
+    <div className="w-3/4 mx-auto p-8 font-sans">
+      <div className="flex justify-between items-center mb-4">
+        <h1 className="text-2xl font-bold">Inventory Management</h1>
+        <div>
+          <Link
+            to="/admin/inventory-management/item-create"
+            className="inline-block px-4 py-2 bg-primary text-back font-bold rounded hover:bg-primaryAccent mr-4"
+          >
+            Add Item
+          </Link>
+        </div>
+      </div>
+
+      {/* Search bar */}
+      <div className="mb-4">
+        <input
+          type="text"
+          value={searchQuery}
+          onChange={handleSearch}
+          placeholder="Search by item name..."
+          className="border border-gray-300 rounded-md px-4 py-2 w-full"
+        />
+      </div>
+
+      <div className="overflow-x-auto">
+        <table className="w-full border-collapse">
+          <thead>
+            <tr className="bg-gray-200">
+              <th className="px-4 py-2 text-left">Item Code</th>
+              <th className="px-4 py-2 text-left">Item Name</th>
+              <th className="px-4 py-2 text-left">Item Brand</th>
+              <th className="px-4 py-2 text-left">Category</th>
+              <th className="px-4 py-2 text-left">Quantity</th>
+              <th className="px-4 py-2 text-left">Actions</th>
+            </tr>
+          </thead>
+          <tbody>
+            {filteredItems.length > 0 ? (
+              filteredItems.map((item) => (
+                <tr key={item._id}>
+                  <td className="px-4 py-2">{item.itemCode}</td>
+                  <td className="px-4 py-2">{item.itemName}</td>
+                  <td className="px-4 py-2">{item.itemBrand}</td>
+                  <td className="px-4 py-2">{item.category}</td>
+                  <td className="px-4 py-2">{item.quantity}</td>
+                  <td className="px-4 py-2">
+                    <button onClick={() => deleteEvent(item._id)} className="bg-secondary text-white py-2 px-4 rounded-md">
+                      Delete
+                    </button>
+                    <Link to={`/admin/inventory-management/item-update`}>
+                      <button className="bg-primary text-white py-2 px-4 rounded-md ml-2">
+                        Edit
+                      </button>
+                    </Link>
+                  </td>
+                </tr>
+              ))
+            ) : (
+              <tr>
+                <td colSpan={6} className="px-4 py-2 text-center">
+                  No items found.
+                </td>
+              </tr>
+            )}
+          </tbody>
+        </table>
+      </div>
     </div>
   );
-}
+};
+
+export default InventoryManagement;

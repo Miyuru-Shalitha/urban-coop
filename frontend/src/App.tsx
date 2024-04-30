@@ -36,6 +36,7 @@ import UpdateRegistrationForm from "./pages/EventManagementPage/updateUserRegist
 
 
 import Userdash from "./pages/EventManagementPage/UserRegistrationForEventPage";
+import InventoryReport from "./pages/InventoryManagementAdminPage/InventoryReport";
 
 export default function App() {
   return (
@@ -53,6 +54,12 @@ export default function App() {
           <Route path="mybookings" element={<PetDaycareMyBookings />} />
           <Route path="petdaycare" element={<PetDaycareBookingPage/>} />       
           <Route path="mybookings" element={<PetDaycareMyBookings/>} />
+
+          <Route
+            path="/report"
+            element={<InventoryReport />}
+          />
+
 
         </Route>
 
@@ -112,6 +119,13 @@ export default function App() {
             element={<InventoryManagementCreateRequest />}
           />
 
+<Route
+            path="inventory-management/report"
+            element={<InventoryReport />}
+          />
+
+
+         
           {/* Event Management Routes */}
           <Route path="event-dashboard" element={<EventDash />} />
 

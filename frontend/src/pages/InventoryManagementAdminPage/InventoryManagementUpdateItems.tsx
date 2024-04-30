@@ -1,144 +1,130 @@
-export default function InventoryManagementUpdateItems() {
-<<<<<<< HEAD
-    return  (
-        <div>
-          INVENTORY MANAGEMENT UPDATE ITEM
-          <div className="max-w-md mx-auto bg-white shadow-md rounded px-8 py-6 ">
-            <h2 className="text-xl font-bold mb-4">Update Item</h2>
-            <form>
-              <div className="mb-4">
-                <label className="block text-gray-700 text-sm font-bold mb-2" htmlFor="itemCode">
-                  Item Code
-                </label>
-                <input
-                  className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
-                  id="itemCode"
-                  type="text"
-                  placeholder="Item Code"
-                />
-              </div>
-              <div className="mb-4">
-                <label className="block text-gray-700 text-sm font-bold mb-2" htmlFor="itemName">
-                  Item Name
-                </label>
-                <input
-                  className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
-                  id="itemName"
-                  type="text"
-                  placeholder="Item Name"
-                />
-              </div>
-              <div className="mb-4">
-                <label className="block text-gray-700 text-sm font-bold mb-2" htmlFor="itemBrand">
-                  Item Brand
-                </label>
-                <input
-                  className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
-                  id="itemBrand"
-                  type="text"
-                  placeholder="Item Brand"
-                />
-              </div>
-              <div className="mb-4">
-                <label className="block text-gray-700 text-sm font-bold mb-2" htmlFor="itemCategory">
-                  Item Category
-                </label>
-                <input
-                  className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
-                  id="itemCategory"
-                  type="text"
-                  placeholder="Item Category"
-                />
-              </div>
-              <div className="mb-4">
-                <label className="block text-gray-700 text-sm font-bold mb-2" htmlFor="itemQuantity">
-                  Item Quantity
-                </label>
-                <input
-                  className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
-                  id="itemQuantity"
-                  type="text"
-                  placeholder="Item Quantity"
-                />
-              </div>
-              <button
-               className="bg-yellow-600 hover:bg-yellow-700 text-white py-2 px-4 rounded focus:outline-none focus:shadow-outline"
-               type="submit"
-              >
-                Update Item
-              </button>
-            </form>
-=======
+import { useEffect, useState } from "react";
+import { useParams } from "react-router-dom";
+import axios from 'axios';
+import toast from "react-hot-toast";
+import { useNavigate } from "react-router-dom";
+
+const InventoryManagementUpdateItems = () => {
+  const Navigate = useNavigate();
+  const { id } = useParams();
+  const [item, setItem] = useState({
+    itemCode: '',
+    itemName: '',
+    itemBrand: '',
+    itemCategory: '',
+    itemQuantity: '',
+  });
+
+  const handleInputChange = (e) => {
+    setItem({
+      ...item,
+      [e.target.name]: e.target.value,
+    });
+  }
+
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    try {
+      const response = await axios.put(`http://localhost:5000/api/items/create`, item);
+      console.log(response.data);
+      toast.success('Item updated successfully!', { position: "top-right" });
+      Navigate('/inventory-management'); // Assuming the URL to navigate back to inventory management
+    } catch (error) {
+      console.error('Error updating item:', error);
+      toast.error('Something went wrong!');
+    }
+  };
+
+  useEffect(() => {
+    const fetchData = async () => {
+      const response = await axios.get(`http://localhost:5000/api/items`);
+      setItem(response.data);
+    };
+    fetchData();
+  }, []);
+
   return (
-    <div>
-      INVENTORY MANAGEMENT UPDATE ITEM
-      <div className="max-w-md mx-auto bg-white shadow-md rounded px-8 py-6">
-        <h2 className="text-xl font-bold mb-4">Update Item</h2>
-        <form>
+    <div className="flex justify-center items-center h-screen w-full m-4 font-sans">
+      <div className="bg-gray-200 w-full max-w-md shadow-md rounded px-8 pt-6 pb-8 mb-4">
+        <h1 className="text-3xl font-bold p-4 text-center">Update Item</h1>
+        <form onSubmit={handleSubmit} className="px-4">
           <div className="mb-4">
-            <label className="block text-gray-700 text-sm font-bold mb-2" htmlFor="itemCode">
+            <label htmlFor="itemCode" className="block text-gray-700 font-bold mb-2">
               Item Code
             </label>
             <input
-              className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
-              id="itemCode"
               type="text"
-              placeholder="Item Code"
+              name="itemCode"
+              id="itemCode"
+              value={item.itemCode}
+              onChange={handleInputChange}
+              className="appearance-none border rounded-md w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline text-sm"
             />
->>>>>>> 492ee8d426b4beea8b9f75d32d495b5666aa2072
           </div>
           <div className="mb-4">
-            <label className="block text-gray-700 text-sm font-bold mb-2" htmlFor="itemName">
+            <label htmlFor="itemName" className="block text-gray-700 font-bold mb-2">
               Item Name
             </label>
             <input
-              className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
-              id="itemName"
               type="text"
-              placeholder="Item Name"
+              name="itemName"
+              id="itemName"
+              value={item.itemName}
+              onChange={handleInputChange}
+              className="appearance-none border rounded-md w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline text-sm"
             />
           </div>
           <div className="mb-4">
-            <label className="block text-gray-700 text-sm font-bold mb-2" htmlFor="itemBrand">
+            <label htmlFor="itemBrand" className="block text-gray-700 font-bold mb-2">
               Item Brand
             </label>
             <input
-              className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
-              id="itemBrand"
               type="text"
-              placeholder="Item Brand"
+              name="itemBrand"
+              id="itemBrand"
+              value={item.itemBrand}
+              onChange={handleInputChange}
+              className="appearance-none border rounded-md w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline text-sm"
             />
           </div>
           <div className="mb-4">
-            <label className="block text-gray-700 text-sm font-bold mb-2" htmlFor="itemCategory">
+            <label htmlFor="itemCategory" className="block text-gray-700 font-bold mb-2">
               Item Category
             </label>
             <input
-              className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
-              id="itemCategory"
               type="text"
-              placeholder="Item Category"
+              name="itemCategory"
+              id="itemCategory"
+              value={item.itemCategory}
+              onChange={handleInputChange}
+              className="appearance-none border rounded-md w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline text-sm"
             />
           </div>
           <div className="mb-4">
-            <label className="block text-gray-700 text-sm font-bold mb-2" htmlFor="itemQuantity">
+            <label htmlFor="itemQuantity" className="block text-gray-700 font-bold mb-2">
               Item Quantity
             </label>
             <input
-              className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
-              id="itemQuantity"
               type="text"
-              placeholder="Item Quantity"
+              name="itemQuantity"
+              id="itemQuantity"
+              value={item.itemQuantity}
+              onChange={handleInputChange}
+              className="appearance-none border rounded-md w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline text-sm"
             />
           </div>
-          <button
-            className="bg-yellow-600 hover:bg-yellow-700 text-white py-2 px-4 rounded focus:outline-none focus:shadow-outline"
-            type="submit"
-          >
-            Update Item
-          </button>
+          <div className="flex items-center justify-between">
+            <button
+              type="submit"
+              className="bg-primaryAccent hover:bg-primary text-black font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline"
+            >
+              Update Item
+            </button>
+          </div>
         </form>
       </div>
     </div>
   );
-}
+};
+
+export default InventoryManagementUpdateItems;

@@ -1,4 +1,3 @@
-
 import { PieChart, Pie, Cell, Legend, BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip } from "recharts";
 
 interface CustomizedLabelProps {
@@ -51,29 +50,8 @@ const renderCustomizedLabel = ({
 
 const App = () => {
   return (
-    <div style={{ display: 'flex', flexDirection: 'row', justifyContent: 'space-around' }}>
-      <div>
-        <PieChart width={400} height={400}>
-          <Pie
-            data={pieChartData}
-            cx="50%"
-            cy="50%"
-            labelLine={false}
-            label={renderCustomizedLabel}
-            outerRadius={80}
-            fill="#8884d8"
-            dataKey="value"
-          >
-            {pieChartData.map((entry, index) => (
-              <Cell key={`cell-${index}`} fill={COLORS[index % COLORS.length]} />
-            ))}
-          </Pie>
-          <Legend />
-        </PieChart>
-
-      </div>
-
-      <div>
+    <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'flex-end', justifyContent: 'flex-start', margin: '20px' }}>
+      <div style={{ alignSelf: 'flex-end' }}>
         <BarChart
           width={500}
           height={300}
@@ -91,9 +69,27 @@ const App = () => {
           <Tooltip />
           <Legend />
           <CartesianGrid strokeDasharray="3 3" />
-          <Bar dataKey="pv" fill="#E5A700"background={{ fill: '#eee' }} />
+          <Bar dataKey="pv" fill="#E5A700" background={{ fill: '#eee' }} />
         </BarChart>
       </div>
+      
+      <PieChart width={400} height={400}>
+        <Pie
+          data={pieChartData}
+          cx="50%"
+          cy="50%"
+          labelLine={false}
+          label={renderCustomizedLabel}
+          outerRadius={80}
+          fill="#8884d8"
+          dataKey="value"
+        >
+          {pieChartData.map((entry, index) => (
+            <Cell key={`cell-${index}`} fill={COLORS[index % COLORS.length]} />
+          ))}
+        </Pie>
+        <Legend />
+      </PieChart>
     </div>
   );
 }

@@ -9,8 +9,12 @@ import authRoute from "../routes/auth.route";
 import roleRoute from "../routes/role.route";
 
 
+
 import eventRoute from "../routes/Event.route";
 import regroute from "../routes/eventRegister.route";
+
+import itemRoute from "../routes/item.route";
+
 const app = express();
 const port = process.env.PORT!;
 
@@ -32,6 +36,8 @@ app.use("/api/roles", roleRoute);
 
 app.use("/api/events",eventRoute);
 app.use("/api/reg",regroute);
+
+app.use("/api/items",itemRoute);
 
 
 
