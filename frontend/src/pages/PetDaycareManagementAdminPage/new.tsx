@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import TextField from "@mui/material/TextField";
 import { useSelector } from "react-redux";
 import axios from "axios";
@@ -18,19 +18,13 @@ type TFormData = {
     contactNumber: string;
     petName: string;
     petType: string;
-    total: number;
 };
 
 function PetDaycareBookingPage() {
+    // Get user data from the Redux store
     const { user } = useSelector((state: RootState) => state.auth);
 
-    const [total, setTotal] = useState(0);
-
-    const DOG_DAILY_RATE = 2000; // Daily rate for booking a dog
-    const CAT_DAILY_RATE = 1000; // Daily rate for booking a cat
-
-
-
+    // Initialize form state with the TFormData type
     const [formState, setFormState] = useState<TFormData>({
         cus_id: user._id,
         customerName: "",
@@ -41,14 +35,13 @@ function PetDaycareBookingPage() {
         contactNumber: "",
         petName: "",
         petType: "",
-        total: total,
-
     });
 
+    // Initialize state for error messages
     const [errors, setErrors] = useState<{ [key: string]: string }>({});
-    const [isDateValid, setIsDateValid] = useState(false);
 
-
+    // Get the navigate function
+    const navigate = useNavigate();
 
     // Handle input changes
     const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -56,118 +49,94 @@ function PetDaycareBookingPage() {
         setFormState((prevFormState) => ({
             ...prevFormState,
             [name]: value,
-            total: total,
-
         }));
     };
 
     // Validate form data
     const validateForm = (): boolean => {
         let valid = true;
-        let errors: { [key: string]: string } = {};
+        let formErrors: { [key: string]: string } = {};
 
         // Validate customer name
         if (!formState.customerName) {
             valid = false;
-            errors.customerName = "Customer name is required.";
+            formErrors.customerName = "Customer name is required.";
         }
 
         // Validate email
         if (!formState.email) {
             valid = false;
-            errors.email = "Email is required.";
+            formErrors.email = "Email is required.";
         } else if (!/\S+@\S+\.\S+/.test(formState.email)) {
             valid = false;
-            errors.email = "Invalid email format.";
+            formErrors.email = "Email format is invalid.";
         }
 
         // Validate description
         if (!formState.description) {
             valid = false;
-            errors.description = "Description is required.";
+            formErrors.description = "Description is required.";
         }
 
         // Validate start date
         if (!formState.startDate) {
             valid = false;
-            errors.startDate = "Start date is required.";
+            formErrors.startDate = "Start date is required.";
         }
 
         // Validate end date
         if (!formState.endDate) {
             valid = false;
-            errors.endDate = "End date is required.";
+            formErrors.endDate = "End date is required.";
+        } else if (new Date(formState.endDate) < new Date(formState.startDate)) {
+            valid = false;
+            formErrors.endDate = "End date cannot be before start date.";
         }
 
-        // Validate date range
-        if (new Date(formState.startDate) > new Date(formState.endDate)) {
-            valid = false;
-            errors.startDate = "Start date cannot be later than end date.";
-            errors.endDate = "Start date cannot be later than end date.";
+      // Validate contact number
+if (!formState.contactNumber) {
+  valid = false;
+  formErrors.contactNumber = "Contact number is required.";
+} else {
+  let cleanedContactNumber = formState.contactNumber.replace(/[^0-9]/g, '').replace(/^0+/, '');
 
-        }
+  if (cleanedContactNumber.length < 9) {
+      valid = false;
+      formErrors.contactNumber = "Contact number must contain at least 9 digits.";
+  } else {
+      const mobilePhoneCodes = ['70', '71', '72', '75', '76', '77', '78'];
+      const last9 = cleanedContactNumber.slice(-9);
 
-        // Validate contact number
-        if (!formState.contactNumber) {
-            valid = false;
-            errors.contactNumber = "Contact number is required.";
-        } else if (!/^\d+$/.test(formState.contactNumber)) {
-            valid = false;
-            errors.contactNumber = "Contact number must contain only digits.";
-        }
+      if (
+          (cleanedContactNumber.length === 9 && mobilePhoneCodes.includes(last9.slice(0, 2))) ||
+          (cleanedContactNumber.length > 9 && cleanedContactNumber.startsWith('94') && mobilePhoneCodes.includes(last9.slice(0, 2)))
+      ) {
+      } else {
+          valid = false;
+          formErrors.contactNumber = "Invalid Sri Lankan mobile number.";
+      }
+  }
+}
+
 
         // Validate pet name
         if (!formState.petName) {
             valid = false;
-            errors.petName = "Pet name is required.";
+            formErrors.petName = "Pet name is required.";
         }
 
         // Validate pet type
         if (!formState.petType) {
             valid = false;
-            errors.petType = "Pet type is required.";
+            formErrors.petType = "Pet type is required.";
         }
 
-
-        console.log('Errors:', errors);
-
         // Set errors state
-        setErrors(errors);
+        setErrors(formErrors);
 
         // Return validation status
         return valid;
     };
-
-    const calculateTotal = () => {
-        const startDate = new Date(formState.startDate);
-        const endDate = new Date(formState.endDate);
-
-        if (startDate > endDate) {
-            setIsDateValid(false);
-            return;
-        }
-
-        setIsDateValid(true);
-
-        // Calculate the difference in time (in milliseconds) and convert to days
-        const diffTime = Math.abs(endDate.getTime() - startDate.getTime());
-        const diffDays = Math.ceil(diffTime / (1000 * 60 * 60 * 24));
-
-        // Determine the daily rate based on the pet type
-        let dailyRate = 0;
-        if (formState.petType === "Dog") {
-            dailyRate = DOG_DAILY_RATE;
-        } else if (formState.petType === "Cat") {
-            dailyRate = CAT_DAILY_RATE;
-        }
-
-        // Calculate the total price
-        const totalPrice = diffDays * dailyRate;
-
-        // Format the total price to two decimal places and update the state
-        setTotal(Number(totalPrice.toFixed(2)));
-    };
-
 
     // Handle form submission
     const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
@@ -190,62 +159,50 @@ function PetDaycareBookingPage() {
             contactNumber: formState.contactNumber,
             petName: formState.petName,
             petType: formState.petType,
-            total: formState.total,
         };
 
         try {
             // Send POST request to the backend API
-            await axios.post("http://localhost:5000/api/bookings/", bookingData);
-            toast.success("Booking created successfully!");
+            const response = await axios.post("http://localhost:5000/api/bookings/", bookingData);
+            
+            // Check if response is successful
+            if (response.status === 200) {
+                toast.success("Booking created successfully!");
 
-            // Reset the form state
-            setFormState({
-                cus_id: user._id,
-                customerName: "",
-                email: "",
-                description: "",
-                startDate: new Date(),
-                endDate: new Date(),
-                contactNumber: "",
-                petName: "",
-                petType: "",
-                total: total,
-            });
+                // Reset the form state
+                setFormState({
+                    cus_id: user._id,
+                    customerName: "",
+                    email: "",
+                    description: "",
+                    startDate: new Date(),
+                    endDate: new Date(),
+                    contactNumber: "",
+                    petName: "",
+                    petType: "",
+                });
+            } else {
+                toast.error("Failed to create booking. Please try again.");
+            }
 
-            // Redirect user to a different page if needed
-            // navigate('/some-other-page');
         } catch (error) {
             console.error("Error creating booking:", error);
             toast.error("Something went wrong!");
         }
     };
 
-    useEffect(() => {
-        calculateTotal();
-    }, [formState.startDate, formState.endDate, formState.petType]);
-
-    useEffect(() => {
-        setFormState((prevState) => ({
-            ...prevState,
-            total: total, // Update the total price in formState
-        }));
-    }, [total]);
-
-
     // Render the form
     return (
         <>
             <div className="w-full bg-bgsec pt-[60px] pb-[70px]">
                 <div className="max-w-2xl mx-auto bg-white p-16 border-[2px] rounded-[15px]">
-                <h1 className="text-2xl font-bold mb-6">Pet Daycare Booking</h1>
-
                     <form onSubmit={handleSubmit}>
                         <div className="grid gap-6 mb-6 mt-4 lg:grid-cols-1">
 
                             {/* Customer Name Field */}
                             <TextField
                                 id="customerName"
-                                label="Name"
+                                label="Customer Name"
                                 name="customerName"
                                 variant="outlined"
                                 type="text"
@@ -286,7 +243,7 @@ function PetDaycareBookingPage() {
                                 label="Start Date"
                                 name="startDate"
                                 type="date"
-                                id="start"
+                                id="startDate"
                                 value={new Date(formState.startDate).toISOString().substr(0, 10)}
                                 InputLabelProps={{ shrink: true }}
                                 inputProps={{ min: new Date().toISOString().substr(0, 10) }}
@@ -300,7 +257,7 @@ function PetDaycareBookingPage() {
                                 label="End Date"
                                 name="endDate"
                                 type="date"
-                                id="end"
+                                id="endDate"
                                 value={new Date(formState.endDate).toISOString().substr(0, 10)}
                                 InputLabelProps={{ shrink: true }}
                                 inputProps={{ min: new Date().toISOString().substr(0, 10) }}
@@ -342,15 +299,11 @@ function PetDaycareBookingPage() {
                                     value={formState.petType}
                                     onChange={handleInputChange}
                                 >
-                                    <FormControlLabel value="Dog" control={<Radio />} label="Dog" />
-                                    <FormControlLabel value="Cat" control={<Radio />} label="Cat" />
+                                    <FormControlLabel value="dog" control={<Radio />} label="Dog" />
+                                    <FormControlLabel value="cat" control={<Radio />} label="Cat" />
                                 </RadioGroup>
+                                {errors.petType && <div style={{ color: "red" }}>{errors.petType}</div>}
                             </FormControl>
-
-                            <div>
-                                <label>Total estimated price: Rs</label>
-                                <span> {total}</span> {/* Format total price to two decimal places */}
-                            </div>
 
                         </div>
 

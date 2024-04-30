@@ -21,6 +21,8 @@ const UserLogin = async (req: Request, res: Response) => {
         res.status(200).send({data:token,message:"Login successfull"});
 
     } catch (error) {
+        console.error("An error occurred during the login process:", error);
+
         res.status(500).send({message:"Internal Server Error"});
     }
 }
