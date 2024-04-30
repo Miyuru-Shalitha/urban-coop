@@ -29,6 +29,10 @@ const employeeSchema = new mongoose.Schema({
     ref: "Role",
     required: [true, "Please provide the role id"],
   },
+  password: {
+    type: String,
+    required: [true, "Please provide a password"],
+  },
 });
 
 const Employee =

@@ -30,7 +30,7 @@ export default function Header() {
         />
       ))}
 
-      <div
+      {/* <div
         className="absolute bottom-16 left-1/2 -translate-x-1/2
         flex gap-2"
       >
@@ -50,7 +50,7 @@ export default function Header() {
           className="bg-gray1 w-8 h-1.5 rounded cursor-pointer"
           onClick={() => setSlideIndex(3)}
         ></div>
-      </div>
+      </div> */}
     </div>
   );
 }

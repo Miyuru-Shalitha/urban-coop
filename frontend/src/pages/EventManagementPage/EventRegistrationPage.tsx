@@ -3,18 +3,44 @@ import { useState, FormEvent, ChangeEvent } from 'react';
 import { useParams } from 'react-router-dom';
 import toast from 'react-hot-toast';
 import {useNavigate} from "react-router-dom"; 
+
 const EventRegistrationForm = () => {
-  const {eventId}  = useParams();
+  const {id:eventId} = useParams();
+ 
+  
   const Navigate = useNavigate();
+
 
   const [name, setName] = useState<string>('');
   const [email, setEmail] = useState<string>('');
   const [mobile, setMobile] = useState<string>('');
   const [attendees, setAttendees] = useState<number | ''>('');
 
+  
   const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
+    // Basic validation
+  if (!name || !email || !mobile) {
+    toast.error('Please fill in all required fields.');
+    return;
+  }
+
+  // Additional validation for email format
+  const emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+  if (!emailPattern.test(email)) {
+    toast.error('Please enter a valid email address.');
+    return;
+  }
+
+  // Validate attendance count
+  if (attendees === '' || attendees > 5) {
+    toast.error('Please enter a valid attendance count (maximum 5).');
+    return;
+  }
+  
+
     console.log("Form submitted:", { eventId,name, email, mobile, attendees });
+    
     try {
       const response = await axios.post('http://localhost:5000/api/reg', {
         eventId,
@@ -23,7 +49,7 @@ const EventRegistrationForm = () => {
         mobile,
         attendees,
       });
-      toast.success('Registration updated successfully!');
+      toast.success('Registration  successfully!');
       Navigate('/events');
       console.log("Server response:", response.data);
     } catch (error) {
@@ -54,7 +80,7 @@ const EventRegistrationForm = () => {
   return (
     <div className="flex flex-col items-center justify-center h-screen bg-gray-100 font-sans">
       <div className="bg-white p-8 rounded-lg shadow-md w-96">
-        <h1 className="text-2xl font-bold mb-4">Update Registration</h1>
+        <h1 className="text-2xl font-bold mb-4">User Registration</h1>
         <form onSubmit={handleSubmit} className="space-y-4">
           <div>
             <label htmlFor="name" className="block text-gray-700 font-medium mb-2">

@@ -3,6 +3,7 @@ import {
   deleteEmployeeById,
   Employee,
   getEmployees,
+  updateEmployee,
 } from "../../services/employeeService";
 import FilledButton from "../../components/Common/FilledButton";
 import EmployeeCreationPopUp from "../../components/EmployeeCreationPopUp";
@@ -13,18 +14,29 @@ import {
   TableRow,
 } from "../../components/Common/Table";
 import OutlinedButton from "../../components/Common/OutlinedButton";
+import EmployeeUpdateProfile from "../../components/EmployeeUpdatePopUp";
+import ProtectedEmployeeDiv from "../../components/ProtectedEmployeeDiv";
+import { getRoleById, Role } from "../../services/roleService";
 
 export default function EmployeeManagementEmployeesAdminPage() {
   const [employees, setEmployees] = useState<Employee[]>([]);
+  const [roles, setRoles] = useState<(Role | null)[]>([]);
   const [showEmployeeCreationPopUp, setShowEmployeeCreationPopUp] =
     useState(false);
+  const [employeeIdForUpdating, setEmployeeIdForUpdating] = useState<
+    string | null
+  >(null);
   const [isLoading, setIsLoading] = useState(false);
 
   useEffect(() => {
     if (!showEmployeeCreationPopUp) {
       fetchEmployees();
     }
-  }, [showEmployeeCreationPopUp]);
+  }, [showEmployeeCreationPopUp, employeeIdForUpdating]);
+
+  useEffect(() => {
+    fetchRoles();
+  }, [employees]);
 
   const fetchEmployees = async () => {
     setIsLoading(true);
@@ -33,6 +45,14 @@ export default function EmployeeManagementEmployeesAdminPage() {
       setEmployees(employees);
     }
     setIsLoading(false);
+  };
+
+  const fetchRoles = async () => {
+    const employeeRolePromises = employees.map((employee) =>
+      getRoleById(employee.roleId)
+    );
+    const employeeRoles = await Promise.all(employeeRolePromises);
+    setRoles(employeeRoles);
   };
 
   const handleClickDeleteEmployee = async (id: string) => {
@@ -44,11 +64,11 @@ export default function EmployeeManagementEmployeesAdminPage() {
   };
 
   const handleClickEditEmployee = async (id: string) => {
-    console.log(id);
+    setEmployeeIdForUpdating(id);
   };
 
   return (
-    <div className="flex-1">
+    <ProtectedEmployeeDiv className="flex-1">
       {showEmployeeCreationPopUp && (
         <EmployeeCreationPopUp
           setIsVisible={setShowEmployeeCreationPopUp}
@@ -63,6 +83,13 @@ export default function EmployeeManagementEmployeesAdminPage() {
         >
           Add New Employee
         </FilledButton>
+      )}
+
+      {employeeIdForUpdating !== null && (
+        <EmployeeUpdateProfile
+          setEmployeeId={setEmployeeIdForUpdating}
+          employeeId={employeeIdForUpdating!}
+        />
       )}
 
       <div className="p-4 h-screen overflow-auto">
@@ -88,8 +115,14 @@ export default function EmployeeManagementEmployeesAdminPage() {
                 <TableColumn>{employee.lastName}</TableColumn>
                 <TableColumn>{employee.email}</TableColumn>
                 <TableColumn>{employee.address}</TableColumn>
-                <TableColumn>{employee.dateJoined}</TableColumn>
-                <TableColumn>{employee.role}</TableColumn>
+                <TableColumn>{`${new Date(
+                  employee.dateJoined
+                ).getDay()} / ${new Date(
+                  employee.dateJoined
+                ).getMonth()} / ${new Date(
+                  employee.dateJoined
+                ).getFullYear()}`}</TableColumn>
+                <TableColumn>{roles[index]?.name}</TableColumn>
                 <TableColumn>
                   <div className="flex gap-2">
                     <OutlinedButton
@@ -111,6 +144,6 @@ export default function EmployeeManagementEmployeesAdminPage() {
           </tbody>
         </table>
       </div>
-    </div>
+    </ProtectedEmployeeDiv>
   );
 }

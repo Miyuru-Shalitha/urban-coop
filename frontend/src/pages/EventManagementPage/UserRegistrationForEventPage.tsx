@@ -2,10 +2,14 @@ import axios from "axios";
 import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import LoadingIndicator from "../../components/LoadingIndicator";
+import toast from 'react-hot-toast';
+
 const Userdash = () => {
+
     const [User, setUser] = useState([]);
     const [loading, setLoading] = useState(true);
 
+    
     useEffect(() => {
         const fetchData = async () => {
             try {
@@ -20,11 +24,24 @@ const Userdash = () => {
         };
         fetchData();
     }, []);
-    
+    const deleteReg = async (userId:any) => {
+        try {
+          
+          const response = await axios.delete(`http://localhost:5000/api/reg/${userId}`);
+          if (response.status === 200) {
+            toast.success('User deleted successfully!');
+            setUser((prevUsers: any) => prevUsers.filter((user: any) => user._id !== userId));
+          } else {
+            toast.error('Failed to delete user. Please try again later.');
+          }
+        } catch (error) {
+          console.error('Error deleting user:', error);
+          toast.error('An error occurred while deleting user. Please try again later.');
+        }
+      };
     return (
         <div className="w-3/4 ... mx-auto p-8 font-sans ">
             {loading ? (
-                // Display loading screen component if loading is true
                 <LoadingIndicator/>
             ) : (
             
@@ -32,7 +49,7 @@ const Userdash = () => {
                 <table className="table-auto border border">
                     <thead>
                         <tr className="bg-gray-200">
-                            <th className="px-4 py-2 text-left">Event ID</th>
+                            <th className="px-4 py-2 text-left">Event Name </th>
                             <th className="px-4 py-2 text-left">Name</th>
                             <th className="px-4 py-2 text-left">Email</th>
                             <th className="px-4 py-2 text-left">Mobile No</th>
@@ -44,13 +61,13 @@ const Userdash = () => {
                         {User && User.length > 0 ? (
                            User.map((User) => (
                                 <tr key={User._id}>
-                                    <td className="px-4 py-2">{User.eventId}</td>
+                                    <td className="px-4 py-2">{User.eventName}</td>
                                     <td className="px-4 py-2">{User.name}</td>
                                     <td className="px-4 py-2">{User.email}</td>
                                     <td className="px-4 py-2">{User.mobile}</td>
                                     <td className="px-4 py-2">{User.attendees}</td>
                                     <td className="px-4 py-2 flex flex-col sm:flex-row sm:items-center">
-                                        <button className="bg-red-500 text-black px-3 py-1 rounded mr-2 mb-2 sm:mb-0">
+                                        <button onClick={() => deleteReg(User._id)} className="bg-red-500 text-black px-3 py-1 rounded mr-2 mb-2 sm:mb-0">
                                             <i className="fas fa-trash"></i>
                                         </button>
                                         <Link

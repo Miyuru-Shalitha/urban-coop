@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 import ProtectedDiv from "../components/ProtectedDiv";
 import { Outlet, useNavigate } from "react-router-dom";
 import Footer from "./Footer/Footer";
-import AdminTopbar from "./AdminTopbar";
+import AdminTopbar from "./AdminLayout/AdminTopbar";
 
 interface BaseItem {
   onClick: (index: number) => void;
@@ -18,13 +18,18 @@ export default function EmployeeProfileLayout() {
     setItems([
       {
         onClick: (index) => setActiveItemIndex(index),
-        name: "TEST 1",
-        route: "/admin/employee-profile/test-1",
+        name: "Info",
+        route: "/admin/profile",
       },
       {
         onClick: (index) => setActiveItemIndex(index),
-        name: "TEST",
-        route: "/admin/employee-profile/test-2",
+        name: "Attendance",
+        route: "/admin/attendance",
+      },
+      {
+        onClick: (index) => setActiveItemIndex(index),
+        name: "Log Out",
+        route: "/admin/logout",
       },
     ]);
   }, []);
@@ -77,8 +82,8 @@ function SidebarItem({
   return (
     <li
       className={`${
-        itemIndex === activeItemIndex ? "bg-gray0" : "bg-gray2"
-      } text-white px-4 py-2 rounded cursor-pointer`}
+        itemIndex === activeItemIndex ? "bg-primary" : "bg-gray2"
+      } text-white px-4 py-2 rounded cursor-pointer hover:bg-primaryAccent transition-colors`}
       onClick={handleClick}
     >
       {name}

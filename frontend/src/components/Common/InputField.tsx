@@ -6,12 +6,14 @@ export default function InputField({
   onChange,
   value,
   required,
+  disabled,
 }: {
   type: HTMLInputTypeAttribute;
   label: string;
-  onChange: ChangeEventHandler<HTMLInputElement> | undefined;
+  onChange?: ChangeEventHandler<HTMLInputElement> | undefined;
   value: string | number | readonly string[] | undefined;
   required?: boolean | undefined;
+  disabled?: boolean | undefined;
 }) {
   return (
     <div className="relative">
@@ -22,10 +24,15 @@ export default function InputField({
         onChange={onChange}
         value={value}
         required={required}
+        disabled={disabled}
       />
-      <label
+      {/* <label
         className="bg-white absolute invisible left-2 top-2 px-2
                 peer-focus:visible peer-focus:left-2 peer-focus:-top-3 peer-focus:transition-all"
+      > */}
+      <label
+        className="bg-white absolute left-2 -top-3 px-2
+                    peer-placeholder-shown:top-2 peer-focus:-top-3 transition-all"
       >
         {label}
       </label>

@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import axios from 'axios';
@@ -48,6 +49,15 @@ const InventoryManagementUpdateItems = () => {
       <div className="bg-gray-200 w-full max-w-md shadow-md rounded px-8 pt-6 pb-8 mb-4">
         <h1 className="text-3xl font-bold p-4 text-center">Update Item</h1>
         <form onSubmit={handleSubmit} className="px-4">
+=======
+export default function InventoryManagementUpdateItems() {
+  return (
+    <div>
+      INVENTORY MANAGEMENT UPDATE ITEM
+      <div className="max-w-md mx-auto bg-white shadow-md rounded px-8 py-6 ">
+        <h2 className="text-xl font-bold mb-4">Update Item</h2>
+        <form>
+>>>>>>> 455ba6542bf7478ad9b978efa87628365a0e75b5
           <div className="mb-4">
             <label htmlFor="itemCode" className="block text-gray-700 font-bold mb-2">
               Item Code

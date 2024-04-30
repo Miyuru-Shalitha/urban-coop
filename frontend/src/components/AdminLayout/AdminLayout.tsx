@@ -2,7 +2,7 @@ import ProtectedDiv from "../ProtectedDiv";
 import Footer from "../Footer/Footer";
 import AdminSidebar from "./AdimnSidebar";
 import { Outlet } from "react-router-dom";
-import AdminTopbar from "../AdminTopbar";
+import AdminTopbar from "./AdminTopbar";
 
 interface Props {
   className?: string;
@@ -18,7 +18,6 @@ export default function AdminLayout({ className }: Props) {
         <Outlet />
       </div>
 
-      <Footer />
     </ProtectedDiv>
   );
 }

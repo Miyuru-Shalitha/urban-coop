@@ -1,20 +1,20 @@
 import {useState} from "react";
 import axios from 'axios';
 import toast from "react-hot-toast";
-import {useNavigate} from "react-router-dom"; 
+import { useNavigate } from "react-router-dom";
 
 export default function EventCreationForm() {
+  const Navigate = useNavigate();
   const [formState, setFormState] = useState({
     title: '',
     date: '',
     time: '',
     location: '',
     image: '',
-    maxAttendance: '',
+    maxParticipation: '',
     description: '',
   });
-  const Navigate = useNavigate();
-
+  
   const handleInputChange = (e :any) => {
     setFormState({
       ...formState,
@@ -22,7 +22,6 @@ export default function EventCreationForm() {
     });
    
   };
-
   const handleImageChange = (e:any) => {
     setFormState({
       ...formState,
@@ -32,25 +31,29 @@ export default function EventCreationForm() {
 
   const handleSubmit = async (e:any) => {
     e.preventDefault();
-  
-    const eventData = {
-      title: formState.title,
-      date: formState.date,
-      time: formState.time,
-      location: formState.location,
-      image: formState.image,
-      maxAttendance: formState.maxAttendance,
-      description: formState.description
-    };
-  
+
+   
+    
+    const formData = new FormData();
+    formData.append('title', formState.title);
+    formData.append('date', formState.date);
+    formData.append('time', formState.time);
+    formData.append('location', formState.location);
+    formData.append('image', formState.image);
+    formData.append('maxParticipation', formState.maxParticipation);
+    formData.append('description', formState.description);
+
     try {
-      await axios.post('http://localhost:5000/api/events',eventData);
+      await axios.post('http://localhost:5000/api/events', formData, {
+        headers: {
+          'Content-Type': 'multipart/form-data'
+        }
+      });
       toast.success('Event created successfully!');
-     
+      Navigate("/admin/event-dashboard")
+
     } catch (error) {  
       console.error('Error creating event:', error);
-      
-
       toast.error('Something went wrong!');
     }
   };
@@ -135,9 +138,9 @@ export default function EventCreationForm() {
             </label>
             <input
               type="number"
-              name="maxAttendance"
-              id="maxAttendance"
-              value={formState.maxAttendance}
+              name="maxParticipation"
+              id="maxParticipation"
+              value={formState.maxParticipation}
               onChange={handleInputChange}
               className="appearance-none border rounded-md w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline text-sm"
             />
