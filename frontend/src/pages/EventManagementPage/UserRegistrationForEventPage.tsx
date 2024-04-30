@@ -59,7 +59,7 @@ const Userdash = () => {
                     </thead>
                     <tbody>
                         {User && User.length > 0 ? (
-                           User.map((User) => (
+                           User.map((User:any) => (
                                 <tr key={User._id}>
                                     <td className="px-4 py-2">{User.eventName}</td>
                                     <td className="px-4 py-2">{User.name}</td>

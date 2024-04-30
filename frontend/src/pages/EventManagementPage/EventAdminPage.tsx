@@ -3,17 +3,29 @@ import axios from "axios";
 import { Link } from "react-router-dom";
 import toast from "react-hot-toast";
 
-const EventDash = () => {
-  const [events, setEvents] = useState([]);
-  const [searchQuery, setSearchQuery] = useState("");
+interface Event {
+  _id: string;
+  title: string;
+  image: string;
+  date: string;
+  time: string;
+  location: string;
+  maxParticipation: string;
+  description: string;
+}
+
+const EventDash: React.FC = () => {
+  const [events, setEvents] = useState<Event[]>([]);
+  const [searchQuery, setSearchQuery] = useState<string>("");
 
   useEffect(() => {
     const fetchEvents = async () => {
       try {
-        const response = await axios.get("http://localhost:5000/api/events");
+        const response = await axios.get<Event[]>("http://localhost:5000/api/events");
         const allEvents = response.data;
 
         setEvents(allEvents);
+        console.log(allEvents)
       } catch (error) {
         console.error("Error fetching events:", error);
       }
@@ -22,11 +34,9 @@ const EventDash = () => {
     fetchEvents();
   }, []);
 
-  const deleteEvent = async (eventId) => {
+  const deleteEvent = async (eventId: string) => {
     try {
-      const response = await axios.delete(
-        `http://localhost:5000/api/events/${eventId}`
-      );
+      const response = await axios.delete(`http://localhost:5000/api/events/${eventId}`);
       if (response.status === 200) {
         toast.success("Event deleted successfully!");
         setEvents((prevEvents) =>
@@ -41,7 +51,7 @@ const EventDash = () => {
     }
   };
 
-  const handleSearchInputChange = (e) => {
+  const handleSearchInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setSearchQuery(e.target.value);
   };
 
@@ -89,7 +99,8 @@ const EventDash = () => {
                 <tr key={event._id}>
                   <td className="px-4 py-2">{event.title}</td>
                   <td className="px-4 py-2">
-                    <img
+                    <img 
+                      className="w-24 h-24 object-cover object-center"
                       src={`http://localhost:5000/${event.image}`}
                       alt="ERROR"
                     />

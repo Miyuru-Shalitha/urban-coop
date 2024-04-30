@@ -19,7 +19,8 @@ import login from "../routes/userLogin.route"
 
 const app = express();
 const port = process.env.PORT!;
-app.use(express.static('uploads'));
+app.use('/uploads', express.static('uploads'));
+
 // Middlewares
 app.use(express.json());
 app.use(
