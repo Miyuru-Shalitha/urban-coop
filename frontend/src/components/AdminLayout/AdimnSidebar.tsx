@@ -19,8 +19,25 @@ export default function AdminSidebar() {
   const [items, setItems] = useState<BaseItem[]>([]);
   const [activeItemIndex, setActiveItemIndex] = useState<number>(-1);
 
+  
   useEffect(() => {
     setItems([
+      {
+        onClick: (index) => setActiveItemIndex(index),
+        activeIndex: activeItemIndex,
+        title: "Pet Daycare Management",
+        homeRoute: "/admin/bookingsOverview",
+        subtitles: [
+          {
+            name: "Overview",
+            route: "/admin/bookingsOverview",
+          },
+          {
+            name: "Pet Daycare Bookings",
+            route: "/admin/allbookings",
+          },
+        ],
+      },
       {
         onClick: (index) => setActiveItemIndex(index),
         activeIndex: activeItemIndex,
@@ -33,7 +50,7 @@ export default function AdminSidebar() {
           },
           {
             name: "Report Generation",
-            route: "",
+            route: "/admin/report-generation",
           },
         ],
       },

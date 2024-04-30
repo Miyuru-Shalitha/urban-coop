@@ -1,5 +1,5 @@
 import ProfilePhoto from "../ProfilePhoto";
-import Logo from "../../assets/logo.png";
+import Logo from "../../assets/UBLogo.png";
 import { MouseEventHandler, ReactNode } from "react";
 import { Link, To } from "react-router-dom";
 import { useDispatch } from "react-redux";
@@ -13,7 +13,7 @@ export default function AdminTopbar() {
       <div className="relative group">
         <ProfilePhoto />
 
-        <DropDown />
+        {/* <DropDown /> */}
       </div>
     </div>
   );

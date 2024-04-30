@@ -1,5 +1,5 @@
 import { Link } from "react-router-dom";
-import Logo from "../assets/logo.png";
+import Logo from "../assets/UBLogo.png";
 import ProfilePhoto from "./ProfilePhoto";
 
 export default function Navbar() {
@@ -12,7 +12,12 @@ export default function Navbar() {
         flex gap-12 absolute left-1/2 -translate-x-1/2"
       >
         <li className="text-primary">Home</li>
-        <li>Services</li>
+        <Link to="/petdaycare">
+        <li>Pet Daycare</li>
+        </Link>
+        <li>Events</li>
+        <li>Pet Adoptation</li>
+
         <Link to="/feedback">
           <li>Feeback</li>
         </Link>
