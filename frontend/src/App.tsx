@@ -29,13 +29,12 @@ import FeedbackManagementAdminPage from "./pages/FeedbackManagementAdminPage/Fee
 import EmployeeProfilePage from "./pages/EmployeeProfilePage";
 import PetDaycareBookingPage from "./pages/PetDaycareManagementPage/PetDaycareBookingPage";
 import PetDaycareMyBookings from "./pages/PetDaycareManagementAdminPage/PetDaycareMyBookings";
-<<<<<<< HEAD
+
+
+import AllSupplierDetails from "./pages/SupplierManagementAdminPage/AllSupplierDetails";
 
 import Check from "./pages/SupplierManagementAdminPage/AllSupplierDetails";
 
-=======
-import Check from "./pages/SupplierManagementAdminPage/Check";
->>>>>>> 51e5253483041ba6ab210b5bc08f70963383354a
 import UpdateRegistrationForm from "./pages/EventManagementPage/updateUserRegistration";
 
 import Userdash from "./pages/EventManagementPage/UserRegistrationForEventPage";
@@ -195,6 +194,10 @@ export default function App() {
             path="supplier-management/stock-requests"
             element={<SupplierManagementStockReq />}
           />
+
+          <Route path="supplier-management/allsup" element={<AllSupplierDetails />} />
+
+          <Route path="supplier-management/allsup/:id" element={<SupplierManagementUpdateSupplierPage />} />
 
           {/* feedback dashboard */}
           <Route

@@ -24,7 +24,7 @@ export default function AllSupplierDetails() {
     }, []);
 
     const fetchSuppliers = () => {
-        axios.get("http://localhost:5000/api/suppliers/get")
+        axios.get("http://localhost:5000/api/suppliers")
             .then((res) => {
                 setSuppliers(res.data);
             })
@@ -36,6 +36,7 @@ export default function AllSupplierDetails() {
     const handleDelete = async (supplierId: string) => {
         try {
             const response = await axios.delete(`http://localhost:5000/api/suppliers/${supplierId}`);
+            console.log(response);
             if (response.status === 200) {
                 toast.success('Supplier deleted successfully!');
                 setSuppliers((prevSuppliers) => prevSuppliers.filter((supplier) => supplier.supplierId !== supplierId));
@@ -50,7 +51,8 @@ export default function AllSupplierDetails() {
 
     const handleEdit = (supplierId: string) => {
         // Redirect to the edit page with the supplierId
-        navigate(`/admin/supplier-management/update-supplier/${supplierId}`);    };
+        navigate(`/admin/supplier-management/update-supplier/${supplierId}`);    
+    };
 
     const supplierCount = suppliers.length;
 
@@ -84,7 +86,13 @@ export default function AllSupplierDetails() {
             <h2 className="text-xl font-bold mb-4 text-gray-800">All Supplier Details</h2>
             <div className="mb-4">
                 <PDFDownloadLink document={<PDFDocument />} fileName="supplier_details.pdf">
-                    {({ loading }) => (loading ? 'Loading document...' : 'Download PDF')}
+                    {({ loading }) => (
+                        <button
+                            className={`px-4 py-2 bg-secondary text-white rounded hover:bg-primaryAccent ${loading ? 'opacity-50 cursor-not-allowed' : ''}`}
+                        >
+                            {loading ? 'Loading document...' : 'Download PDF'}
+                        </button>
+                    )}
                 </PDFDownloadLink>
             </div>
 
@@ -93,7 +101,7 @@ export default function AllSupplierDetails() {
                     Add Supplier
                 </Link>
                 <div className="flex items-center mb-4">
-                    <label htmlFor="searchQuery" className="mr-2">Search:</label>
+                    <label htmlFor="searchQuery" className="mr-2">Search By:</label>
                     <input
                         type="text"
                         id="searchQuery"
@@ -126,9 +134,9 @@ export default function AllSupplierDetails() {
                                     <td className="border px-4 py-2">{supplier.email}</td>
                                     <td className="border px-4 py-2">{supplier.address}</td>
                                     <td className="border px-4 py-2">{supplier.category}</td>
-                                    <td className="border px-4 py-2">
+                                    <td className="border px-4 py-2 flex">
                                         <button
-                                            className="bg-secondary text-white hover:bg-black py-1 px-3 rounded-md transition-colors duration-300 ease-in-out focus:outline-none focus:ring-2 focus:ring-red-400 mr-2"
+                                            className="bg-primary text-white hover:bg-black py-1 px-3 rounded-md transition-colors duration-300 ease-in-out focus:outline-none focus:ring-2 focus:ring-red-400 mr-2"
                                             onClick={() => handleEdit(supplier.supplierId)}
                                         >
                                             Edit

@@ -90,7 +90,7 @@ export default function AdminSidebar() {
           },
           {
             name: "Manage Suppliers",
-            route: "/admin/supplier-management/manage-suppliers",
+            route: "/admin/supplier-management/allsup",
           },
           {
             name: "Stock Requests",
