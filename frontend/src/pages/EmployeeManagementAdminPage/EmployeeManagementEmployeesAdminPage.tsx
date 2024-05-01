@@ -125,7 +125,7 @@ export default function EmployeeManagementEmployeesAdminPage() {
           <tbody>
             {employees.map((employee, index) => (
               <TableRow key={employee._id} rowIndex={index}>
-                <TableColumn>{employee._id}</TableColumn>
+                <TableColumn>{employee.employeeId}</TableColumn>
                 <TableColumn>{employee.firstName}</TableColumn>
                 <TableColumn>{employee.lastName}</TableColumn>
                 <TableColumn>{employee.email}</TableColumn>

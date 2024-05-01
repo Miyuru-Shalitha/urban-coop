@@ -1,43 +1,43 @@
-import { FormEvent, useEffect, useState } from "react";
+import { FormEvent, useContext, useEffect, useState } from "react";
 import FilledButton from "../components/Common/FilledButton";
 import InputField from "../components/Common/InputField";
 import Footer from "../components/Footer/Footer";
 import { logInEmployee } from "../services/employeeAuthService";
-import { useDispatch, useSelector } from "react-redux";
-import { logIn } from "../store/employeeAuthSlice";
-import { RootState } from "../store/store";
 import { useNavigate } from "react-router-dom";
+import { EmployeeAuthContext } from "../context/EmployeeAuthContextProvider";
+import toast from "react-hot-toast";
 
 export default function EmployeeLogInPage() {
   const [logInData, setLogInData] = useState({
     email: "",
     password: "",
   });
-  const dispatch = useDispatch();
-  const employeeAuthState = useSelector(
-    (state: RootState) => state.employeeAuth.employee
-  );
+  const context = useContext(EmployeeAuthContext);
   const navigate = useNavigate();
 
   useEffect(() => {
-    if (employeeAuthState.isAuthenticated) {
+    if (context?.employeeCredential.employeeId) {
       navigate("/admin");
     }
-  }, [employeeAuthState]);
+  }, [context?.employeeCredential.employeeId]);
 
   const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     const employee = await logInEmployee(logInData.email, logInData.password);
 
     if (employee) {
-      dispatch(
-        logIn({
+      toast.success("Log in successful", { duration: 1000 });
+      setTimeout(() => {
+        context?.setEmployeeCredential({
           _id: employee._id,
+          employeeId: employee.employeeId,
           firstName: employee.firstName,
           lastName: employee.lastName,
           email: employee.email,
-        })
-      );
+        });
+      }, 1200);
+    } else {
+      toast.error("Something went wrong!", { duration: 1000 });
     }
   };
 

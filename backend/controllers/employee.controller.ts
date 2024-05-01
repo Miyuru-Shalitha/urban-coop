@@ -33,7 +33,8 @@ const getEmployee = async (req: Request, res: Response) => {
 
 const createEmployee = async (req: Request, res: Response) => {
   try {
-    const { firstName, lastName, email, address, roleId } = req.body;
+    const { employeeId, firstName, lastName, email, address, roleId } =
+      req.body;
     const foundEmployee = await Employee.findOne({ email });
 
     if (foundEmployee) {
@@ -46,6 +47,7 @@ const createEmployee = async (req: Request, res: Response) => {
     const hashedPassword = await bcrypt.hash(email, salt); // Default password is also email and this is a temporary password.
 
     const newEmployee = new Employee({
+      employeeId,
       firstName,
       lastName,
       email,

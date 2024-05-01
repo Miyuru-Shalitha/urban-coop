@@ -6,14 +6,14 @@ import {
   deleteEmployee,
   updateEmployee,
 } from "../controllers/employee.controller";
-import auth from "../middlewares/auth.middleware";
+import employeeAuth from "../middlewares/employeeAuth.middleware";
 
 const router = Router();
 
-router.get("/", auth, getEmployees);
-router.get("/:id", getEmployee);
-router.post("/", createEmployee);
-router.put("/:id", updateEmployee);
-router.delete("/:id", deleteEmployee);
+router.get("/", employeeAuth, getEmployees);
+router.get("/:id", employeeAuth, getEmployee);
+router.post("/", employeeAuth, createEmployee);
+router.put("/:id", employeeAuth, updateEmployee);
+router.delete("/:id", employeeAuth, deleteEmployee);
 
 export default router;

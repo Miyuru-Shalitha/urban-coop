@@ -1,7 +1,9 @@
-import { ReactNode, useEffect } from "react";
-import { useSelector } from "react-redux";
-import { RootState } from "../store/store";
+import { ReactNode, useContext, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
+import {
+  EmployeeAuthContext,
+  EmployeeContextType,
+} from "../context/EmployeeAuthContextProvider";
 
 export default function ProtectedEmployeeDiv({
   children,
@@ -10,14 +12,13 @@ export default function ProtectedEmployeeDiv({
   children: ReactNode;
   className?: string;
 }) {
-  const employeeAuthState = useSelector(
-    (state: RootState) => state.employeeAuth
-  );
+  const context = useContext<EmployeeContextType | null>(EmployeeAuthContext);
   const navigate = useNavigate();
 
   useEffect(() => {
-    if (!employeeAuthState.employee.isAuthenticated) {
+    if (!context?.employeeCredential.employeeId) {
       navigate("/admin/login");
+    } else {
     }
   }, []);
 

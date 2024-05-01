@@ -3,6 +3,29 @@ import bcrypt from "bcrypt";
 import Employee from "../models/employee.model";
 import jwt from "jsonwebtoken";
 
+interface EmployeeCredential {
+  _id: string;
+  employeeId: string;
+  firstName: string;
+  lastName: string;
+  email: string;
+}
+
+// verify token
+const authorizeEmployee = async (req: Request, res: Response) => {
+  const tokenData: EmployeeCredential = jwt.verify(
+    req.cookies.token,
+    process.env.TOKEN_SECRET!
+  ) as any;
+  const tokenDataToSend: EmployeeCredential = {
+    _id: tokenData._id,
+    employeeId: tokenData.employeeId,
+    firstName: tokenData.firstName,
+    lastName: tokenData.lastName,
+    email: tokenData.email,
+  };
+};
+
 const logInEmployee = async (req: Request, res: Response) => {
   const { email, password } = req.body;
 
@@ -22,8 +45,9 @@ const logInEmployee = async (req: Request, res: Response) => {
       return res.status(400).json({ message: "Invalid credentials!" });
     }
 
-    const tokenData = {
-      id: foundEmployee._id,
+    const tokenData: EmployeeCredential = {
+      _id: foundEmployee._id,
+      employeeId: foundEmployee.employeeId,
       firstName: foundEmployee.firstName,
       lastName: foundEmployee.lastName,
       email: foundEmployee.email,
@@ -34,8 +58,9 @@ const logInEmployee = async (req: Request, res: Response) => {
 
     res.cookie("token", token, { httpOnly: true });
 
-    const employee = {
+    const employee: EmployeeCredential = {
       _id: foundEmployee._id,
+      employeeId: foundEmployee.employeeId,
       firstName: foundEmployee.firstName,
       lastName: foundEmployee.lastName,
       email: foundEmployee.email,

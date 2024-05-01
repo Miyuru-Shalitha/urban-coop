@@ -5,12 +5,15 @@ import "./index.css";
 import { Toaster } from "react-hot-toast";
 import { Provider } from "react-redux";
 import store from "./store/store.ts";
+import EmployeeAuthContextProvider from "./context/EmployeeAuthContextProvider.tsx";
 
 ReactDOM.createRoot(document.getElementById("root")!).render(
   <React.StrictMode>
     <Provider store={store}>
-      <App />
-      <Toaster/>
+      <EmployeeAuthContextProvider>
+        <App />
+        <Toaster />
+      </EmployeeAuthContextProvider>
     </Provider>
   </React.StrictMode>
 );

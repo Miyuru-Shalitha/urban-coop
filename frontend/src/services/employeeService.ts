@@ -2,6 +2,7 @@ import axios from "axios";
 
 interface Employee {
   _id: string;
+  employeeId: string;
   firstName: string;
   lastName: string;
   email: string;
@@ -12,7 +13,9 @@ interface Employee {
 
 const getEmployees = async (): Promise<Employee[] | null> => {
   try {
-    const response = await axios.get("http://localhost:5000/api/employees");
+    const response = await axios.get("http://localhost:5000/api/employees", {
+      withCredentials: true,
+    });
     if (response.status === 200) {
       return response.data;
     }
@@ -26,7 +29,8 @@ const getEmployees = async (): Promise<Employee[] | null> => {
 const getEmployeeById = async (id: string): Promise<Employee | null> => {
   try {
     const response = await axios.get(
-      "http://localhost:5000/api/employees/" + id
+      "http://localhost:5000/api/employees/" + id,
+      { withCredentials: true }
     );
     if (response.status === 200) {
       return response.data;
@@ -39,6 +43,7 @@ const getEmployeeById = async (id: string): Promise<Employee | null> => {
 };
 
 const createEmployee = async (
+  employeeId: string,
   firstName: string,
   lastName: string,
   email: string,
@@ -47,6 +52,7 @@ const createEmployee = async (
 ): Promise<boolean> => {
   try {
     const response = await axios.post("http://localhost:5000/api/employees", {
+      employeeId,
       firstName,
       lastName,
       email,
