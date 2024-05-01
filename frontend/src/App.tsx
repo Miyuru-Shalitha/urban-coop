@@ -63,15 +63,15 @@ export default function App() {
         <Route path="register" element={<RegisterPage />} />
 
         <Route path="/" element={<Layout />}>
-        <Route path="" element={<HomePage />} />
+          <Route path="" element={<HomePage />} />
 
-        <Route path="events" element={<EventPage />} />
-        <Route path="events/register/:id" element={<EventRegistrationPage />} />
+          <Route path="events" element={<EventPage />} />
+          <Route path="events/register/:id" element={<EventRegistrationPage />} />
 
-        <Route path="petdaycare" element={<PetDaycareBookingPage />} />
-        <Route path="mybookings" element={<PetDaycareMyBookings />} />
-        <Route path="mybookings/update/:id" element={<PetDaycareBookingUpdatePage />} />
-        <Route path="up" element={<PetDaycareBookingUpdatePage />} />
+          <Route path="petdaycare" element={<PetDaycareBookingPage />} />
+          <Route path="mybookings" element={<PetDaycareMyBookings />} />
+          <Route path="mybookings/update/:id" element={<PetDaycareBookingUpdatePage />} />
+          <Route path="up" element={<PetDaycareBookingUpdatePage />} />
 
         </Route>
 
@@ -196,7 +196,7 @@ export default function App() {
 
           <Route
             path="supplier-management/suppliers"
-            element={<SupplierManagementSupplierPage/>}
+            element={<SupplierManagementSupplierPage />}
           />
 
           <Route
@@ -211,18 +211,20 @@ export default function App() {
           /> */}
 
           <Route
-            path="supplier-management/update-supplier/:supplierId"
+            path="supplier-management/suppliers/update/:id"
             element={<SupplierManagementUpdateSupplierPage />}
           />
+
+
 
           <Route
             path="supplier-management/stock-requests"
             element={<SupplierManagementStockReq />}
           />
 
-        
 
-          <Route path="supplier-management/allsup/:id" element={<SupplierManagementUpdateSupplierPage />} />
+{/* 
+          <Route path="supplier-management/allsup/:id" element={<SupplierManagementUpdateSupplierPage />} /> */}
 
 
 
