@@ -1,6 +1,15 @@
-/*import React, { useState, useEffect } from 'react';
-import axios from 'axios';
+import React, { useState, useEffect } from 'react';
+import axios, { AxiosResponse } from 'axios';
 import { Document, Page, Text, View, StyleSheet, PDFDownloadLink } from '@react-pdf/renderer';
+
+// Define types
+interface Item {
+  itemCode: string;
+  itemName: string;
+  itemBrand: string;
+  category: string; // Assuming this is the category property
+  quantity: number; // Assuming this is the quantity property
+}
 
 const styles = StyleSheet.create({
   page: {
@@ -20,7 +29,7 @@ const styles = StyleSheet.create({
   },
 });
 
-const InventoryReport: React.FC<{ items: any[] }> = ({ items }) => (
+const InventoryReport: React.FC<{ items: Item[] }> = ({ items }) => (
   <Document>
     <Page style={styles.page}>
       <Text style={styles.title}>Inventory Report</Text>
@@ -39,33 +48,41 @@ const InventoryReport: React.FC<{ items: any[] }> = ({ items }) => (
 );
 
 const InventoryManagement: React.FC = () => {
-  const [items, setItems] = useState([]);
+  const [items, setItems] = useState<Item[]>([]);
   const [searchQuery, setSearchQuery] = useState<string>('');
 
   useEffect(() => {
     const fetchItems = async () => {
       try {
-        const response = await axios.get('http://localhost:5000/api/items');
+        const response: AxiosResponse<Item[]> = await axios.get('http://localhost:5000/api/items');
         setItems(response.data);
       } catch (error) {
         console.error('Error fetching items:', error);
+        // Handle error: You might want to set an error state to display a message to the user
       }
     };
     fetchItems();
   }, []);
+
+  const handleSearchChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setSearchQuery(e.target.value);
+  };
+
+  const filteredItems = items.filter((item) =>
+    item.itemName.toLowerCase().includes(searchQuery.toLowerCase())
+  );
 
   const generateReport = () => {
     // Logic to generate the report
     console.log('Generating inventory report...');
   };
 
-  const filteredItems = items.filter((item) =>
-    item.itemName.toLowerCase().includes(searchQuery.toLowerCase())
- );
-
   return (
     <div className="flex-1 flex flex-col justify-center items-center">
       <div>
+        <input
+          
+        />
         <PDFDownloadLink
           document={<InventoryReport items={filteredItems} />}
           fileName="inventory_report.pdf"
@@ -77,7 +94,6 @@ const InventoryManagement: React.FC = () => {
       </div>
     </div>
   );
-  
 };
 
-export default InventoryManagement;*/
+export default InventoryManagement;

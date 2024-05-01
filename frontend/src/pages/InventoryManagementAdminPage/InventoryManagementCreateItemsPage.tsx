@@ -38,8 +38,6 @@ export default function InventoryManagementCreateItemsPage() {
   return (
     <div>
       INVENTORY MANAGEMENT CREATE ITEM
-      
-    
       <div className="max-w-md mx-auto bg-white shadow-md rounded px-8 py-6">
         <h2 className="text-xl font-bold mb-4">Create Item</h2>
         <form onSubmit={handleSubmit}>
@@ -119,7 +117,8 @@ export default function InventoryManagementCreateItemsPage() {
               Item Quantity
             </label>
             <input
-              className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+              className="shadow appearance-none border rounded w-full py-2 px-3
+               text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
               type="text"
               placeholder=" Enter Item Quantity"
               value={itemData.quantity}
@@ -130,8 +129,9 @@ export default function InventoryManagementCreateItemsPage() {
           </div>
           <div className="flex items-center justify-between">
             <button
-              className="bg-yellow-600 hover:bg-yellow-700 text-white py-2 px-4 rounded focus:outline-none focus:shadow-outline"
-              onClick={() => {}}
+              className="bg-yellow-600 hover:bg-yellow-700
+               text-white py-2 px-4 rounded focus:outline-none focus:shadow-outline"
+              // onClick={() => {}}
               type="submit"
             >
               Add Item

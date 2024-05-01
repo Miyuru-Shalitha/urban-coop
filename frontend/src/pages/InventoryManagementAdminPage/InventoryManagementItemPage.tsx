@@ -18,11 +18,7 @@ const InventoryManagement = () => {
     fetchItems();
   }, []);
 
-  const handleSearch = (e) => {
-    setSearchQuery(e.target.value);
-  };
-
-  const deleteEvent = async (itemId) => {
+  const deleteItem = async (itemId) => {
     try {
       const response = await axios.delete(`http://localhost:5000/api/items/${itemId}`);
       if (response.status === 200) {
@@ -35,6 +31,10 @@ const InventoryManagement = () => {
       console.error('Error deleting Event:', error);
       alert('An error occurred while deleting Event. Please try again later.');
     }
+  };
+
+  const handleSearch = (e:any) => {
+    setSearchQuery(e.target.value);
   };
 
   const filteredItems = items.filter((item) =>
@@ -88,10 +88,12 @@ const InventoryManagement = () => {
                   <td className="px-4 py-2">{item.category}</td>
                   <td className="px-4 py-2">{item.quantity}</td>
                   <td className="px-4 py-2">
-                    <button onClick={() => deleteEvent(item._id)} className="bg-secondary text-white py-2 px-4 rounded-md">
+                    <button onClick={() => deleteItem(item._id)} 
+                    className="bg-secondary text-white py-2 px-4 rounded-md">
                       Delete
                     </button>
                     <Link to={`/admin/inventory-management/item-update`}>
+
                       <button className="bg-primary text-white py-2 px-4 rounded-md ml-2">
                         Edit
                       </button>

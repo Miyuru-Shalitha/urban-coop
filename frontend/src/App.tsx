@@ -23,19 +23,16 @@ import InventoryManagementDashboard from "./pages/InventoryManagementAdminPage/I
 import InventoryManagementItemPage from "./pages/InventoryManagementAdminPage/InventoryManagementItemPage";
 import InventoryManagementRequestStocksPage from "./pages/InventoryManagementAdminPage/InventoryManagementRequestStocksPage";
 import InventoryManagementCreateItemsPage from "./pages/InventoryManagementAdminPage/InventoryManagementCreateItemsPage";
-//import InventoryManagementUpdateItems from "./pages/InventoryManagementAdminPage/InventoryManagementUpdateItems";
 import InventoryManagementCreateRequest from "./pages/InventoryManagementAdminPage/InventoryManagementCreateRequest";
 import EventRegistrationPage from "./pages/EventManagementPage/EventRegistrationPage";
 import EventReport from "./pages/EventManagementPage/EventReport";
 import FeedbackManagementAdminPage from "./pages/FeedbackManagementAdminPage/FeedbackManagementAdminPage";
 import EmployeeProfilePage from "./pages/EmployeeProfilePage";
 
-
 //Pet Daycare Management Pages
 import PetDaycareBookingPage from "./pages/PetDaycareManagementPage/PetDaycareBookingPage";
 // Remove the duplicate import statement for 'PetDaycareMyBookings'
 // import PetDaycareMyBookings from "./pages/PetDaycareManagementAdminPage/PetDaycareMyBookings";
-
 
 import AllSupplierDetails from "./pages/SupplierManagementAdminPage/AllSupplierDetails";
 import PetDaycareMyBookings from "./pages/PetDaycareManagementPage/PetDaycareMyBookings";
@@ -43,14 +40,13 @@ import PetDaycareBookingUpdatePage from "./pages/PetDaycareManagementPage/PetDay
 import BookingTable from "./pages/PetDaycareManagementAdminPage/BookingTable";
 import PetDaycareDashboard from "./pages/PetDaycareManagementAdminPage/PetDaycareDashboard";
 
-
 import UpdateRegistrationForm from "./pages/EventManagementPage/updateUserRegistration";
 
 import Userdash from "./pages/EventManagementPage/UserRegistrationForEventPage";
-//import InventoryReport from "./pages/InventoryManagementAdminPage/InventoryReport";
-
 import EmployeeProfileLayout from "./components/EmployeeProfileLayout";
 import EmployeeLogInPage from "./pages/EmployeeLogInPage";
+import InventoryManagementUpdatePage from "./pages/InventoryManagementAdminPage/InventoryManagementUpdatePage";
+import InventoryReport from "./pages/InventoryManagementAdminPage/InventoryReport";
 
 export default function App() {
   return (
@@ -62,22 +58,21 @@ export default function App() {
         <Route path="register" element={<RegisterPage />} />
 
         <Route path="/" element={<Layout />}>
-        <Route path="" element={<HomePage />} />
+          <Route path="" element={<HomePage />} />
 
-        <Route path="events" element={<EventPage />} />
-        <Route path="events/register/:id" element={<EventRegistrationPage />} />
-
-        <Route path="petdaycare" element={<PetDaycareBookingPage />} />
-        <Route path="mybookings" element={<PetDaycareMyBookings />} />
-        <Route path="mybookings/update/:id" element={<PetDaycareBookingUpdatePage />} />
-        <Route path="up" element={<PetDaycareBookingUpdatePage />} />
-
+          <Route path="events" element={<EventPage />} />
           <Route
-            path="/report"
-            element={<InventoryReport />}
+            path="events/register/:id"
+            element={<EventRegistrationPage />}
           />
 
-
+          <Route path="petdaycare" element={<PetDaycareBookingPage />} />
+          <Route path="mybookings" element={<PetDaycareMyBookings />} />
+          <Route
+            path="mybookings/update/:id"
+            element={<PetDaycareBookingUpdatePage />}
+          />
+          <Route path="up" element={<PetDaycareBookingUpdatePage />} />
         </Route>
 
         {/* Employee Log In Page */}
@@ -130,8 +125,9 @@ export default function App() {
           />
           <Route
             path="inventory-management/item-update"
-            element={<InventoryManagementUpdateItems />}
+            element={<InventoryManagementUpdatePage />}
           />
+
 
           <Route
             path="inventory-management/request-stocks"
@@ -141,14 +137,12 @@ export default function App() {
             path="inventory-management/request-create"
             element={<InventoryManagementCreateRequest />}
           />
-
-<Route
+          <Route
             path="inventory-management/report"
             element={<InventoryReport />}
           />
+          
 
-
-         
           {/* Event Management Routes */}
           <Route path="event-dashboard" element={<EventDash />} />
 
@@ -171,10 +165,7 @@ export default function App() {
             element={<UpdateRegistrationForm />}
           />
 
-          <Route
-            path="report-generation"
-            element={<EventReport />}
-          />
+          <Route path="report-generation" element={<EventReport />} />
           {/* event report generation */}
 
           <Route path="allbookings" element={<BookingTable />} />
@@ -211,7 +202,6 @@ export default function App() {
             element={<SupplierManagementCreateSupplierPage />}
           />
 
-
           {/* <Route
             path="supplier-management/update-suppliers"
             element={<SupplierManagementUpdateSupplierPage />}
@@ -227,9 +217,15 @@ export default function App() {
             element={<SupplierManagementStockReq />}
           />
 
-          <Route path="supplier-management/allsup" element={<AllSupplierDetails />} />
+          <Route
+            path="supplier-management/allsup"
+            element={<AllSupplierDetails />}
+          />
 
-          <Route path="supplier-management/allsup/:id" element={<SupplierManagementUpdateSupplierPage />} />
+          <Route
+            path="supplier-management/allsup/:id"
+            element={<SupplierManagementUpdateSupplierPage />}
+          />
 
           {/* feedback dashboard */}
           <Route

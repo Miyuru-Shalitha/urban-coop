@@ -28,21 +28,13 @@ const createItem = async(req:Request , res:Response) => {
        return res.status(500).json({message:error.message});
     }
 };
-// const  = async (req: Request, res: Response) => {
-//     try {
-//         const items = await Item.find({}, 'itemCode');
-//         const itemCodes = items.map(item => item.itemCode);
-//         return res.status(200).json({ itemCodes: itemCodes });
-//     } catch (error: any) {
-//         return res.status(500).json({ message: error.message });
-//     }
-// };
+
 const getAllItemCodes = async (req: Request, res: Response) => {
 
     try {
       const item = await Item.find();
       if(!item) {
-        res.status(400).json({ message: 'No events found' });
+        res.status(400).json({ message: 'No item found' });
       }
       res.status(200).json(item);
     } catch (error) {
@@ -50,6 +42,25 @@ const getAllItemCodes = async (req: Request, res: Response) => {
     }
 
   };
+
+  //update item by id  
+const updateItemById = async (req: Request, res: Response) => {
+  try {
+    const id = req.params.id;
+
+    const itemdata = await Item.findById(id);
+    if(!itemdata) {
+      res.status(400).json({ message: 'No item found' });
+    }
+    const updatedata = await Item.findByIdAndUpdate(id,req.body,{new:true});
+    res.status(200).json(updatedata); 
+
+  } catch (error) {
+    res.status(500).json({ error: error })
+  }
+}
+
+//Delete item by id
   const deleteItemById = async (req: Request, res: Response) => {
     try {
       const id = req.params.id;
@@ -57,7 +68,7 @@ const getAllItemCodes = async (req: Request, res: Response) => {
       const item = await Item.findById(id);
       if(!item) {
   
-        res.status(400).json({ message: 'No event found' });
+        res.status(400).json({ message: 'No item found' });
       }
       const deletedata = await Item.findByIdAndDelete(id);
       res.status(200).json(deletedata);
@@ -68,5 +79,7 @@ const getAllItemCodes = async (req: Request, res: Response) => {
 export{
     createItem,
     getAllItemCodes,
+    updateItemById,
     deleteItemById
+
 }
