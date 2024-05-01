@@ -97,7 +97,7 @@ export default function AllSupplierDetails() {
             </div>
 
             <div className="container mx-auto p-8 font-sans">
-                <Link to={"addSupplier"} className="inline-block mb-4 px-4 py-2 bg-primary text-white font-bold rounded hover:bg-primaryAccent">
+                <Link to={"/admin/supplier-management/create-suppliers"} className="inline-block mb-4 px-4 py-2 bg-primary text-white font-bold rounded hover:bg-primaryAccent">
                     Add Supplier
                 </Link>
                 <div className="flex items-center mb-4">
