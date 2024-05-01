@@ -52,6 +52,9 @@ import Userdash from "./pages/EventManagementPage/UserRegistrationForEventPage";
 import EmployeeProfileLayout from "./components/EmployeeProfileLayout";
 import EmployeeLogInPage from "./pages/EmployeeLogInPage";
 
+import CreateFeedbackPage from "./pages/FeedbackManagement/CreateFeedbackPage";
+import MyFeedbackPage from "./pages/FeedbackManagement/MyFeedbackPage";
+import FeedbackTable from "./pages/FeedbackManagement/FeedbackTable";
 
 export default function App() {
   return (
@@ -72,6 +75,12 @@ export default function App() {
           <Route path="mybookings" element={<PetDaycareMyBookings />} />
           <Route path="mybookings/update/:id" element={<PetDaycareBookingUpdatePage />} />
           <Route path="up" element={<PetDaycareBookingUpdatePage />} />
+
+          <Route path="feedback" element={<CreateFeedbackPage/>}/>
+          <Route path="myfeedback" element={<MyFeedbackPage/>}/>
+
+
+
 
         </Route>
 
@@ -235,8 +244,8 @@ export default function App() {
 
           {/* feedback dashboard */}
           <Route
-            path="feedback-dashboard"
-            element={<FeedbackManagementAdminPage />}
+            path="feedbacks"
+            element={<FeedbackTable />}
           />
         </Route>
       </Routes>
