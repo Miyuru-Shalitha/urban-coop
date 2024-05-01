@@ -1,3 +1,4 @@
+import { number } from "joi";
 import mongoose from "mongoose";
 
 const bookingSchema = new mongoose.Schema({
@@ -32,6 +33,10 @@ const bookingSchema = new mongoose.Schema({
     },
     petType: {
         type: String,
+        required: true
+    },
+    total: {
+        type: Number,
         required: true
     }
 });

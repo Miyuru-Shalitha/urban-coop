@@ -1,6 +1,7 @@
 import { BrowserRouter, Route, Routes } from "react-router-dom";
 import HomePage from "./pages/HomePage";
-import LogInPage from "./pages/LogInPage";
+import RegisterPage from "./pages/UserLoginPage/RegisterPage";
+import UserLoginPage from "./pages/UserLoginPage/LoginPage";
 import EventPage from "./pages/EventManagementPage/EventPage";
 import EventCreationForm from "./pages/EventManagementPage/EventCreationPage";
 import EmployeeManagementAdminPage from "./pages/EmployeeManagementAdminPage/EmployeeManagementAdminPage";
@@ -32,11 +33,15 @@ import EmployeeProfilePage from "./pages/EmployeeProfilePage";
 
 //Pet Daycare Management Pages
 import PetDaycareBookingPage from "./pages/PetDaycareManagementPage/PetDaycareBookingPage";
+// Remove the duplicate import statement for 'PetDaycareMyBookings'
+// import PetDaycareMyBookings from "./pages/PetDaycareManagementAdminPage/PetDaycareMyBookings";
+
+
+import AllSupplierDetails from "./pages/SupplierManagementAdminPage/AllSupplierDetails";
 import PetDaycareMyBookings from "./pages/PetDaycareManagementPage/PetDaycareMyBookings";
 import PetDaycareBookingUpdatePage from "./pages/PetDaycareManagementPage/PetDaycareBookingUpdatePage";
-import MyBookingsPage from "./pages/PetDaycareManagementAdminPage/MyBookingsReport";
 import BookingTable from "./pages/PetDaycareManagementAdminPage/BookingTable";
-
+import PetDaycareDashboard from "./pages/PetDaycareManagementAdminPage/PetDaycareDashboard";
 
 
 import UpdateRegistrationForm from "./pages/EventManagementPage/updateUserRegistration";
@@ -50,20 +55,20 @@ export default function App() {
     <BrowserRouter>
       <Routes>
         {/* User Routes */}
+
+        <Route path="/login" element={<UserLoginPage />} />
+        <Route path="register" element={<RegisterPage />} />
+
         <Route path="/" element={<Layout />}>
-          <Route path="" element={<HomePage />} />
-          <Route path="log-in" element={<LogInPage />} />
-          <Route path="events" element={<EventPage />} />
+        <Route path="" element={<HomePage />} />
 
-          <Route
-            path="events/register/:id"
-            element={<EventRegistrationPage />}
-          />
+        <Route path="events" element={<EventPage />} />
+        <Route path="events/register/:id" element={<EventRegistrationPage />} />
 
-          <Route path="petdaycare" element={<PetDaycareBookingPage />} />
-          <Route path="mybookings" element={<PetDaycareMyBookings />} />
-          <Route path="mybookings/update/:id" element={<PetDaycareBookingUpdatePage />} />
-          <Route path="up" element={<PetDaycareBookingUpdatePage />} />
+        <Route path="petdaycare" element={<PetDaycareBookingPage />} />
+        <Route path="mybookings" element={<PetDaycareMyBookings />} />
+        <Route path="mybookings/update/:id" element={<PetDaycareBookingUpdatePage />} />
+        <Route path="up" element={<PetDaycareBookingUpdatePage />} />
 
         </Route>
 
@@ -158,7 +163,7 @@ export default function App() {
           {/* event report generation */}
 
           <Route path="allbookings" element={<BookingTable />} />
-          <Route path="report" element={<MyBookingsPage />} />
+          <Route path="bookingsOverview" element={<PetDaycareDashboard />} />
 
           {/* set daily rates */}
           {/* bookings */}
@@ -206,6 +211,10 @@ export default function App() {
             path="supplier-management/stock-requests"
             element={<SupplierManagementStockReq />}
           />
+
+          <Route path="supplier-management/allsup" element={<AllSupplierDetails />} />
+
+          <Route path="supplier-management/allsup/:id" element={<SupplierManagementUpdateSupplierPage />} />
 
           {/* feedback dashboard */}
           <Route

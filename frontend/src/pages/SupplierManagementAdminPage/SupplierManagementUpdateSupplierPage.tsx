@@ -1,6 +1,6 @@
-import React, { useEffect, useState } from "react";
 import axios from "axios";
-import { useParams } from "react-router-dom";
+import { useEffect, useState } from "react";
+import { Link, useParams } from "react-router-dom";
 
 interface Supplier {
     supplierId: string;
@@ -12,112 +12,107 @@ interface Supplier {
 }
 
 export default function SupplierManagementUpdateSupplierPage() {
-    const { supplierId } = useParams<{ supplierId: string }>();
-    const [supplier, setSupplier] = useState<Supplier | null>(null);
+    const { supplierId } = useParams();
+    const [supplier, setSupplier] = useState<Supplier | null>();
 
     useEffect(() => {
-        fetchSupplierDetails();
-    }, [supplierId]);
+        getSupplier();
+    }, []);
 
-    const fetchSupplierDetails = () => {
-        axios.get(`http://localhost:5000/api/suppliers/${supplierId}`)
-            .then((res) => {
-                setSupplier(res.data);
+    const getSupplier = async () => {
+        try {
+            const response = await axios.get("http://localhost:5000/api/suppliers/" + supplierId);
+            const fetchedSupplier = response.data;
+            setSupplier({
+                supplierId: fetchedSupplier.supplierId,
+                name: fetchedSupplier.name,
+                phoneNumber: fetchedSupplier.phoneNumber,
+                email: fetchedSupplier.email,
+                address: fetchedSupplier.address,
+                category: fetchedSupplier.category,
             })
-            .catch((err) => {
-                console.error('Error fetching supplier details:', err);
-            });
-    };
+        } catch (error: any) {
+            alert("Something went wrong!");
+        }
+    }
 
-    const handleUpdate = (e: React.FormEvent) => {
-        e.preventDefault();
-        // Send updated supplier details to the server
-        axios.put(`http://localhost:5000/api/suppliers/${supplierId}`, supplier)
-            .then((res) => {
-                console.log('Supplier updated successfully:', res.data);
-                // Optionally, you can redirect the user or show a success message
-            })
-            .catch((err) => {
-                console.error('Error updating supplier:', err);
-            });
-    };
-
+    
     return (
         <div>
-            <h2 className="text-xl font-bold mb-4">Update Supplier Details</h2>
-            {supplier ? (
+            UPDATE SUPPLIER DETAILS
                 <div className="max-w-md mx-auto bg-white shadow-md rounded px-8 py-6">
+                    <h2 className="text-xl font-bold mb-4">Update Supplier Details</h2>
                     <form>
                         <div className="mb-4">
-                            <label className="block text-gray-700 text-sm font-bold mb-2" htmlFor="SupID">
+                            <label className="block text-gray-700 text-sm font-bold mb-2" htmlFor="itemCode">
                                 Supplier ID
                             </label>
                             <input
                                 className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
                                 id="SupID"
                                 type="text"
-                                value={supplier.supplierId}
-                                readOnly
+                                placeholder="Enter Supplier ID"
+                                value={supplier?.supplierId}
                             />
                         </div>
                         <div className="mb-4">
-                            <label className="block text-gray-700 text-sm font-bold mb-2" htmlFor="SupName">
+                            <label className="block text-gray-700 text-sm font-bold mb-2" htmlFor="itemName">
                                 Supplier Name
                             </label>
                             <input
                                 className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
                                 id="SupName"
                                 type="text"
-                                value={supplier.name}
-                                onChange={(e) => setSupplier({ ...supplier, name: e.target.value })}
+                                placeholder="Enter Name"
+                                value={supplier?.name}
                             />
                         </div>
                         <div className="mb-4">
-                            <label className="block text-gray-700 text-sm font-bold mb-2" htmlFor="SupPhone">
+                            <label className="block text-gray-700 text-sm font-bold mb-2" htmlFor="itemBrand">
                                 Phone Number
                             </label>
                             <input
                                 className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
                                 id="SupPhone"
                                 type="text"
-                                value={supplier.phoneNumber}
-                                onChange={(e) => setSupplier({ ...supplier, phoneNumber: e.target.value })}
+                                placeholder="Enter Phone Number"
+                                value={supplier?.phoneNumber}
                             />
                         </div>
                         <div className="mb-4">
-                            <label className="block text-gray-700 text-sm font-bold mb-2" htmlFor="SupEmail">
+                            <label className="block text-gray-700 text-sm font-bold mb-2" htmlFor="itemCategory">
                                 Email
                             </label>
                             <input
                                 className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
                                 id="SupEmail"
                                 type="text"
-                                value={supplier.email}
-                                onChange={(e) => setSupplier({ ...supplier, email: e.target.value })}
+                                placeholder="Enter Email"
+                                value={supplier?.email}
                             />
                         </div>
                         <div className="mb-4">
-                            <label className="block text-gray-700 text-sm font-bold mb-2" htmlFor="SupAddress">
+                            <label className="block text-gray-700 text-sm font-bold mb-2" htmlFor="itemQuantity">
                                 Address
                             </label>
                             <input
                                 className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
                                 id="SupAddress"
                                 type="text"
-                                value={supplier.address}
-                                onChange={(e) => setSupplier({ ...supplier, address: e.target.value })}
+                                placeholder="Enter Address"
+                                value={supplier?.address}
                             />
                         </div>
                         <div className="mb-4">
-                            <label className="block text-gray-700 text-sm font-bold mb-2" htmlFor="SupCategory">
+                            <label className="block text-gray-700 text-sm font-bold mb-2" htmlFor="itemQuantity">
                                 Category
                             </label>
                             <input
                                 className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
                                 id="SupCategory"
                                 type="text"
-                                value={supplier.category}
-                                onChange={(e) => setSupplier({ ...supplier, category: e.target.value })}
+                                placeholder="Enter Category"
+                                value={supplier?.category}
                             />
                         </div>
                         <button
@@ -126,11 +121,16 @@ export default function SupplierManagementUpdateSupplierPage() {
                         >
                             Update
                         </button>
+                        <Link to="/admin/supplier-management/manage-suppliers">
+                        <button
+                            className="bg-gray-500 hover:bg-gray-700 text-white py-2 px-4 rounded focus:outline-none focus:shadow-outline"
+                            type="button"
+                        >
+                            Cancel
+                        </button>
+                        </Link>
                     </form>
                 </div>
-            ) : (
-                <p>Loading...</p>
-            )}
-        </div>
+            </div>
     );
 }
