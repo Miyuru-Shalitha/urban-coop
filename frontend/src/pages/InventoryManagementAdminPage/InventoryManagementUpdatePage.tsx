@@ -1,145 +1,159 @@
-import { useEffect, useState } from "react";
-import { useParams } from "react-router-dom";
 import axios from 'axios';
-import toast from "react-hot-toast";
+import { useState, FormEvent, ChangeEvent, useEffect } from 'react';
+import toast from 'react-hot-toast';
+import { useParams } from 'react-router-dom';
 import { useNavigate } from "react-router-dom";
 
-const UpdateItems = () => {
+const UpdateItemForm = () => {
   const Navigate = useNavigate();
   const { id } = useParams();
-  const [Item, setItem] = useState({
-    itemCode: '',
-    itemName: '',
-    itemBrand: '',
-    category: '',
-    quantity: '',
-  });
+  const [itemCode, setItemCode] = useState<string>('');
+  const [itemName, setItemName] = useState<string>('');
+  const [itemBrand, setItemBrand] = useState<string>('');
+  const [category, setCategory] = useState<string>('');
+  const [quantity, setQuantity] = useState<number | ''>('');
 
-  const handleInputChange = (e:any) => {
-    setItem({
-      ...Item,
-      [e.target.name]: e.target.value,
-    });
-  }
-
-  const handleSubmit = async (e:any) => {
+  const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    const formData = new FormData();
-    formData.append('code', Item.itemCode);
-    formData.append('name', Item.itemName);
-    formData.append('brand', Item.itemBrand);
-    formData.append('category', Item.category);
-    formData.append('quantity', Item.quantity);
+
     try {
-      const response = await axios.put(`http://localhost:5000/api/items/`,formData);
-      console.log(response.data);
-      toast.success('Item updated successfully!', { position: "top-right" });
-      Navigate('/inventory-management'); // Assuming the URL to navigate back to inventory management
+      const response = await axios.put(`http://localhost:5000/api/items/${id}`, {
+        itemCode,
+        itemName,
+        itemBrand,
+        category,
+        quantity,
+      });
+      console.log("Server response:", response.data);
+      toast.success('Item updated successfully!');
+      Navigate('/admin/inventory-management/item');
+
     } catch (error) {
-     
-      toast.error('Something went wrong!');
+      console.log(error);
+    }
+  };
+
+  const handleInputChange = (e: ChangeEvent<HTMLInputElement>) => {
+    const { name, value } = e.target;
+    switch (name) {
+      case 'itemCode':
+        setItemCode(value);
+        break;
+      case 'itemName':
+        setItemName(value);
+        break;
+      case 'itemBrand':
+        setItemBrand(value);
+        break;
+      case 'category':
+        setCategory(value);
+        break;
+      case 'quantity':
+        setQuantity(value === '' ? '' : parseInt(value));
+        break;
+      default:
+        break;
     }
   };
 
   useEffect(() => {
     const fetchData = async () => {
-      const response = await axios.get(`http://localhost:5000/api/items/${id}`);
-      setItem(response.data);
+      try {
+        const item = await axios.get(`http://localhost:5000/api/items/${id}`);
+        setItemCode(item.data.itemCode);
+        setItemName(item.data.itemName);
+        setItemBrand(item.data.itemBrand);
+        setCategory(item.data.category);
+        setQuantity(item.data.quantity);
+      } catch (error) {
+        console.error("Error fetching item:", error);
+      }
     };
     fetchData();
-  }, []);
+  }, [id]); // Add id to the dependency array
 
-
-  // export default function InventoryManagementUpdateItems() {
-    return (
-      <div>
-        INVENTORY MANAGEMENT UPDATE ITEM
-        <div className="max-w-md mx-auto bg-white shadow-md rounded px-8 py-6 ">
-          <h2 className="text-xl font-bold mb-4">Update Item</h2>
-          <form onSubmit={handleSubmit} className="px-4">
-  
-            <div className="mb-4">
-              <label htmlFor="itemCode" className="block text-gray-700 font-bold mb-2">
-                Item Code
-              </label>
-              <input
-                type="text"
-                name="itemCode"
-                id="itemCode"
-                value={Item.itemCode}
-                onChange={handleInputChange}
-                className="appearance-none border rounded-md w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline text-sm"
-              />
-            </div>
-            <div className="mb-4">
-              <label htmlFor="itemName" className="block text-gray-700 font-bold mb-2">
-                Item Name
-              </label>
-              <input
-                type="text"
-                name="itemName"
-                id="itemName"
-                value={Item.itemName}
-                onChange={handleInputChange}
-                className="appearance-none border rounded-md w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline text-sm"
-              />
-            </div>
-            <div className="mb-4">
-              <label htmlFor="itemBrand" className="block text-gray-700 font-bold mb-2">
-                Item Brand
-              </label>
-              <input
-                type="text"
-                name="itemBrand"
-                id="itemBrand"
-                value={Item.itemBrand}
-                onChange={handleInputChange}
-                className="appearance-none border rounded-md w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline text-sm"
-              />
-            </div>
-            <div className="mb-4">
-              <label htmlFor="itemCategory" className="block text-gray-700 font-bold mb-2">
-                Item Category
-              </label>
-              <input
-                type="text"
-                name="itemCategory"
-                id="itemCategory"
-                value={Item.category}
-                onChange={handleInputChange}
-                className="appearance-none border rounded-md w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline text-sm"
-              />
-            </div>
-            <div className="mb-4">
-              <label htmlFor="itemQuantity" className="block text-gray-700 font-bold mb-2">
-                Item Quantity
-              </label>
-              <input
-                type="text"
-                name="itemQuantity"
-                id="itemQuantity"
-                value={Item.quantity}
-                onChange={handleInputChange}
-                className="appearance-none border rounded-md w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline text-sm"
-              />
-            </div>
-            <div className="flex items-center justify-between">
-              <button
-                type="submit"
-                className="bg-primaryAccent hover:bg-primary text-black font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline"
-              >
-                Update Item
-              </button>
-            </div>
-          </form>
-        </div>
+  return (
+    <div className="w-full flex flex-col items-center justify-center h-screen bg-gray-100 font-sans">
+      <div className="bg-white p-8 rounded-lg shadow-md w-96">
+        <h1 className="text-2xl font-bold mb-4">Update Item</h1>
+        <form onSubmit={handleSubmit} className="space-y-4">
+          <div>
+            <label htmlFor="itemCode" className="block text-gray-700 font-medium mb-2">
+              Item Code
+            </label>
+            <input
+              type="text"
+              id="itemCode"
+              name="itemCode"
+              value={itemCode}
+              onChange={handleInputChange}
+              className="w-full border border-gray-300 p-2 rounded-lg"
+            />
+          </div>
+          <div>
+            <label htmlFor="itemName" className="block text-gray-700 font-medium mb-2">
+              Item Name
+            </label>
+            <input
+              type="text"
+              id="itemName"
+              name="itemName"
+              value={itemName}
+              onChange={handleInputChange}
+              className="w-full border border-gray-300 p-2 rounded-lg"
+            />
+          </div>
+          <div>
+            <label htmlFor="itemBrand" className="block text-gray-700 font-medium mb-2">
+              Item Brand
+            </label>
+            <input
+              type="text"
+              id="itemBrand"
+              name="itemBrand"
+              value={itemBrand}
+              onChange={handleInputChange}
+              className="w-full border border-gray-300 p-2 rounded-lg"
+            />
+          </div>
+          <div>
+            <label htmlFor="category" className="block text-gray-700 font-medium mb-2">
+              Item Category
+            </label>
+            <input
+              type="text"
+              id="category"
+              name="category"
+              value={category}
+              onChange={handleInputChange}
+              className="w-full border border-gray-300 p-2 rounded-lg"
+            />
+          </div>
+          <div>
+            <label htmlFor="quantity" className="block text-gray-700 font-medium mb-2">
+              Item Quantity
+            </label>
+            <input
+              type="number"
+              id="quantity"
+              name="quantity"
+              value={quantity === '' ? '' : String(quantity)}
+              onChange={handleInputChange}
+              className="w-full border border-gray-300 p-2 rounded-lg"
+            />
+          </div>
+          <div>
+            <button
+              type="submit"
+              className="w-full rounded-lg bg-primaryAccent px-4 py-2 text-black font-medium uppercase hover:bg-primary"
+            >
+              Update
+            </button>
+          </div>
+        </form>
       </div>
-    );
-  // };
-}
+    </div>
+  );
+};
 
-export default UpdateItems;
-
-
-
-
+export default UpdateItemForm;

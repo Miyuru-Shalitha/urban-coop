@@ -83,7 +83,7 @@ const App = () => {
           fill="#8884d8"
           dataKey="value"
         >
-          {pieChartData.map((entry, index) => (
+          {pieChartData.map((_entry, index) => (
             <Cell key={`cell-${index}`} fill={COLORS[index % COLORS.length]} />
           ))}
         </Pie>

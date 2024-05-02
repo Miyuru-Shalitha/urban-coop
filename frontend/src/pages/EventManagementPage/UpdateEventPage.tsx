@@ -1,5 +1,5 @@
 import { useParams } from "react-router-dom";
-import {useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import axios from 'axios';
 import toast from "react-hot-toast";
 import { useNavigate } from "react-router-dom";
@@ -40,8 +40,8 @@ const UpdateEvent = () => {
     formData.append('maxAttendance', Event.maxParticipation);
     formData.append('description', Event.description);
     try {
-      await axios.put(`http://localhost:5000/api/events/${id}`,formData);
-    
+      await axios.put(`http://localhost:5000/api/events/${id}`, formData);
+
       toast.success('Event updated successfully!', { position: "top-right" });
       Navigate("/admin/event-dashboard")
     } catch (error) {
@@ -53,11 +53,11 @@ const UpdateEvent = () => {
     const fetchData = async () => {
       const response = await axios.get(`http://localhost:5000/api/events/${id}`);
       SetEvent(response.data);
-     
+
     };
     fetchData();
   }, []);
- 
+
   return (
 
     <div className="flex justify-center items-center h-screen w-full m-4 font-sans">
@@ -85,7 +85,7 @@ const UpdateEvent = () => {
               <input
                 type="date"
                 name="date"
-                id="date"
+                id="da+te"
                 value={Event.date}
                 onChange={handleInputChange}
                 className="appearance-none border rounded-md w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline text-sm"

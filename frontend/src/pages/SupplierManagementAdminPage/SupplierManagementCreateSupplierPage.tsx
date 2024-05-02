@@ -4,23 +4,23 @@ import { FormEvent, useState } from "react";
 import { useNavigate } from "react-router-dom";
 
 export default function SupplierManagementCreateSupplierPage() {
-
-    const [supplierData, setSupplierData] = useState({
-        supplierID: "",
-        name: "",
-        phoneNumber: "",
-        email: "",
-        address: "",
-        category: "",
-    })
-    
+ 
     const navigate = useNavigate();
+    const [supplierData, setSupplierData] = useState({
+        supplierID: '',
+        name: '',
+        phoneNumber: '',
+        email: '',
+        address: '',
+        category: '',
+    });
+   
 
     const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
         e.preventDefault();
-        // console.log(supplierData);
+        console.log(supplierData);
         try {
-            const response = await axios.post("http://localhost:5000/api/suppliers/create",{
+            const response = await axios.post("http://localhost:5000/api/suppliers/",{
                 supplierID: supplierData.supplierID,
                 name: supplierData.name,
                 phoneNumber: supplierData.phoneNumber,
@@ -28,9 +28,9 @@ export default function SupplierManagementCreateSupplierPage() {
                 address: supplierData.address,
                 category: supplierData.category,
             });
-
+            console.log();
             if(response.status === 201) {
-                navigate("/admin/supplier-management/Check");
+                navigate("/admin/supplier-management/supplier");
             }
 
         } catch (error) {
@@ -43,8 +43,7 @@ export default function SupplierManagementCreateSupplierPage() {
             ADD SUPPLIER
             <div className="max-w-md mx-auto bg-white shadow-md rounded px-8 py-6">
                 <h2 className="text-xl font-bold mb-4">Add Supplier</h2>
-                <form
-                    onSubmit={handleSubmit}>
+                <form onSubmit={handleSubmit}>
                     <div className="mb-4">
                         <label className="block text-gray-700 text-sm font-bold mb-2" >
                             Supplier ID

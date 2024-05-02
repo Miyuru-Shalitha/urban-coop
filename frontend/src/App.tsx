@@ -12,12 +12,16 @@ import UpdateEvent from "./pages/EventManagementPage/UpdateEventPage";
 import EmployeeManagementEmployeesAdminPage from "./pages/EmployeeManagementAdminPage/EmployeeManagementEmployeesAdminPage";
 import EmployeeManagementRolesAdminPage from "./pages/EmployeeManagementAdminPage/EmployeeManagementRolesPage";
 import EmployeeManagementSalaryPage from "./pages/EmployeeManagementAdminPage/EmployeeManagementSalaryPage";
+
+
 import SupplierManagementAdminPage from "./pages/SupplierManagementAdminPage/SupplierManagementAdminPage";
 import SupplierManagementDashboard from "./pages/SupplierManagementAdminPage/SupplierManagementDashboard";
-// import SupplierManagementManagePage from "./pages/SupplierManagementAdminPage/SupplierManagementManagePage";
 import SupplierManagementStockReq from "./pages/SupplierManagementAdminPage/SupplierManagementStockReq";
 import SupplierManagementUpdateSupplierPage from "./pages/SupplierManagementAdminPage/SupplierManagementUpdateSupplierPage";
 import SupplierManagementCreateSupplierPage from "./pages/SupplierManagementAdminPage/SupplierManagementCreateSupplierPage";
+import SupplierManagementSupplierPage from "./pages/SupplierManagementAdminPage/SupplierManagementSupplierPage";
+
+
 import InventoryManagementPage from "./pages/InventoryManagementAdminPage/InventoryManagementAdminPage";
 import InventoryManagementDashboard from "./pages/InventoryManagementAdminPage/InventoryManagementDashboard";
 import InventoryManagementItemPage from "./pages/InventoryManagementAdminPage/InventoryManagementItemPage";
@@ -34,7 +38,6 @@ import PetDaycareBookingPage from "./pages/PetDaycareManagementPage/PetDaycareBo
 // Remove the duplicate import statement for 'PetDaycareMyBookings'
 // import PetDaycareMyBookings from "./pages/PetDaycareManagementAdminPage/PetDaycareMyBookings";
 
-import AllSupplierDetails from "./pages/SupplierManagementAdminPage/AllSupplierDetails";
 import PetDaycareMyBookings from "./pages/PetDaycareManagementPage/PetDaycareMyBookings";
 import PetDaycareBookingUpdatePage from "./pages/PetDaycareManagementPage/PetDaycareBookingUpdatePage";
 import BookingTable from "./pages/PetDaycareManagementAdminPage/BookingTable";
@@ -47,6 +50,7 @@ import EmployeeProfileLayout from "./components/EmployeeProfileLayout";
 import EmployeeLogInPage from "./pages/EmployeeLogInPage";
 import InventoryManagementUpdatePage from "./pages/InventoryManagementAdminPage/InventoryManagementUpdatePage";
 import InventoryReport from "./pages/InventoryManagementAdminPage/InventoryReport";
+
 
 export default function App() {
   return (
@@ -124,7 +128,7 @@ export default function App() {
             element={<InventoryManagementCreateItemsPage />}
           />
           <Route
-            path="inventory-management/item-update"
+            path="inventory-management/item/item-update/:id"
             element={<InventoryManagementUpdatePage />}
           />
 
@@ -181,6 +185,11 @@ export default function App() {
           {/* income */}
           {/* expense */}
 
+
+
+
+
+
           {/* Supplier Management Routes */}
           <Route
             path="supplier-management"
@@ -192,10 +201,10 @@ export default function App() {
             element={<SupplierManagementDashboard />}
           />
 
-          {/* <Route
-            path="supplier-management/manage-suppliers"
-            element={<SupplierManagementManagePage />}
-          /> */}
+          <Route
+            path="supplier-management/suppliers"
+            element={<SupplierManagementSupplierPage/>}
+          />
 
           <Route
             path="supplier-management/create-suppliers"
@@ -216,16 +225,19 @@ export default function App() {
             path="supplier-management/stock-requests"
             element={<SupplierManagementStockReq />}
           />
-
-          <Route
-            path="supplier-management/allsup"
-            element={<AllSupplierDetails />}
-          />
+        
 
           <Route
             path="supplier-management/allsup/:id"
             element={<SupplierManagementUpdateSupplierPage />}
           />
+
+
+
+
+
+
+
 
           {/* feedback dashboard */}
           <Route

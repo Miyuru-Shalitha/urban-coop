@@ -36,103 +36,84 @@ export default function InventoryManagementCreateItemsPage() {
   };
 
   return (
-    <div>
-      INVENTORY MANAGEMENT CREATE ITEM
-      <div className="max-w-md mx-auto bg-white shadow-md rounded px-8 py-6">
-        <h2 className="text-xl font-bold mb-4">Create Item</h2>
-        <form onSubmit={handleSubmit}>
-          <div className="mb-4">
-            <label
-              className="block text-gray-700 text-sm font-bold mb-2"
-              htmlFor="itemCode"
-            >
+    <div className="flex flex-col items-center justify-center h-screen bg-gray-100 font-sans">
+      <div className="bg-white p-8 rounded-lg shadow-md w-96">
+        <h1 className="text-2xl font-bold mb-4">Create Item</h1>
+        <form onSubmit={handleSubmit} className="space-y-4">
+          <div>
+            <label htmlFor="itemCode" className="block text-gray-700 font-medium mb-2">
               Item Code
             </label>
             <input
-              className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
               type="text"
-              placeholder=" Enter Item Code"
+              id="itemCode"
+              name="itemCode"
               value={itemData.itemCode}
-              onChange={(e) =>
-                setItemData({ ...itemData, itemCode: e.target.value })
-              }
+              onChange={(e) => setItemData({ ...itemData, itemCode: e.target.value })}
+              className="w-full border border-gray-300 p-2 rounded-lg"
+              placeholder="Enter Item Code"
             />
           </div>
-          <div className="mb-4">
-            <label
-              className="block text-gray-700 text-sm font-bold mb-2"
-              htmlFor="itemCode"
-            >
+          <div>
+            <label htmlFor="itemName" className="block text-gray-700 font-medium mb-2">
               Item Name
             </label>
             <input
-              className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
               type="text"
-              placeholder=" Enter Item Name"
+              id="itemName"
+              name="itemName"
               value={itemData.itemName}
-              onChange={(e) =>
-                setItemData({ ...itemData, itemName: e.target.value })
-              }
+              onChange={(e) => setItemData({ ...itemData, itemName: e.target.value })}
+              className="w-full border border-gray-300 p-2 rounded-lg"
+              placeholder="Enter Item Name"
             />
           </div>
-          <div className="mb-4">
-            <label
-              className="block text-gray-700 text-sm font-bold mb-2"
-              htmlFor="itemCode"
-            >
+          <div>
+            <label htmlFor="itemBrand" className="block text-gray-700 font-medium mb-2">
               Item Brand
             </label>
             <input
-              className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
               type="text"
-              placeholder=" Enter Item Brand"
+              id="itemBrand"
+              name="itemBrand"
               value={itemData.itemBrand}
-              onChange={(e) =>
-                setItemData({ ...itemData, itemBrand: e.target.value })
-              }
+              onChange={(e) => setItemData({ ...itemData, itemBrand: e.target.value })}
+              className="w-full border border-gray-300 p-2 rounded-lg"
+              placeholder="Enter Item Brand"
             />
           </div>
-          <div className="mb-4">
-            <label
-              className="block text-gray-700 text-sm font-bold mb-2"
-              htmlFor="itemCode"
-            >
+          <div>
+            <label htmlFor="category" className="block text-gray-700 font-medium mb-2">
               Item Category
             </label>
             <input
-              className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
               type="text"
-              placeholder=" Enter Item Category"
+              id="category"
+              name="category"
               value={itemData.category}
-              onChange={(e) =>
-                setItemData({ ...itemData, category: e.target.value })
-              }
+              onChange={(e) => setItemData({ ...itemData, category: e.target.value })}
+              className="w-full border border-gray-300 p-2 rounded-lg"
+              placeholder="Enter Item Category"
             />
           </div>
-          <div className="mb-4">
-            <label
-              className="block text-gray-700 text-sm font-bold mb-2"
-              htmlFor="itemCode"
-            >
+          <div>
+            <label htmlFor="quantity" className="block text-gray-700 font-medium mb-2">
               Item Quantity
             </label>
             <input
-              className="shadow appearance-none border rounded w-full py-2 px-3
-               text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
               type="text"
-              placeholder=" Enter Item Quantity"
+              id="quantity"
+              name="quantity"
               value={itemData.quantity}
-              onChange={(e) =>
-                setItemData({ ...itemData, quantity: e.target.value })
-              }
+              onChange={(e) => setItemData({ ...itemData, quantity: e.target.value })}
+              className="w-full border border-gray-300 p-2 rounded-lg"
+              placeholder="Enter Item Quantity"
             />
           </div>
-          <div className="flex items-center justify-between">
+          <div>
             <button
-              className="bg-yellow-600 hover:bg-yellow-700
-               text-white py-2 px-4 rounded focus:outline-none focus:shadow-outline"
-              // onClick={() => {}}
               type="submit"
+              className="w-full rounded-lg bg-primaryAccent px-4 py-2 text-black font-medium uppercase hover:bg-primary"
             >
               Add Item
             </button>
@@ -141,4 +122,5 @@ export default function InventoryManagementCreateItemsPage() {
       </div>
     </div>
   );
+  
 }

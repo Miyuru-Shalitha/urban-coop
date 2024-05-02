@@ -92,7 +92,7 @@ const InventoryManagement = () => {
                     className="bg-secondary text-white py-2 px-4 rounded-md">
                       Delete
                     </button>
-                    <Link to={`/admin/inventory-management/item-update`}>
+                    <Link to={`item-update/`+item._id}>
 
                       <button className="bg-primary text-white py-2 px-4 rounded-md ml-2">
                         Edit
