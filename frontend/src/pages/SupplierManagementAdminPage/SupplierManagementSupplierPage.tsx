@@ -4,8 +4,11 @@ import { Link } from "react-router-dom";
 import toast from 'react-hot-toast';
 import { Document, Page, Text, View, PDFDownloadLink } from '@react-pdf/renderer';
 import { useNavigate } from "react-router-dom";
+import mongoose from 'mongoose';
+
 
 interface Supplier {
+    _id: mongoose.Types.ObjectId;
     supplierId: string;
     name: string;
     phoneNumber: string;
@@ -49,9 +52,9 @@ export default function AllSupplierDetails() {
         }
     };
 
-    const handleEdit = (supplierId: string) => {
+    const handleEdit = (_id: string )=> {
         // Redirect to the edit page with the supplierId
-        navigate(`/admin/supplier-management/update-supplier/${supplierId}`);    
+        navigate(`/admin/supplier-management/suppliers/update/${_id}`);    
     };
 
     const supplierCount = suppliers.length;
@@ -127,7 +130,7 @@ export default function AllSupplierDetails() {
                         </thead>
                         <tbody>
                             {filteredSuppliers.map((supplier) => (
-                                <tr key={supplier.supplierId}>
+                                <tr key={supplier._id}>
                                     <td className="border px-4 py-2">{supplier.supplierId}</td>
                                     <td className="border px-4 py-2">{supplier.name}</td>
                                     <td className="border px-4 py-2">{supplier.phoneNumber}</td>
@@ -137,10 +140,16 @@ export default function AllSupplierDetails() {
                                     <td className="border px-4 py-2 flex">
                                         <button
                                             className="bg-primary text-white hover:bg-black py-1 px-3 rounded-md transition-colors duration-300 ease-in-out focus:outline-none focus:ring-2 focus:ring-red-400 mr-2"
-                                            onClick={() => handleEdit(supplier.supplierId)}
+                                            onClick={() => handleEdit(supplier._id)}
                                         >
                                             Edit
                                         </button>
+
+                                        {/* <Link to={`update/${supplier._id}`} className="bg-primaryAccent text-black px-3 py-1 rounded">
+                        <i className="fas fa-pencil-alt"></i>
+                      </Link> */}
+
+
                                         <button
                                             className="bg-secondary text-white hover:bg-black py-1 px-3 rounded-md transition-colors duration-300 ease-in-out focus:outline-none focus:ring-2 focus:ring-red-400"
                                             onClick={() => handleDelete(supplier.supplierId)}

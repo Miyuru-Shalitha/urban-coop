@@ -10,12 +10,17 @@ import employeeAuthRoute from "../routes/employeeAuth.route";
 import roleRoute from "../routes/role.route";
 import bookingRoute from "../routes/booking.route";
 
+
 import eventRoute from "../routes/Event.route";
 import regroute from "../routes/eventRegister.route";
+
+import itemRoute from "../routes/item.route";
 
 import supplierRoute from "../routes/supplier.route";
 import register from "../routes/UserRegister.route"
 import login from "../routes/userLogin.route"
+import feedbackRoutes from "../routes/feedbackRoutes";
+
 
 const app = express();
 const port = process.env.PORT!;
@@ -48,9 +53,13 @@ app.use("/api/reg", regroute);
 app.use("/api/events",eventRoute);
 app.use("/api/reg",regroute);
 
+
+app.use("/api/items",itemRoute);
 app.use("/api/suppliers", supplierRoute);
 
 app.use("/api/bookings",bookingRoute);
+
+app.use('/api/feedback', feedbackRoutes);
 
 app.use("/api/register",register);
 app.use("/api",login);
