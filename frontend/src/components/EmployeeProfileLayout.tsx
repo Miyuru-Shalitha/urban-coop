@@ -1,8 +1,8 @@
 import { useEffect, useState } from "react";
-import ProtectedDiv from "../components/ProtectedDiv";
 import { Outlet, useNavigate } from "react-router-dom";
 import Footer from "./Footer/Footer";
 import AdminTopbar from "./AdminLayout/AdminTopbar";
+import ProtectedEmployeeDiv from "./ProtectedEmployeeDiv";
 
 interface BaseItem {
   onClick: (index: number) => void;
@@ -35,7 +35,7 @@ export default function EmployeeProfileLayout() {
   }, []);
 
   return (
-    <ProtectedDiv className="bg-surface">
+    <ProtectedEmployeeDiv className="bg-surface">
       <AdminTopbar />
 
       <div className="h-screen flex">
@@ -56,7 +56,7 @@ export default function EmployeeProfileLayout() {
       </div>
 
       <Footer />
-    </ProtectedDiv>
+    </ProtectedEmployeeDiv>
   );
 }
 

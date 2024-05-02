@@ -1,17 +1,6 @@
 import axios from "axios";
 
-interface Employee {
-  _id: string;
-  employeeId: string;
-  firstName: string;
-  lastName: string;
-  email: string;
-  address: string;
-  dateJoined: string;
-  roleId: string;
-}
-
-const getEmployees = async (): Promise<Employee[] | null> => {
+const getEmployees = async (): Promise<any> => {
   try {
     const response = await axios.get("http://localhost:5000/api/employees", {
       withCredentials: true,
@@ -26,7 +15,7 @@ const getEmployees = async (): Promise<Employee[] | null> => {
   return null;
 };
 
-const getEmployeeById = async (id: string): Promise<Employee | null> => {
+const getEmployeeById = async (id: string): Promise<any> => {
   try {
     const response = await axios.get(
       "http://localhost:5000/api/employees/" + id,
@@ -118,7 +107,6 @@ const deleteEmployeeById = async (id: string): Promise<boolean> => {
 };
 
 export {
-  type Employee,
   getEmployees,
   getEmployeeById,
   createEmployee,

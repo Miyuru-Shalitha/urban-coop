@@ -8,6 +8,7 @@ import {
 import { getRoles, Role } from "../../services/roleService";
 import OutlinedButton from "../../components/Common/OutlinedButton";
 import RoleUpdatePopUp from "../../components/RoleUpdatePopUp";
+import ProtectedEmployeeDiv from "../../components/ProtectedEmployeeDiv";
 // import FilledButton from "../../components/Common/FilledButton";
 
 export default function EmployeeManagementRolesAdminPage() {
@@ -50,7 +51,6 @@ export default function EmployeeManagementRolesAdminPage() {
         <table className="border-2">
           <thead>
             <TableHeaderRow>
-              <TableHeaderColumn>Role ID</TableHeaderColumn>
               <TableHeaderColumn>Role</TableHeaderColumn>
               <TableHeaderColumn>Base Salary</TableHeaderColumn>
               <TableHeaderColumn>Controls</TableHeaderColumn>
@@ -60,7 +60,6 @@ export default function EmployeeManagementRolesAdminPage() {
           <tbody>
             {roles.map((role, index) => (
               <TableRow key={role._id} rowIndex={index}>
-                <TableColumn>{role._id}</TableColumn>
                 <TableColumn>{role.name}</TableColumn>
                 <TableColumn>{`Rs.${role.baseSalary.toString()}.00`}</TableColumn>
                 <TableColumn>

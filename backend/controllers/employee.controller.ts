@@ -9,7 +9,26 @@ import bcrypt from "bcrypt";
 
 const getEmployees = async (req: Request, res: Response) => {
   try {
-    const employees = await Employee.find({}).exec();
+    const employees = await Employee.aggregate([
+      {
+        $lookup: {
+          from: "roles",
+          localField: "roleId",
+          foreignField: "_id",
+          as: "role",
+        },
+      },
+      {
+        $unwind: {
+          path: "$role",
+        },
+      },
+      {
+        $project: {
+          password: 0,
+        },
+      },
+    ]);
     return res.status(200).json(employees);
   } catch (error: any) {
     return res.status(500).json({ message: error.message });
@@ -66,6 +85,11 @@ const createEmployee = async (req: Request, res: Response) => {
 };
 
 const updateEmployee = async (req: Request, res: Response) => {
+  console.log("============================");
+  console.log("============================");
+  console.log("============================");
+  console.log("============================");
+  console.log("============================");
   const { id } = req.params;
   const { firstName, lastName, email, address, roleId } = req.body;
 

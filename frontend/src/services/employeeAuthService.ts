@@ -26,6 +26,7 @@ interface EmployeeCredentials {
   firstName: string;
   lastName: string;
   email: string;
+  role: string;
 }
 
 const logInEmployee = async (

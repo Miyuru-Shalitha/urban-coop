@@ -1,7 +1,6 @@
 import { useEffect, useState } from "react";
 import {
   deleteEmployeeById,
-  Employee,
   getEmployees,
   updateEmployee,
 } from "../../services/employeeService";
@@ -20,8 +19,7 @@ import { getRoleById, Role } from "../../services/roleService";
 import InputField from "../../components/Common/InputField";
 
 export default function EmployeeManagementEmployeesAdminPage() {
-  const [employees, setEmployees] = useState<Employee[]>([]);
-  const [roles, setRoles] = useState<(Role | null)[]>([]);
+  const [employees, setEmployees] = useState<any[]>([]);
   const [showEmployeeCreationPopUp, setShowEmployeeCreationPopUp] =
     useState(false);
   const [employeeIdForUpdating, setEmployeeIdForUpdating] = useState<
@@ -36,25 +34,13 @@ export default function EmployeeManagementEmployeesAdminPage() {
     }
   }, [showEmployeeCreationPopUp, employeeIdForUpdating]);
 
-  useEffect(() => {
-    fetchRoles();
-  }, [employees]);
-
   const fetchEmployees = async () => {
     setIsLoading(true);
-    const employees = await getEmployees();
-    if (employees) {
-      setEmployees(employees);
+    const fetchedEmployees = await getEmployees();
+    if (fetchedEmployees) {
+      setEmployees(fetchedEmployees);
     }
     setIsLoading(false);
-  };
-
-  const fetchRoles = async () => {
-    const employeeRolePromises = employees.map((employee) =>
-      getRoleById(employee.roleId)
-    );
-    const employeeRoles = await Promise.all(employeeRolePromises);
-    setRoles(employeeRoles);
   };
 
   const handleClickDeleteEmployee = async (id: string) => {
@@ -74,7 +60,7 @@ export default function EmployeeManagementEmployeesAdminPage() {
   };
 
   return (
-    <ProtectedEmployeeDiv className="flex-1">
+    <div className="flex-1">
       <div className="p-4">
         <InputField
           label="Search"
@@ -137,7 +123,7 @@ export default function EmployeeManagementEmployeesAdminPage() {
                 ).getMonth()} / ${new Date(
                   employee.dateJoined
                 ).getFullYear()}`}</TableColumn>
-                <TableColumn>{roles[index]?.name}</TableColumn>
+                <TableColumn>{employee.role.name}</TableColumn>
                 <TableColumn>
                   <div className="flex gap-2">
                     <OutlinedButton
@@ -159,6 +145,6 @@ export default function EmployeeManagementEmployeesAdminPage() {
           </tbody>
         </table>
       </div>
-    </ProtectedEmployeeDiv>
+    </div>
   );
 }

@@ -39,6 +39,7 @@ app.use(cookieParser());
 
 // Routes
 app.use("/api/auth", authRoute);
+
 app.use("/api/employee-auth", employeeAuthRoute);
 app.use("/api/employees", employeeRoute);
 app.use("/api/roles", roleRoute);

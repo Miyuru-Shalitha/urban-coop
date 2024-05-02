@@ -6,12 +6,13 @@ import {
   useState,
 } from "react";
 
-interface Employee {
+export interface Employee {
   _id: string;
   employeeId: string;
   firstName: string;
   lastName: string;
   email: string;
+  role: string;
 }
 
 export interface EmployeeContextType {
@@ -34,6 +35,7 @@ export default function EmployeeAuthContextProvider({
     firstName: "",
     lastName: "",
     email: "",
+    role: "",
   });
 
   return (

@@ -1,10 +1,10 @@
 import { Router } from "express";
 import { logInEmployee } from "../controllers/employeeAuth.controller";
-import employeeAuth from "../middlewares/employeeAuth.middleware";
+// import employeeVerifyAuthToken from "../middlewares/employeeVerifyAuthToken.middleware";
 
 const router = Router();
 
-router.get("/", employeeAuth);
-router.post("/", employeeAuth, logInEmployee);
+// router.get("/", employeeVerifyAuthToken);
+router.post("/", logInEmployee);
 
 export default router;

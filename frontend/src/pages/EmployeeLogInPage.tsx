@@ -1,11 +1,12 @@
-import { FormEvent, useContext, useEffect, useState } from "react";
+import { FormEvent, useContext, useState } from "react";
 import FilledButton from "../components/Common/FilledButton";
 import InputField from "../components/Common/InputField";
 import Footer from "../components/Footer/Footer";
 import { logInEmployee } from "../services/employeeAuthService";
-import { useNavigate } from "react-router-dom";
 import { EmployeeAuthContext } from "../context/EmployeeAuthContextProvider";
 import toast from "react-hot-toast";
+import Cookies from "js-cookie";
+import ProtectedEmployeeDiv from "../components/ProtectedEmployeeDiv";
 
 export default function EmployeeLogInPage() {
   const [logInData, setLogInData] = useState({
@@ -13,13 +14,6 @@ export default function EmployeeLogInPage() {
     password: "",
   });
   const context = useContext(EmployeeAuthContext);
-  const navigate = useNavigate();
-
-  useEffect(() => {
-    if (context?.employeeCredential.employeeId) {
-      navigate("/admin");
-    }
-  }, [context?.employeeCredential.employeeId]);
 
   const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
@@ -27,6 +21,7 @@ export default function EmployeeLogInPage() {
 
     if (employee) {
       toast.success("Log in successful", { duration: 1000 });
+
       setTimeout(() => {
         context?.setEmployeeCredential({
           _id: employee._id,
@@ -34,15 +29,18 @@ export default function EmployeeLogInPage() {
           firstName: employee.firstName,
           lastName: employee.lastName,
           email: employee.email,
+          role: employee.role,
         });
       }, 1200);
+
+      Cookies.set("employee", JSON.stringify(employee));
     } else {
       toast.error("Something went wrong!", { duration: 1000 });
     }
   };
 
   return (
-    <div>
+    <ProtectedEmployeeDiv>
       <div className="bg-surface h-screen flex justify-center items-center">
         <div className="bg-white w-1/3 border-2 p-12 rounded">
           <form className="flex flex-col gap-4" onSubmit={handleSubmit}>
@@ -71,6 +69,6 @@ export default function EmployeeLogInPage() {
       </div>
 
       <Footer />
-    </div>
+    </ProtectedEmployeeDiv>
   );
 }
