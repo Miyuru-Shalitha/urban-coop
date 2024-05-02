@@ -1,35 +1,51 @@
 import { useParams } from "react-router-dom";
-import {useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import axios from 'axios';
 import toast from "react-hot-toast";
 import { useNavigate } from "react-router-dom";
 
+interface Event {
+  title: string;
+  date: string;
+  time: string;
+  location: string;
+  image: File | string;
+  maxParticipation: number;
+  description: string;
+}
 
 const UpdateEvent = () => {
   const Navigate = useNavigate();
   const { id } = useParams();
-  const [Event, SetEvent] = useState({
+  const [Event, SetEvent] = useState<Event>({
     title: '',
     date: '',
     time: '',
     location: '',
     image: '',
-    maxParticipation: '',
+    maxParticipation: 0,
     description: '',
   });
-  const handleInputChange = (e: any) => {
-    SetEvent({
-      ...Event,
-      [e.target.name]: e.target.value,
-    });
-  }
+
+  const handleInputChange = (e:any) => {
+    const { name, value } = e.target;
+    SetEvent(prevEvent => ({
+      ...prevEvent,
+      [name]: value,
+    }));
+  };
+  
   const changeImageHandler = (e: any) => {
-    SetEvent({
-      ...Event,
-      image: e.target.files[0],
-    });
-  }
-  const handleSubmit = async (e: any) => {
+    if (e.target.files && e.target.files.length > 0) {
+      SetEvent(prevEvent => ({
+        ...prevEvent,
+        image: e.target.files[0],
+      }));
+    }
+  };
+  
+
+  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     const formData = new FormData();
     formData.append('title', Event.title);
@@ -43,7 +59,7 @@ const UpdateEvent = () => {
       await axios.put(`http://localhost:5000/api/events/${id}`,formData);
     
       toast.success('Event updated successfully!', { position: "top-right" });
-      Navigate("/admin/event-dashboard")
+      Navigate("/admin/event-dashboard");
     } catch (error) {
       console.error('Error updating event:', error);
       toast.error('Something went wrong!');
@@ -57,7 +73,7 @@ const UpdateEvent = () => {
     };
     fetchData();
   }, []);
- 
+
   return (
 
     <div className="flex justify-center items-center h-screen w-full m-4 font-sans">
@@ -85,7 +101,7 @@ const UpdateEvent = () => {
               <input
                 type="date"
                 name="date"
-                id="date"
+                id="da+te"
                 value={Event.date}
                 onChange={handleInputChange}
                 className="appearance-none border rounded-md w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline text-sm"
@@ -118,6 +134,11 @@ const UpdateEvent = () => {
               className="appearance-none border rounded-md w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline text-sm"
             />
           </div>
+          <img
+        src={`http://localhost:5000/${Event.image}`}
+        alt="Registration Image"
+        className="mt-4 w-64 h-auto"
+      />
           <div className="mb-4">
             <label htmlFor="image" className="block text-gray-700 font-bold mb-2">
               Event Image

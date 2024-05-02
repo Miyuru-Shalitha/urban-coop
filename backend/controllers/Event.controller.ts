@@ -56,17 +56,32 @@ const updateEventById = async (req: Request, res: Response) => {
   try {
     const id = req.params.id;
 
-    const eventdata = await Event.findById(id);
-    if(!eventdata) {
-      res.status(400).json({ message: 'No event found' });
+    const eventData = await Event.findById(id);
+    if (!eventData) {
+      return res.status(404).json({ message: 'Event not found' });
     }
-    const updatedata = await Event.findByIdAndUpdate(id,req.body,{new:true});
-    res.status(200).json(updatedata); 
 
+    console.log(req.body);
+    const updateFields = { ...req.body };
+
+   console.log(updateFields);
+    delete updateFields._id;
+
+    if (req.file) {
+      updateFields.image = req.file.path;
+    }
+    const updatedEvent = await Event.findByIdAndUpdate(id, updateFields, { new: true });
+
+    if (!updatedEvent) {
+      return res.status(500).json({ message: 'Error updating event' });
+    }
+
+    res.status(200).json(updatedEvent);
   } catch (error) {
-    res.status(500).json({ error: error })
+    console.error('Error updating event:', error);
+    res.status(500).json({ error: 'Internal server error' });
   }
-}
+};
 //Delete event by id
 const deleteEventById = async (req: Request, res: Response) => {
   try {

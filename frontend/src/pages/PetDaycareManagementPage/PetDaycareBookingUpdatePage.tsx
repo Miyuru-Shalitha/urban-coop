@@ -26,7 +26,7 @@ const PetDaycareBookingUpdatePage = () => {
                 const response = await axios.get(`http://localhost:5000/api/bookings/${id}`);
                 
                 // Extract date in YYYY-MM-DD format from ISO 8601 format
-                const formatDate = (dateString) => {
+                const formatDate = (dateString: string | number | Date) => {
                     const date = new Date(dateString);
                     const year = date.getFullYear();
                     const month = String(date.getMonth() + 1).padStart(2, '0');

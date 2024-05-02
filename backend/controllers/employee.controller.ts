@@ -4,6 +4,7 @@ import connect from "../config/db.config";
 import Employee from "../models/employee.model";
 import Role from "../models/role.model";
 import bcrypt from "bcrypt";
+import mongoose from "mongoose";
 
 // connect();
 
@@ -38,13 +39,42 @@ const getEmployees = async (req: Request, res: Response) => {
 const getEmployee = async (req: Request, res: Response) => {
   try {
     const { id } = req.params;
-    const employee = await Employee.findById(id);
+    const foundEmployees = await Employee.aggregate([
+      {
+        $match: {
+          _id: new mongoose.Types.ObjectId(id),
+        },
+      },
+      {
+        $lookup: {
+          from: "roles",
+          localField: "roleId",
+          foreignField: "_id",
+          as: "role",
+        },
+      },
+      {
+        $unwind: {
+          path: "$role",
+        },
+      },
+      {
+        $project: {
+          password: 0,
+        },
+      },
+      {
+        $limit: 1,
+      },
+    ]);
 
-    if (!employee) {
+    const foundEmployee = foundEmployees[0];
+
+    if (!foundEmployee) {
       return res.status(404).json({ message: "Employee not found." });
     }
 
-    return res.status(200).json(employee);
+    return res.status(200).json(foundEmployee);
   } catch (error: any) {
     return res.status(500).json({ message: error.message });
   }

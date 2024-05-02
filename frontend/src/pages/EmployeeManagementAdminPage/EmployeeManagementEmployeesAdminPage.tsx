@@ -61,14 +61,14 @@ export default function EmployeeManagementEmployeesAdminPage() {
 
   return (
     <div className="flex-1">
-      <div className="p-4">
+      {/* <div className="p-4">
         <InputField
           label="Search"
           type="text"
           value={search}
           onChange={handleSearch}
         />
-      </div>
+      </div> */}
 
       {showEmployeeCreationPopUp && (
         <EmployeeCreationPopUp

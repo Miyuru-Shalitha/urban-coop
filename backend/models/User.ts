@@ -25,9 +25,9 @@ const userSchema = new mongoose.Schema({
 });
 
 // Add method to generate auth token to the user schema
-userSchema.methods.generateAuthToken = function() {
+userSchema.methods.generateAuthToken = function () {
 
-  
+
   const token = jwt.sign(
     {
       _id: this._id,
@@ -37,9 +37,9 @@ userSchema.methods.generateAuthToken = function() {
   );
   return token;
 };
-const User = mongoose.model("user",userSchema);
+const User = mongoose.model("user", userSchema);
 // Define validation function
-const validateUser = (data:any) => {
+const validateUser = (data: any) => {
   const schema = joi.object({
     firstName: joi.string().required().label('First Name'),
     lastName: joi.string().required().label('Last Name'),
@@ -49,4 +49,4 @@ const validateUser = (data:any) => {
   return schema.validate(data);
 };
 
-module.exports={User,validateUser}
+module.exports = { User, validateUser }

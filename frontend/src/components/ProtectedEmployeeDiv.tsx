@@ -5,6 +5,7 @@ import {
   EmployeeContextType,
 } from "../context/EmployeeAuthContextProvider";
 import Cookies from "js-cookie";
+import { handleAdminRouteNavigation } from "../routes/routes";
 
 export default function ProtectedEmployeeDiv({
   children,
@@ -37,32 +38,8 @@ export default function ProtectedEmployeeDiv({
   }, []);
 
   useEffect(() => {
-    console.log(context?.employeeCredential);
-    switch (context?.employeeCredential.role) {
-      // case "Dary Care Manager":
-      //   navigate("/admin/day-care-management");
-      //   break;
-      // case "Event Manager":
-      //   navigate("/admin/event-management");
-      //   break;
-      // case "Supplier Manager":
-      //   navigate("/admin/supplier-management");
-      //   break;
-      // case "Inventory Manager":
-      //   navigate("/admin/inventory-management");
-      //   break;
-      // case "Feedback Manager":
-      //   navigate("/admin/feedback-management");
-      //   break;
-      // case "Adoption Manager":
-      //   navigate("/admin/event-management");
-      //   break;
-      // case "Finance Manager":
-      //   navigate("/admin/finanace-management");
-      //   break;
-      case "Employee Manager":
-        navigate("/admin/employee-management");
-        break;
+    if (context) {
+      handleAdminRouteNavigation(context.employeeCredential.role, navigate);
     }
   }, [context?.employeeCredential]);
 

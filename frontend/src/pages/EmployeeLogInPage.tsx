@@ -1,4 +1,4 @@
-import { FormEvent, useContext, useState } from "react";
+import { FormEvent, useContext, useEffect, useState } from "react";
 import FilledButton from "../components/Common/FilledButton";
 import InputField from "../components/Common/InputField";
 import Footer from "../components/Footer/Footer";
@@ -7,6 +7,8 @@ import { EmployeeAuthContext } from "../context/EmployeeAuthContextProvider";
 import toast from "react-hot-toast";
 import Cookies from "js-cookie";
 import ProtectedEmployeeDiv from "../components/ProtectedEmployeeDiv";
+import { useNavigate } from "react-router-dom";
+import { handleAdminRouteNavigation } from "../routes/routes";
 
 export default function EmployeeLogInPage() {
   const [logInData, setLogInData] = useState({
@@ -14,6 +16,33 @@ export default function EmployeeLogInPage() {
     password: "",
   });
   const context = useContext(EmployeeAuthContext);
+  const navigate = useNavigate();
+
+  useEffect(() => {
+    if (!context?.employeeCredential.employeeId) {
+      const employeeCookieString = Cookies.get("employee");
+
+      if (employeeCookieString) {
+        const employee = JSON.parse(employeeCookieString);
+        context?.setEmployeeCredential({
+          _id: employee._id,
+          employeeId: employee.employeeId,
+          firstName: employee.firstName,
+          lastName: employee.lastName,
+          email: employee.email,
+          role: employee.role,
+        });
+      } else {
+        navigate("/admin/login");
+      }
+    }
+  }, []);
+
+  useEffect(() => {
+    if (context) {
+      handleAdminRouteNavigation(context.employeeCredential.role, navigate);
+    }
+  }, [context?.employeeCredential]);
 
   const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
