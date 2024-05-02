@@ -145,7 +145,7 @@ export default function App() {
             element={<EventCreationForm />}
           />
 
-          <Route path="event-dashboard/uptadeEvent" element={<UpdateEvent />} />
+          <Route path="event-dashboard/uptadeEvent/:id" element={<UpdateEvent />} />
 
           <Route
             path="event-dashboard/uptadeEvent/:id"
@@ -163,6 +163,7 @@ export default function App() {
             path="report-generation"
             element={<EventReport />}
           />
+           
           {/* event report generation */}
 
           <Route path="allbookings" element={<BookingTable />} />

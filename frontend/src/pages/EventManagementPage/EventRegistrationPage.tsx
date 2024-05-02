@@ -110,7 +110,7 @@ const EventRegistrationForm = () => {
               placeholder="Enter your email address"
             />
           </div>
-          <div>
+          <div>a
             <label htmlFor="mobile" className="block text-gray-700 font-medium mb-2">
               Contact Number
             </label>
