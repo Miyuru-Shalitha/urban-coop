@@ -1,48 +1,75 @@
-import { FormEvent, useEffect, useState } from "react";
+import { FormEvent, useContext, useEffect, useState } from "react";
 import FilledButton from "../components/Common/FilledButton";
 import InputField from "../components/Common/InputField";
 import Footer from "../components/Footer/Footer";
 import { logInEmployee } from "../services/employeeAuthService";
-import { useDispatch, useSelector } from "react-redux";
-import { logIn } from "../store/employeeAuthSlice";
-import { RootState } from "../store/store";
+import { EmployeeAuthContext } from "../context/EmployeeAuthContextProvider";
+import toast from "react-hot-toast";
+import Cookies from "js-cookie";
+import ProtectedEmployeeDiv from "../components/ProtectedEmployeeDiv";
 import { useNavigate } from "react-router-dom";
+import { handleAdminRouteNavigation } from "../routes/routes";
 
 export default function EmployeeLogInPage() {
   const [logInData, setLogInData] = useState({
     email: "",
     password: "",
   });
-  const dispatch = useDispatch();
-  const employeeAuthState = useSelector(
-    (state: RootState) => state.employeeAuth.employee
-  );
+  const context = useContext(EmployeeAuthContext);
   const navigate = useNavigate();
 
   useEffect(() => {
-    if (employeeAuthState.isAuthenticated) {
-      navigate("/admin");
+    if (!context?.employeeCredential.employeeId) {
+      const employeeCookieString = Cookies.get("employee");
+
+      if (employeeCookieString) {
+        const employee = JSON.parse(employeeCookieString);
+        context?.setEmployeeCredential({
+          _id: employee._id,
+          employeeId: employee.employeeId,
+          firstName: employee.firstName,
+          lastName: employee.lastName,
+          email: employee.email,
+          role: employee.role,
+        });
+      } else {
+        navigate("/admin/login");
+      }
     }
-  }, [employeeAuthState]);
+  }, []);
+
+  useEffect(() => {
+    if (context) {
+      handleAdminRouteNavigation(context.employeeCredential.role, navigate);
+    }
+  }, [context?.employeeCredential]);
 
   const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     const employee = await logInEmployee(logInData.email, logInData.password);
 
     if (employee) {
-      dispatch(
-        logIn({
+      toast.success("Log in successful", { duration: 1000 });
+
+      setTimeout(() => {
+        context?.setEmployeeCredential({
           _id: employee._id,
+          employeeId: employee.employeeId,
           firstName: employee.firstName,
           lastName: employee.lastName,
           email: employee.email,
-        })
-      );
+          role: employee.role,
+        });
+      }, 1200);
+
+      Cookies.set("employee", JSON.stringify(employee));
+    } else {
+      toast.error("Something went wrong!", { duration: 1000 });
     }
   };
 
   return (
-    <div>
+    <ProtectedEmployeeDiv>
       <div className="bg-surface h-screen flex justify-center items-center">
         <div className="bg-white w-1/3 border-2 p-12 rounded">
           <form className="flex flex-col gap-4" onSubmit={handleSubmit}>
@@ -71,6 +98,6 @@ export default function EmployeeLogInPage() {
       </div>
 
       <Footer />
-    </div>
+    </ProtectedEmployeeDiv>
   );
 }

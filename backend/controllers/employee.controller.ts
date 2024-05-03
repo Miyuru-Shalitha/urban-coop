@@ -1,15 +1,33 @@
 import { Request, Response } from "express";
-// const Employee = require('../models/employee.model');
-import connect from "../config/db.config";
 import Employee from "../models/employee.model";
 import Role from "../models/role.model";
 import bcrypt from "bcrypt";
+import mongoose from "mongoose";
 
 // connect();
 
 const getEmployees = async (req: Request, res: Response) => {
   try {
-    const employees = await Employee.find({}).exec();
+    const employees = await Employee.aggregate([
+      {
+        $lookup: {
+          from: "roles",
+          localField: "roleId",
+          foreignField: "_id",
+          as: "role",
+        },
+      },
+      {
+        $unwind: {
+          path: "$role",
+        },
+      },
+      {
+        $project: {
+          password: 0,
+        },
+      },
+    ]);
     return res.status(200).json(employees);
   } catch (error: any) {
     return res.status(500).json({ message: error.message });
@@ -19,13 +37,42 @@ const getEmployees = async (req: Request, res: Response) => {
 const getEmployee = async (req: Request, res: Response) => {
   try {
     const { id } = req.params;
-    const employee = await Employee.findById(id);
+    const foundEmployees = await Employee.aggregate([
+      {
+        $match: {
+          _id: new mongoose.Types.ObjectId(id),
+        },
+      },
+      {
+        $lookup: {
+          from: "roles",
+          localField: "roleId",
+          foreignField: "_id",
+          as: "role",
+        },
+      },
+      {
+        $unwind: {
+          path: "$role",
+        },
+      },
+      {
+        $project: {
+          password: 0,
+        },
+      },
+      {
+        $limit: 1,
+      },
+    ]);
 
-    if (!employee) {
+    const foundEmployee = foundEmployees[0];
+
+    if (!foundEmployee) {
       return res.status(404).json({ message: "Employee not found." });
     }
 
-    return res.status(200).json(employee);
+    return res.status(200).json(foundEmployee);
   } catch (error: any) {
     return res.status(500).json({ message: error.message });
   }
@@ -33,7 +80,8 @@ const getEmployee = async (req: Request, res: Response) => {
 
 const createEmployee = async (req: Request, res: Response) => {
   try {
-    const { firstName, lastName, email, address, roleId } = req.body;
+    const { employeeId, firstName, lastName, email, address, roleId } =
+      req.body;
     const foundEmployee = await Employee.findOne({ email });
 
     if (foundEmployee) {
@@ -46,6 +94,7 @@ const createEmployee = async (req: Request, res: Response) => {
     const hashedPassword = await bcrypt.hash(email, salt); // Default password is also email and this is a temporary password.
 
     const newEmployee = new Employee({
+      employeeId,
       firstName,
       lastName,
       email,
@@ -53,7 +102,7 @@ const createEmployee = async (req: Request, res: Response) => {
       roleId,
       password: hashedPassword,
     });
-    newEmployee.save();
+    await newEmployee.save();
 
     return res
       .status(201)
@@ -64,6 +113,11 @@ const createEmployee = async (req: Request, res: Response) => {
 };
 
 const updateEmployee = async (req: Request, res: Response) => {
+  console.log("============================");
+  console.log("============================");
+  console.log("============================");
+  console.log("============================");
+  console.log("============================");
   const { id } = req.params;
   const { firstName, lastName, email, address, roleId } = req.body;
 

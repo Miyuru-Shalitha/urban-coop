@@ -38,6 +38,16 @@ const bookingSchema = new mongoose.Schema({
     total: {
         type: Number,
         required: true
+    },
+ 
+    paymentStatus: {
+        type: String,
+        required: true
+    },
+    approvalStatuse:{
+        type: String,
+        required: true
+    
     }
 });
 

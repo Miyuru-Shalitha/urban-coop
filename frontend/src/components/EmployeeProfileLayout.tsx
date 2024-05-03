@@ -1,8 +1,11 @@
-import { useEffect, useState } from "react";
-import ProtectedDiv from "../components/ProtectedDiv";
+import { useContext, useEffect, useState } from "react";
 import { Outlet, useNavigate } from "react-router-dom";
 import Footer from "./Footer/Footer";
 import AdminTopbar from "./AdminLayout/AdminTopbar";
+import {
+  EmployeeAuthContext,
+  EmployeeContextType,
+} from "../context/EmployeeAuthContextProvider";
 
 interface BaseItem {
   onClick: (index: number) => void;
@@ -13,8 +16,14 @@ interface BaseItem {
 export default function EmployeeProfileLayout() {
   const [items, setItems] = useState<BaseItem[]>([]);
   const [activeItemIndex, setActiveItemIndex] = useState(-1);
+  const context = useContext<EmployeeContextType | null>(EmployeeAuthContext);
+  const navigate = useNavigate();
 
   useEffect(() => {
+    if (!context?.employeeCredential.employeeId) {
+      navigate("/admin/login");
+    }
+
     setItems([
       {
         onClick: (index) => setActiveItemIndex(index),
@@ -24,7 +33,7 @@ export default function EmployeeProfileLayout() {
       {
         onClick: (index) => setActiveItemIndex(index),
         name: "Attendance",
-        route: "/admin/attendance",
+        route: "/admin/profile/attendance",
       },
       {
         onClick: (index) => setActiveItemIndex(index),
@@ -35,7 +44,7 @@ export default function EmployeeProfileLayout() {
   }, []);
 
   return (
-    <ProtectedDiv className="bg-surface">
+    <div className="bg-surface">
       <AdminTopbar />
 
       <div className="h-screen flex">
@@ -56,7 +65,7 @@ export default function EmployeeProfileLayout() {
       </div>
 
       <Footer />
-    </ProtectedDiv>
+    </div>
   );
 }
 

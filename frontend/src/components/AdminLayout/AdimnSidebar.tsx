@@ -33,8 +33,12 @@ export default function AdminSidebar() {
             route: "/admin/bookingsOverview",
           },
           {
-            name: "Pet Daycare Bookings",
+            name: "Online Bookings",
             route: "/admin/allbookings",
+          },
+          {
+            name: "Online Booking Review",
+            route: "/admin/booking-approvals",
           },
         ],
       },
@@ -117,6 +121,10 @@ export default function AdminSidebar() {
             name: "Stock Requests",
             route: "/admin/supplier-management/stock-requests",
           },
+          {
+            name: "Get Report",
+            route: "/admin/supplier-management/report",
+          }
         ],
       },
       {
@@ -127,7 +135,7 @@ export default function AdminSidebar() {
         subtitles: [
           {
             name: "Feedback",
-            route: "/admin/feedback-dashboard",
+            route: "/admin/feedbacks",
           },
         ],
       },

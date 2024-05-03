@@ -1,14 +1,19 @@
 import mongoose from "mongoose";
 
 const employeeSchema = new mongoose.Schema({
+  employeeId: {
+    type: String,
+    required: [true, "Please provide an employee ID"],
+    unique: true,
+  },
   firstName: {
     type: String,
-    required: [true, "Please provide the first name"],
+    required: [true, "Please provide a first name"],
     unique: true,
   },
   lastName: {
     type: String,
-    required: [true, "Please provide the last name"],
+    required: [true, "Please provide a last name"],
     unique: true,
   },
   email: {
@@ -18,7 +23,7 @@ const employeeSchema = new mongoose.Schema({
   },
   address: {
     type: String,
-    required: [true, "Please provide the address"],
+    required: [true, "Please provide a address"],
   },
   dateJoined: {
     type: Date,
@@ -27,7 +32,7 @@ const employeeSchema = new mongoose.Schema({
   roleId: {
     type: mongoose.Schema.Types.ObjectId,
     ref: "Role",
-    required: [true, "Please provide the role id"],
+    required: [true, "Please provide a role id"],
   },
   password: {
     type: String,

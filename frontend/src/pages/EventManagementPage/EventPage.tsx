@@ -1,11 +1,13 @@
-import  { useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
-
 import axios from "axios";
 
 const EventPage = () => {
+  const [eventCounts, setEventCounts] = useState({});
   const [events, setEvents] = useState([]);
   const [searchQuery, setSearchQuery] = useState("");
+  const [reg, setReg] = useState([]);
+  const [selectedEvent, setSelectedEvent] = useState(null);
 
   useEffect(() => {
     const fetchEvents = async () => {
@@ -21,13 +23,65 @@ const EventPage = () => {
     fetchEvents();
   }, []);
 
-  const handleSearchInputChange = (e:any) => {
+  useEffect(() => {
+    const fetchReg = async () => {
+      try {
+        const response = await axios.get('http://localhost:5000/api/reg');
+        const allReg = response.data;
+        setReg(allReg);
+        
+        // Calculate event counts
+        const counts = {};
+        allReg.forEach(registration => {
+          const eventId = registration.eventId;
+          counts[eventId] = counts[eventId] ? counts[eventId] + 1 : 1;
+        });
+        setEventCounts(counts);
+      } catch (error) {
+        console.error("Error fetching registrations:", error);
+      }
+    };
+
+    fetchReg();
+  }, []);
+
+  const calculateTotalAttendees = (eventId) => {
+    return reg.reduce((total, registration) => {
+      if (registration.eventId === eventId) {
+        return total + registration.attendees;
+      }
+      return total;
+    }, 0);
+  };
+
+  const getEventCount = (eventId) => {
+    return eventCounts[eventId] || 0;
+  };
+
+  const handleSearchInputChange = (e) => {
     setSearchQuery(e.target.value);  
   };
 
-  const filteredEvents = events.filter((event:any) =>
-    event.title.toLowerCase().includes(searchQuery.toLowerCase())
+  const openEventModal = (event) => {
+    setSelectedEvent(event);
+  };
+
+  const closeModal = () => {
+    setSelectedEvent(null);
+  };
+
+  const filteredEvents = events.filter((event) =>
+    (new Date(event.date) >= new Date()) && 
+    (event.title.toLowerCase().includes(searchQuery.toLowerCase()) ||
+    event.location.toLowerCase().includes(searchQuery.toLowerCase()) ||
+    event.date.toLowerCase().includes(searchQuery.toLowerCase()) ||
+    event.time.toLowerCase().includes(searchQuery.toLowerCase()))
   );
+
+  function formatDate(isoDateString) {
+    const date = new Date(isoDateString);
+    return date.toISOString().split('T')[0]; // Extract the date part in the format YYYY-MM-DD
+  }
 
   return (
     <div className="w-screen mx-auto bg-orange-50 pt-10 pl-20 pr-20 font-sans">
@@ -69,28 +123,48 @@ const EventPage = () => {
           >
             <div className="flex" style={{ height: "100%" }}>
               <img
-                className="w-2/3 h-auto object-cover object-center"
+                className="w-2/5 h-auto object-cover object-center"
                 src={`http://localhost:5000/${event.image}`}
                 alt={event.title}
               />
-              <div className=" p-4 w-2/3  max-h-full ...w-ful">
+              <div className="p-4 w-2/3 max-h-full ...w-ful">
                 <h2 className="text-lg font-semibold mb-2">{event.title}</h2>
-                <p className="text-gray-600 mt-2">Date: {event.date}</p>
-                <p className="text-gray-600 mt-2">Time: {event.time}</p>
-                <p className="text-gray-600 mt-2">
-                  Location: {event.location}
-                </p>
-                <p className="text-gray-700 mt-2 text-xs pb-4">
-                  {event.description}
-                </p>
-                <Link to={`register/${event._id}`} className="inline-block px-2 py-1 bg-primaryAccent text-black rounded hover:bg-primary">
-                  Register
-                </Link>
+                <p className="text-gray-600 m-1">Date: {formatDate(event.date)}</p>
+                <p className="text-gray-600 m-1">Time: {event.time}</p>
+                <p className="text-gray-600 m-1">Location: {event.location}</p>
+                <p className="text-gray-600 m-1 pb-8">Registered Attendees: {calculateTotalAttendees(event._id)}</p>
+                <div className="flex justify-between items-center">
+                  <button onClick={() => openEventModal(event)} className="inline-block px-2 py-1 bg-primaryAccent text-black rounded hover:bg-primary">
+                    <i className="fas fa-eye"></i>
+                  </button>
+                  {calculateTotalAttendees(event._id) >= event.maxParticipation ? (
+                    <p className="text-red-500">Event Full</p>
+                  ) : (
+                    <Link to={`register/${event._id}`} className="inline-block px-2 py-1 bg-primaryAccent text-black rounded hover:bg-primary">
+                      Register
+                    </Link>
+                  )}
+                </div>
               </div>
             </div>
           </div>
         ))}
       </div>
+
+      {selectedEvent && (
+  <div className="fixed top-0 left-0 w-full h-full bg-gray-700 bg-opacity-75 flex justify-center items-center">
+    <div className="bg-white shadow-lg rounded-lg p-4" style={{ maxWidth: "400px" }}>
+      <h2 className="text-lg font-semibold mb-2">{selectedEvent.title}</h2>
+      <p className="text-gray-600 m-1">Date: {formatDate(selectedEvent.date)}</p>
+      <p className="text-gray-600 m-1">Time: {selectedEvent.time}</p>
+      <p className="text-gray-600 m-1">Location: {selectedEvent.location}</p>
+      <p className="text-gray-600 m-1 ">Max attendee count: {selectedEvent.maxParticipation}</p>
+      <p className="text-gray-600 m-1 ">Registered Attendees: {calculateTotalAttendees(selectedEvent._id)}</p>
+      <p className="text-gray-700 m-1 pb-6">{selectedEvent.description}</p>
+      <button onClick={closeModal} className="inline-block px-2 py-1 bg-primaryAccent text-black rounded hover:bg-primary">Close</button>
+    </div>
+  </div>
+)}
     </div>
   );
 };

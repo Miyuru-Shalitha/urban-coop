@@ -1,38 +1,41 @@
-import e, { Request, Response } from "express";
-import registration from "../models/eventRegisterSchema"
+import  { Request, Response } from "express";
+import registration from'../models/EventRegisterSchema';
 import Event from '../models/eventSchema';
 
+
 const createReg = async (req: Request, res: Response) => {
-  try {
+ try{
+  const{eventId,name,email,mobile,attendees}=req.body;
 
-    const { eventId, ...registrationData } = req.body;
+  const event = await Event.findById(eventId);
 
-
-    if (!eventId) {
-      return res.status(400).json({ error: 'Event ID is required' });
+  if (!event) {
+    return res.status(404).json({ error: 'Event not found' });
+  }
+  const existingRecord = await registration.findOne({ email });
+    if (existingRecord) {
+      return res.status(400).json({ message: 'Duplicate entry: This email address is already registered.' });
     }
 
+  const eventName = event.title;
 
-    const event = await Event.findById(eventId);
-
-
-    if (!event) {
-      return res.status(404).json({ error: 'Event not found' });
-    }
-    const Registration = new registration({
-      eventName: event.title,
-      ...registrationData,
-    });
-
-    console.log(Registration)
-    await Registration.save();
-
-    res.status(201).json(registration);
-  } catch (error) {
+  const newRegistration = new registration({
+    eventName,
+    eventId,
+    name,
+    email,
+    mobile,
+    attendees,
+  });
+  await newRegistration.save();
+  res.status(201).json();
+}catch (error) {
     console.error('Error creating registration:', error);
     res.status(500).json({ error: 'Internal server error' });
   }
+
 };
+
 const getReg = async (req: Request, res: Response) => {
   try {
     const allReg = await registration.find();
@@ -88,3 +91,4 @@ const deleteEventById = async (req: Request, res: Response) => {
   }
 };
 export { createReg, getReg, getone, updateone, deleteEventById };
+
