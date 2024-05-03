@@ -1,7 +1,12 @@
 import mongoose from "mongoose";
 
 const eventRegisterSchema = new mongoose.Schema({
-   eventName: {
+    eventName: {
+        type: String,
+        required: [true, "Please provide event name"],
+        
+    },
+    eventId: {
         type: String,
         required: [true, "Please provide the event id"],
         
@@ -14,7 +19,8 @@ const eventRegisterSchema = new mongoose.Schema({
     email: {
         type: String,
         required: [true, "Please provide the email"],
-        unique: false,
+        unique: true
+        ,
     },
     mobile: {
         type: String,

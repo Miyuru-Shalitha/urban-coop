@@ -2,45 +2,39 @@ import axios from 'axios';
 import { useState, FormEvent, ChangeEvent } from 'react';
 import { useParams } from 'react-router-dom';
 import toast from 'react-hot-toast';
-import {useNavigate} from "react-router-dom"; 
+import { useNavigate } from "react-router-dom";
 
 const EventRegistrationForm = () => {
-  const {id:eventId} = useParams();
- 
-  
+  const { id: eventId } = useParams();
   const Navigate = useNavigate();
-
 
   const [name, setName] = useState<string>('');
   const [email, setEmail] = useState<string>('');
   const [mobile, setMobile] = useState<string>('');
   const [attendees, setAttendees] = useState<number | ''>('');
 
-  
   const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    // Basic validation
-  if (!name || !email || !mobile) {
-    toast.error('Please fill in all required fields.');
-    return;
-  }
-
-  // Additional validation for email format
-  const emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-  if (!emailPattern.test(email)) {
-    toast.error('Please enter a valid email address.');
-    return;
-  }
-
-  // Validate attendance count
-  if (attendees === '' || attendees > 5) {
-    toast.error('Please enter a valid attendance count (maximum 5).');
-    return;
-  }
-  
-
-    console.log("Form submitted:", { eventId,name, email, mobile, attendees });
     
+    // Basic validation
+    if (!name || !email || !mobile) {
+      toast.error('Please fill in all required fields.');
+      return;
+    }
+
+    // Additional validation for email format
+    const emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    if (!emailPattern.test(email)) {
+      toast.error('Please enter a valid email address.');
+      return;
+    }
+
+    // Validate attendance count
+    if (attendees === '' || attendees > 5) {
+      toast.error('Please enter a valid attendance count (maximum 5).');
+      return;
+    }
+
     try {
       const response = await axios.post('http://localhost:5000/api/reg', {
         eventId,
@@ -49,11 +43,14 @@ const EventRegistrationForm = () => {
         mobile,
         attendees,
       });
-      toast.success('Registration  successfully!');
-      Navigate('/events');
-      console.log("Server response:", response.data);
+      
+      if (response.status === 201) {
+        toast.success('Registration successful!');
+        Navigate('/events');
+      } 
     } catch (error) {
       console.log(error);
+      toast.error('Email already registered!');  
     }
   };
 
@@ -110,7 +107,7 @@ const EventRegistrationForm = () => {
               placeholder="Enter your email address"
             />
           </div>
-          <div>a
+          <div>
             <label htmlFor="mobile" className="block text-gray-700 font-medium mb-2">
               Contact Number
             </label>
