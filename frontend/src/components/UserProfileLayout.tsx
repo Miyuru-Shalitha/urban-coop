@@ -16,8 +16,8 @@ export default function UserProfileLayout() {
     setItems([
       {
         onClick: (index) => setActiveItemIndex(index),
-        name: "Item 1",
-        route: "/userprofile/test-1",
+        name: "My Bookings",
+        route: "/userprofile/mybookings",
       },
       {
         onClick: (index) => setActiveItemIndex(index),
@@ -28,7 +28,7 @@ export default function UserProfileLayout() {
   }, []);
 
   return (
-    <ProtectedDiv className="flex h-screen bg-surface">
+    <ProtectedDiv className="flex bg-surface">
       <div className="w-72 h-full p-4">
         <ul className="bg-white h-full p-4 rounded flex flex-col gap-1">
           {items.map((item, index) => (

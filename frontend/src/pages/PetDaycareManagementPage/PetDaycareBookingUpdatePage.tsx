@@ -1,7 +1,7 @@
 import axios from 'axios';
 import { useState, FormEvent, ChangeEvent, useEffect } from 'react';
 import toast from 'react-hot-toast';
-import { useParams, useNavigate } from 'react-router-dom'; // Combined imports
+import { useParams, useNavigate } from 'react-router-dom'; 
 import TextField from '@mui/material/TextField';
 import { FormControl, FormControlLabel, FormLabel, Radio, RadioGroup } from '@mui/material';
 import LoadingSpinner from '../../components/Common/LoadingSpinner';
@@ -35,7 +35,7 @@ const PetDaycareBookingUpdatePage = () => {
                     if (!hasShownApprovalError) {
                         toast.error('Cannot edit approved or denied bookings');
                         hasShownApprovalError = true;
-                        navigate('/mybookings');
+                        navigate('/userprofile/mybookings');
                     }
                 }
 

@@ -2,6 +2,9 @@ import { number } from "joi";
 import mongoose from "mongoose";
 
 const bookingSchema = new mongoose.Schema({
+    userId: {
+        type: String,
+    },
     customerName: {
         type: String,
         required: true

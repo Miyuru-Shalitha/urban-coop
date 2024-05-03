@@ -2,6 +2,8 @@ import axios from 'axios';
 import React, { useEffect, useState } from 'react';
 import toast from 'react-hot-toast';
 import { Link } from 'react-router-dom';
+import Cookies from 'js-cookie'; // Import js-cookie
+
 
 const PetDaycareMyBookings = () => {
   const [bookings, setBookings] = useState([]);
@@ -12,15 +14,31 @@ const PetDaycareMyBookings = () => {
 
   useEffect(() => {
     const fetchBookings = async () => {
-      try {
-        const response = await axios.get('http://localhost:5000/api/bookings');
-        setBookings(response.data);
-      } catch (error) {
-        console.error('Error fetching bookings:', error);
-      }
+        try {
+            // Retrieve the user ID from the cookie
+            const userId = Cookies.get('userId');
+            
+            if (!userId) {
+                // If the user ID is not found in the cookie, handle the case accordingly
+                toast.error('User ID not found in the cookie.');
+                return;
+            }
+            
+            // Include the user ID as a query parameter in the URL of the API request
+            const response = await axios.get(`http://localhost:5000/api/bookings/userbookings/${userId}`);
+            
+            console.log("User bookings:", response.data);
+            
+            // Set the bookings state with the data from the response
+            setBookings(response.data);
+        } catch (error) {
+            console.error('Error fetching bookings:', error);
+        }
     };
+    
+    // Call the function to fetch bookings
     fetchBookings();
-  }, []);
+}, []);
 
   const deleteBooking = async () => {
     

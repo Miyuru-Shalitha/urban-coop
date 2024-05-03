@@ -3,6 +3,8 @@ import { TextField, Button, CircularProgress } from '@mui/material';
 import axios from 'axios';
 import toast from 'react-hot-toast';
 import Logo from '../../assets/UBLogoLogin.png';
+import Cookies from "js-cookie"
+import { useNavigate } from 'react-router-dom';
 
 
 type LoginFormData = {
@@ -11,12 +13,14 @@ type LoginFormData = {
 };
 
 function LoginPage() {
+    const navigate = useNavigate();
     const [formData, setFormData] = useState<LoginFormData>({
         email: '',
         password: '',
     });
 
     const [loading, setLoading] = useState(false);
+    
 
     const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
         const { name, value } = e.target;
@@ -34,11 +38,24 @@ function LoginPage() {
         try {
             // Make a POST request to your backend's login endpoint
             const response = await axios.post('http://localhost:5000/api/', formData);
+            const userId: string = response.data.userId;
+
+
+            console.log(response.data);
+
+            Cookies.set('userId', userId, {
+                expires: 7, // Optional: Expire the cookie in 7 days
+                path: '/', // The cookie path
+                secure: process.env.NODE_ENV === 'production', // Use secure flag in production
+                sameSite: 'lax' // SameSite policy ('strict', 'lax', or 'none')
+            });
+            
+            
 
             // Handle successful login
             if (response.status === 200) {
                 toast.success('Login successful!');
-                // Redirect to the dashboard or other page
+                navigate("/")
                 // Navigate to another page or perform other actions
             } else {
                 toast.error('Login failed!');

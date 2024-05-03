@@ -13,14 +13,13 @@ import EmployeeManagementEmployeesAdminPage from "./pages/EmployeeManagementAdmi
 import EmployeeManagementRolesAdminPage from "./pages/EmployeeManagementAdminPage/EmployeeManagementRolesPage";
 import EmployeeManagementSalaryPage from "./pages/EmployeeManagementAdminPage/EmployeeManagementSalaryPage";
 
-//Supplier Management Pages
+
 import SupplierManagementAdminPage from "./pages/SupplierManagementAdminPage/SupplierManagementAdminPage";
 import SupplierManagementDashboard from "./pages/SupplierManagementAdminPage/SupplierManagementDashboard";
 import SupplierManagementStockReq from "./pages/SupplierManagementAdminPage/SupplierManagementStockReq";
 import SupplierManagementUpdateSupplierPage from "./pages/SupplierManagementAdminPage/SupplierManagementUpdateSupplierPage";
 import SupplierManagementCreateSupplierPage from "./pages/SupplierManagementAdminPage/SupplierManagementCreateSupplierPage";
 import SupplierManagementSupplierPage from "./pages/SupplierManagementAdminPage/SupplierManagementSupplierPage";
-import SuppliersReport from "./pages/SupplierManagementAdminPage/SuppliersReport";
 
 
 import InventoryManagementPage from "./pages/InventoryManagementAdminPage/InventoryManagementAdminPage";
@@ -31,7 +30,7 @@ import InventoryManagementCreateItemsPage from "./pages/InventoryManagementAdmin
 import InventoryManagementCreateRequest from "./pages/InventoryManagementAdminPage/InventoryManagementCreateRequest";
 import EventRegistrationPage from "./pages/EventManagementPage/EventRegistrationPage";
 import EventReport from "./pages/EventManagementPage/EventReport";
-
+import FeedbackManagementAdminPage from "./pages/FeedbackManagementAdminPage/FeedbackManagementAdminPage";
 import EmployeeProfilePage from "./pages/EmployeeProfilePage";
 
 //Pet Daycare Management Pages
@@ -56,6 +55,8 @@ import InventoryReport from "./pages/InventoryManagementAdminPage/InventoryRepor
 import CreateFeedbackPage from "./pages/FeedbackManagement/CreateFeedbackPage";
 import MyFeedbackPage from "./pages/FeedbackManagement/MyFeedbackPage";
 import FeedbackTable from "./pages/FeedbackManagement/FeedbackTable";
+import UserProfileLayout from "./components/UserProfileLayout";
+import ProtectedUserDiv from "./components/ProtectedUserDiv";
 
 export default function App() {
   return (
@@ -65,9 +66,18 @@ export default function App() {
 
         <Route path="/login" element={<UserLoginPage />} />
         <Route path="register" element={<RegisterPage />} />
+      
+
+
 
         <Route path="/" element={<Layout />}>
           <Route path="" element={<HomePage />} />
+
+          <Route path="/userprofile" element={<UserProfileLayout />}>
+          <Route path="mybookings" element={<PetDaycareMyBookings />} />
+          <Route path="mybookings/update/:id" element={<PetDaycareBookingUpdatePage />} />
+          </Route>
+      
 
           <Route path="events" element={<EventPage />} />
           <Route
@@ -79,12 +89,11 @@ export default function App() {
           <Route path="events/register/:id" element={<EventRegistrationPage />} />
 
           <Route path="petdaycare" element={<PetDaycareBookingPage />} />
-          <Route path="mybookings" element={<PetDaycareMyBookings />} />
-          <Route path="mybookings/update/:id" element={<PetDaycareBookingUpdatePage />} />
-          <Route path="up" element={<PetDaycareBookingUpdatePage />} />
 
           <Route path="feedback" element={<CreateFeedbackPage/>}/>
           <Route path="myfeedback" element={<MyFeedbackPage/>}/>
+
+          <Route path="userprofile"></Route>
 
           <Route path="petdaycare" element={<PetDaycareBookingPage />} />
           <Route path="mybookings" element={<PetDaycareMyBookings />} />
@@ -94,6 +103,8 @@ export default function App() {
           />
           <Route path="up" element={<PetDaycareBookingUpdatePage />} />
         </Route>
+
+
 
         {/* Employee Log In Page */}
         <Route path="/admin/login" element={<EmployeeLogInPage />} />
@@ -171,7 +182,7 @@ export default function App() {
             element={<EventCreationForm />}
           />
 
-          <Route path="event-dashboard/uptadeEvent/:id" element={<UpdateEvent />} />
+          <Route path="event-dashboard/uptadeEvent" element={<UpdateEvent />} />
 
           <Route
             path="event-dashboard/uptadeEvent/:id"
@@ -185,10 +196,7 @@ export default function App() {
             element={<UpdateRegistrationForm />}
           />
 
-          <Route
-            path="report-generation"
-            element={<EventReport />}
-          />
+          <Route path="report-generation" element={<EventReport />} />
           {/* event report generation */}
 
           <Route path="allbookings" element={<BookingTable />} />
@@ -238,9 +246,10 @@ export default function App() {
           />
 
           <Route
-            path="supplier-management/report"
-            element={<SuppliersReport />}
+            path="supplier-management/allsup/:id"
+            element={<SupplierManagementUpdateSupplierPage />}
           />
+
 
           {/* feedback dashboard */}
           <Route

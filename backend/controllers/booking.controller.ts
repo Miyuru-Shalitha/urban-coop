@@ -6,19 +6,31 @@ const bookingController = {
   // Create a booking
   createBooking: async (req: Request, res: Response) => {
     try {
-      const bookingData = req.body;
-      const newBooking = new Booking(bookingData);
-      const savedBooking = await newBooking.save();
-      res.status(201).json(savedBooking);
-    } catch (error: unknown) {
-      if (error instanceof Error) {
-        res.status(500).json({ error: error.message });
-      } else {
-        res.status(500).json({ error: "An unknown error occurred" });
-      }
-    }
-  },
+        // Unpack the booking data directly from req.body
+        const bookingData = req.body;
+        console.log("BK DATA:",bookingData);
 
+        // Create a new booking with the booking data
+        const newBooking = new Booking(bookingData);
+        console.log("newbk",newBooking);
+
+        // Save the new booking in the database
+        const savedBooking = await newBooking.save();
+
+        console.log(newBooking);
+        
+        
+        // Respond with the saved booking and a 201 status code
+        res.status(201).json(savedBooking);
+    } catch (error: unknown) {
+        // Handle any errors that may occur
+        if (error instanceof Error) {
+            res.status(500).json({ error: error.message });
+        } else {
+            res.status(500).json({ error: "An unknown error occurred" });
+        }
+    }
+},
   // Get all bookings
   getAllBookings: async (_req: Request, res: Response) => {
     try {
@@ -177,7 +189,7 @@ deleteOnlineBookingById: async (req: Request, res: Response) => {
         }
 
         if (booking.approvalStatuse !== "Pending") {
-            return res.status(403).json({ message: "Your booking has been approved and cannot be canceled." });
+            return res.status(403).json({ message: "Your booking has been and cannot be canceled." }); ////updateeee thissssssss
         }
 
         const deletedBooking = await Booking.findByIdAndDelete(bookingId);
@@ -194,6 +206,24 @@ deleteOnlineBookingById: async (req: Request, res: Response) => {
         }
     }
 },
+// Get bookings by user ID
+getBookingsByUserId: async (req: Request, res: Response) => {
+    try {
+        const userId = req.params.userId;
+        console.log(userId);
+        
+        const bookings = await Booking.find({ userId: userId });
+        res.status(200).json(bookings);
+    } catch (error: unknown) {
+        if (error instanceof Error) {
+            res.status(500).json({ error: error.message });
+        } else {
+            res.status(500).json({ error: "An unknown error occurred" });
+        }
+    }
+},
+
+
 
 };
 

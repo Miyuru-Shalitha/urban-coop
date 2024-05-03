@@ -50,3 +50,6 @@ const validateUser = (data: any) => {
 };
 
 module.exports = { User, validateUser }
+
+export default User;
+
