@@ -4,6 +4,7 @@ const initialState = {
   employee: {
     isAuthenticated: false,
     _id: "",
+    employeeId: "",
     firstName: "",
     lastName: "",
     email: "",
@@ -18,6 +19,7 @@ const employeeAuthSlice = createSlice({
       state,
       action: PayloadAction<{
         _id: string;
+        employeeId: string;
         firstName: string;
         lastName: string;
         email: string;

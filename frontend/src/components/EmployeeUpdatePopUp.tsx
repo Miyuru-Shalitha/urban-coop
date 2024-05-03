@@ -13,7 +13,7 @@ export default function EmployeeUpdateProfile({
   employeeId: string;
 }) {
   const [employeeData, setEmployeeData] = useState({
-    _id: "",
+    employeeId: "",
     firstName: "",
     lastName: "",
     email: "",
@@ -75,7 +75,7 @@ export default function EmployeeUpdateProfile({
           type="text"
           label="Employee ID"
           disabled={true}
-          value={employeeData._id}
+          value={employeeData.employeeId}
           onChange={(e) =>
             setEmployeeData({ ...employeeData, firstName: e.target.value })
           }

@@ -1,7 +1,6 @@
 import { useEffect, useState } from "react";
 import {
   deleteEmployeeById,
-  Employee,
   getEmployees,
   updateEmployee,
 } from "../../services/employeeService";
@@ -17,16 +16,17 @@ import OutlinedButton from "../../components/Common/OutlinedButton";
 import EmployeeUpdateProfile from "../../components/EmployeeUpdatePopUp";
 import ProtectedEmployeeDiv from "../../components/ProtectedEmployeeDiv";
 import { getRoleById, Role } from "../../services/roleService";
+import InputField from "../../components/Common/InputField";
 
 export default function EmployeeManagementEmployeesAdminPage() {
-  const [employees, setEmployees] = useState<Employee[]>([]);
-  const [roles, setRoles] = useState<(Role | null)[]>([]);
+  const [employees, setEmployees] = useState<any[]>([]);
   const [showEmployeeCreationPopUp, setShowEmployeeCreationPopUp] =
     useState(false);
   const [employeeIdForUpdating, setEmployeeIdForUpdating] = useState<
     string | null
   >(null);
   const [isLoading, setIsLoading] = useState(false);
+  const [search, setSearch] = useState("");
 
   useEffect(() => {
     if (!showEmployeeCreationPopUp) {
@@ -34,25 +34,13 @@ export default function EmployeeManagementEmployeesAdminPage() {
     }
   }, [showEmployeeCreationPopUp, employeeIdForUpdating]);
 
-  useEffect(() => {
-    fetchRoles();
-  }, [employees]);
-
   const fetchEmployees = async () => {
     setIsLoading(true);
-    const employees = await getEmployees();
-    if (employees) {
-      setEmployees(employees);
+    const fetchedEmployees = await getEmployees();
+    if (fetchedEmployees) {
+      setEmployees(fetchedEmployees);
     }
     setIsLoading(false);
-  };
-
-  const fetchRoles = async () => {
-    const employeeRolePromises = employees.map((employee) =>
-      getRoleById(employee.roleId)
-    );
-    const employeeRoles = await Promise.all(employeeRolePromises);
-    setRoles(employeeRoles);
   };
 
   const handleClickDeleteEmployee = async (id: string) => {
@@ -67,8 +55,21 @@ export default function EmployeeManagementEmployeesAdminPage() {
     setEmployeeIdForUpdating(id);
   };
 
+  const handleSearch = (e: any) => {
+    setSearch(e.target.value);
+  };
+
   return (
-    <ProtectedEmployeeDiv className="flex-1">
+    <div className="flex-1">
+      {/* <div className="p-4">
+        <InputField
+          label="Search"
+          type="text"
+          value={search}
+          onChange={handleSearch}
+        />
+      </div> */}
+
       {showEmployeeCreationPopUp && (
         <EmployeeCreationPopUp
           setIsVisible={setShowEmployeeCreationPopUp}
@@ -110,7 +111,7 @@ export default function EmployeeManagementEmployeesAdminPage() {
           <tbody>
             {employees.map((employee, index) => (
               <TableRow key={employee._id} rowIndex={index}>
-                <TableColumn>{employee._id}</TableColumn>
+                <TableColumn>{employee.employeeId}</TableColumn>
                 <TableColumn>{employee.firstName}</TableColumn>
                 <TableColumn>{employee.lastName}</TableColumn>
                 <TableColumn>{employee.email}</TableColumn>
@@ -122,7 +123,7 @@ export default function EmployeeManagementEmployeesAdminPage() {
                 ).getMonth()} / ${new Date(
                   employee.dateJoined
                 ).getFullYear()}`}</TableColumn>
-                <TableColumn>{roles[index]?.name}</TableColumn>
+                <TableColumn>{employee.role.name}</TableColumn>
                 <TableColumn>
                   <div className="flex gap-2">
                     <OutlinedButton
@@ -144,6 +145,6 @@ export default function EmployeeManagementEmployeesAdminPage() {
           </tbody>
         </table>
       </div>
-    </ProtectedEmployeeDiv>
+    </div>
   );
 }

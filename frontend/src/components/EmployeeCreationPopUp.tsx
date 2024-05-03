@@ -13,6 +13,7 @@ export default function EmployeeCreationPopUp({
   fetchEmployee: () => Promise<void>;
 }) {
   const [employeeData, setEmployeeData] = useState({
+    employeeId: "",
     firstName: "",
     lastName: "",
     email: "",
@@ -38,6 +39,7 @@ export default function EmployeeCreationPopUp({
     e.preventDefault();
     setIsLoading(true);
     const result = await createEmployee(
+      employeeData.employeeId,
       employeeData.firstName,
       employeeData.lastName,
       employeeData.email,
@@ -58,6 +60,14 @@ export default function EmployeeCreationPopUp({
         onSubmit={handleSubmit}
         className="absolute flex flex-col gap-2 bg-white px-16 py-16 rounded w-1/2"
       >
+        <InputField
+          type="text"
+          label="Employee ID"
+          value={employeeData.employeeId}
+          onChange={(e) =>
+            setEmployeeData({ ...employeeData, employeeId: e.target.value })
+          }
+        />
         <InputField
           type="text"
           label="First Name"

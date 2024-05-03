@@ -1,4 +1,25 @@
+import { useContext, useEffect, useState } from "react";
+import {
+  EmployeeAuthContext,
+  EmployeeContextType,
+} from "../context/EmployeeAuthContextProvider";
+import { getEmployeeById } from "../services/employeeService";
+
 export default function EmployeeProfilePage() {
+  const context = useContext<EmployeeContextType | null>(EmployeeAuthContext);
+  const [employee, setEmployee] = useState<any>(null);
+
+  useEffect(() => {
+    if (context) {
+      fetchEmployeeById(context?.employeeCredential._id);
+    }
+  }, []);
+
+  const fetchEmployeeById = async (employeeId: string) => {
+    const fechedEmployee = await getEmployeeById(employeeId);
+    setEmployee(fechedEmployee);
+  };
+
   return (
     <div className="my-4">
       <div
@@ -10,10 +31,12 @@ export default function EmployeeProfilePage() {
       </div>
 
       <div>
-        <p>Employee ID</p>
-        <p>First Name</p>
-        <p>Last Name</p>
-        <p>Email</p>
+        <p>Employee ID: {employee?.employeeId}</p>
+        <p>First Name: {employee?.firstName}</p>
+        <p>Last Name: {employee?.lastName}</p>
+        <p>Email: {employee?.email}</p>
+        <p>Address: {employee?.address}</p>
+        <p>Date Joined: {employee?.dateJoined}</p>
       </div>
     </div>
   );

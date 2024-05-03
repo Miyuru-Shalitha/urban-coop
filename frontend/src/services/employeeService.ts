@@ -1,18 +1,10 @@
 import axios from "axios";
 
-interface Employee {
-  _id: string;
-  firstName: string;
-  lastName: string;
-  email: string;
-  address: string;
-  dateJoined: string;
-  roleId: string;
-}
-
-const getEmployees = async (): Promise<Employee[] | null> => {
+const getEmployees = async (): Promise<any> => {
   try {
-    const response = await axios.get("http://localhost:5000/api/employees");
+    const response = await axios.get("http://localhost:5000/api/employees", {
+      withCredentials: true,
+    });
     if (response.status === 200) {
       return response.data;
     }
@@ -23,10 +15,11 @@ const getEmployees = async (): Promise<Employee[] | null> => {
   return null;
 };
 
-const getEmployeeById = async (id: string): Promise<Employee | null> => {
+const getEmployeeById = async (id: string): Promise<any> => {
   try {
     const response = await axios.get(
-      "http://localhost:5000/api/employees/" + id
+      "http://localhost:5000/api/employees/" + id,
+      { withCredentials: true }
     );
     if (response.status === 200) {
       return response.data;
@@ -39,6 +32,7 @@ const getEmployeeById = async (id: string): Promise<Employee | null> => {
 };
 
 const createEmployee = async (
+  employeeId: string,
   firstName: string,
   lastName: string,
   email: string,
@@ -47,6 +41,7 @@ const createEmployee = async (
 ): Promise<boolean> => {
   try {
     const response = await axios.post("http://localhost:5000/api/employees", {
+      employeeId,
       firstName,
       lastName,
       email,
@@ -112,7 +107,6 @@ const deleteEmployeeById = async (id: string): Promise<boolean> => {
 };
 
 export {
-  type Employee,
   getEmployees,
   getEmployeeById,
   createEmployee,
