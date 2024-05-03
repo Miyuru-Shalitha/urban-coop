@@ -11,9 +11,9 @@ const handleAdminRouteNavigation = (
     // case "Dary Care Manager":
     //   navigate("/admin/day-care-management");
     //   break;
-    // case "Event Manager":
-    //   navigate("/admin/event-management");
-    //   break;
+    case "Event Manager":
+      navigate("/admin/event-dashboard");
+      break;
     case "Supplier Manager":
       navigate("/admin/supplier-management");
       break;

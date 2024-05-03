@@ -1,18 +1,18 @@
 import axios from "axios";
 import { useEffect, useState } from "react";
-import { Link } from "react-router-dom";
 import LoadingIndicator from "../../components/LoadingIndicator";
 import toast from 'react-hot-toast';
 import Modal from "react-modal";
+import Cookies from "js-cookie";
 
-const Userdash = () => {
+const MyEvent = () => {
     const [User, setUser] = useState([]);
     const [loading, setLoading] = useState(true);
     const [isModalOpen, setIsModalOpen] = useState(false);
     const [userIdToDelete, setUserIdToDelete] = useState("");
-    const [searchQuery, setSearchQuery] = useState("");
 
     useEffect(() => {
+       // Cookies.get("userId")
         const fetchData = async () => {
             try {
                 const allUser = await axios.get("http://localhost:5000/api/reg");
@@ -20,11 +20,27 @@ const Userdash = () => {
             } catch (error) {
                 console.error("Error fetching events:", error);
             } finally {
-                setLoading(false); // Set loading to false regardless of success or error
+                setLoading(false); 
+                
             }
         };
         fetchData();
     }, []);
+    // useEffect(() => {
+    //     const id = Cookies.get("userId")
+    //      const fetchData = async () => {
+    //          try {
+    //              const allUser = await axios.get(`http://localhost:5000/api/reg/${id}`);
+    //              setUser(allUser.data);
+    //          } catch (error) {
+    //              console.error("Error fetching events:", error);
+    //          } finally {
+    //              setLoading(false); 
+                 
+    //          }
+    //      };
+    //      fetchData();
+    //  }, []);
 
     const deleteReg = async (userId: string) => {
         try {
@@ -58,27 +74,8 @@ const Userdash = () => {
         }
     };
 
-    // Function to filter user list based on search query
-    const filteredUsers = User.filter(user =>
-        user.eventName.toLowerCase().includes(searchQuery.toLowerCase()) ||
-        user.name.toLowerCase().includes(searchQuery.toLowerCase()) ||
-        user.email.toLowerCase().includes(searchQuery.toLowerCase()) ||
-        user.mobile.toLowerCase().includes(searchQuery.toLowerCase()) ||
-        user.attendees.toString().includes(searchQuery.toLowerCase())
-    );
-
     return (
         <div className="w-3/4 ... mx-auto p-8 font-sans ">
-            <h1 className="text-2xl font-bold mb-4 text-center">Event Registration Data</h1>
-            <div className="mb-4 flex items-center">
-                <input
-                    type="text"
-                    placeholder="Search..."
-                    value={searchQuery}
-                    onChange={e => setSearchQuery(e.target.value)}
-                    className="px-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:border-primaryAccent w-full max-w-md"
-                />
-            </div>
             {loading ? (
                 <LoadingIndicator />
             ) : (
@@ -95,8 +92,8 @@ const Userdash = () => {
                             </tr>
                         </thead>
                         <tbody>
-                            {filteredUsers && filteredUsers.length > 0 ? (
-                                filteredUsers.map((user: any) => (
+                            {User && User.length > 0 ? (
+                                User.map((user: any) => (
                                     <tr key={user._id}>
                                         <td className="px-4 py-2">{user.eventName}</td>
                                         <td className="px-4 py-2">{user.name}</td>
@@ -107,12 +104,7 @@ const Userdash = () => {
                                             <button onClick={() => openModal(user._id)} className="bg-red-500 text-black px-3 py-1 rounded mr-2 mb-2 sm:mb-0">
                                                 <i className="fas fa-trash"></i>
                                             </button>
-                                            <Link
-                                                to={"updateRegistration/" + user._id}
-                                                className="bg-primaryAccent text-black px-3 py-1 rounded"
-                                            >
-                                                <i className="fas fa-pencil-alt"></i>
-                                            </Link>
+                                            
                                         </td>
                                     </tr>
                                 ))
@@ -148,4 +140,4 @@ const Userdash = () => {
     );
 };
 
-export default Userdash;
+export default MyEvent;

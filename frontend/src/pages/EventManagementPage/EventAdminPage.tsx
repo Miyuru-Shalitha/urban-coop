@@ -88,6 +88,7 @@ const EventDash: React.FC = () => {
 
   return (
     <div className="w-3/4 mx-auto p-8 font-sans ">
+      <h1 className="text-2xl font-bold mb-4 text-center">Event Data</h1>
       <Link
         to={"addEvent"}
         className="inline-block mb-4 px-4 py-2 bg-primaryAccent text-back font-bold rounded hover:bg-primary"

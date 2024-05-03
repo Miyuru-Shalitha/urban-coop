@@ -27,7 +27,9 @@ const createReg = async (req: Request, res: Response) => {
     mobile,
     attendees,
   });
+  
   await newRegistration.save();
+
   res.status(201).json();
 }catch (error) {
     console.error('Error creating registration:', error);

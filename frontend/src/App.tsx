@@ -61,6 +61,7 @@ import MyFeedbackPage from "./pages/FeedbackManagement/MyFeedbackPage";
 import FeedbackTable from "./pages/FeedbackManagement/FeedbackTable";
 import EmployeeAttendancePage from "./pages/EmployeeAttendancePage";
 import EmployeeAttendanceMarkingFormPage from "./pages/EmployeeAttendanceMarkingFormPage";
+import MyEvent from "./pages/EventManagementPage/myEventRegister";
 
 export default function App() {
   return (
@@ -89,13 +90,14 @@ export default function App() {
           <Route path="mybookings/update/:id" element={<PetDaycareBookingUpdatePage />} />
           <Route path="up" element={<PetDaycareBookingUpdatePage />} />
 
-          <Route path="feedback" element={<CreateFeedbackPage/>}/>
-          <Route path="myfeedback" element={<MyFeedbackPage/>}/>
+          <Route path="feedback" element={<CreateFeedbackPage />} />
+          <Route path="myfeedback" element={<MyFeedbackPage />} />
 
           <Route
             path="events/register/:id"
             element={<EventRegistrationPage />}
           />
+          <Route path="my-event" element={<MyEvent />} />
 
           <Route path="petdaycare" element={<PetDaycareBookingPage />} />
           <Route path="mybookings" element={<PetDaycareMyBookings />} />
@@ -286,7 +288,7 @@ export default function App() {
             path="supplier-management/allsup/:id"
             element={<SupplierManagementUpdateSupplierPage />} /> 
           */}
-          
+
 
 
           {/* feedback dashboard */}
