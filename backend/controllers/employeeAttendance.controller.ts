@@ -57,4 +57,14 @@ const markEmployeeAttendanceSignIn = async (req: Request, res: Response) => {
   }
 };
 
-export { markEmployeeAttendanceSignIn };
+const getEmployeeAttendance = async (req: Request, res: Response) => {
+  try {
+    const { id } = req.params;
+    const attendance = await EmployeeAttendance.find({ employeeId: id });
+    return res.status(200).json({ attendance });
+  } catch (error: any) {
+    return res.status(500).json({ message: "Something went wrong!" });
+  }
+};
+
+export { markEmployeeAttendanceSignIn, getEmployeeAttendance };
