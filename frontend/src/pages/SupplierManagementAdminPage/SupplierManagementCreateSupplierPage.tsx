@@ -1,131 +1,154 @@
 import axios from "axios";
-import FilledButton from "../../components/Common/FilledButton";
-import { FormEvent, useState } from "react";
+import { useState, FormEvent } from "react";
 import { useNavigate } from "react-router-dom";
+// import FilledButton from "../../components/Common/FilledButton";
+import toast from "react-hot-toast";
+import TextField from "@mui/material/TextField";
+import {
+  FormControl,
+  // FormControlLabel,
+  // FormLabel,
+  InputLabel,
+  MenuItem,
+  // Radio,
+  // RadioGroup,
+  Select,
+} from "@mui/material";
 
 export default function SupplierManagementCreateSupplierPage() {
- 
-    const navigate = useNavigate();
-    const [supplierData, setSupplierData] = useState({
-        supplierID: '',
-        name: '',
-        phoneNumber: '',
-        email: '',
-        address: '',
-        category: '',
-    });
-   
+  const navigate = useNavigate();
+  const [supplierData, setSupplierData] = useState({
+    supplierId: "",
+    name: "",
+    phoneNumber: "",
+    email: "",
+    address: "",
+    category: "",
+  });
 
-    const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
-        e.preventDefault();
-        console.log(supplierData);
-        try {
-            const response = await axios.post("http://localhost:5000/api/suppliers/",{
-                supplierID: supplierData.supplierID,
-                name: supplierData.name,
-                phoneNumber: supplierData.phoneNumber,
-                email: supplierData.email,
-                address: supplierData.address,
-                category: supplierData.category,
-            });
-            console.log();
-            if(response.status === 201) {
-                navigate("/admin/supplier-management/supplier");
-            }
+  const handleInputChange = (e : any) => {
+    const { name, value } = e.target;
+    setSupplierData({ ...supplierData, [name]: value });
+  };
 
-        } catch (error) {
-            alert("Somthing went wrong!");
-        }
+  const handleSubmit = async (e : any) => {
+    e.preventDefault();
+
+    // Basic form validation
+    if (
+      !supplierData.supplierId ||
+      !supplierData.name ||
+      !supplierData.phoneNumber ||
+      !supplierData.email ||
+      !supplierData.address ||
+      !supplierData.category
+    ) {
+      toast.error("Please fill in all required fields.");
+
+      return;
     }
 
-    return (
-        <div>
-            ADD SUPPLIER
-            <div className="max-w-md mx-auto bg-white shadow-md rounded px-8 py-6">
-                <h2 className="text-xl font-bold mb-4">Add Supplier</h2>
-                <form onSubmit={handleSubmit}>
-                    <div className="mb-4">
-                        <label className="block text-gray-700 text-sm font-bold mb-2" >
-                            Supplier ID
-                        </label>
-                        <input
-                            className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
-                            type="text"
-                            placeholder="Enter Supplier ID"
-                            value={supplierData.supplierID}
-                            onChange={(e) => setSupplierData({ ...supplierData, supplierID: e.target.value })}
-                        />
-                    </div>
-                    <div className="mb-4">
-                        <label className="block text-gray-700 text-sm font-bold mb-2" >
-                            Supplier Name
-                        </label>
-                        <input
-                            className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
-                            type="text"
-                            placeholder="Enter Name"
-                            value={supplierData.name}
-                            onChange={(e) => setSupplierData({ ...supplierData, name: e.target.value })}
-                        />
-                    </div>
-                    <div className="mb-4">
-                        <label className="block text-gray-700 text-sm font-bold mb-2" >
-                            Phone Number
-                        </label>
-                        <input
-                            className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
-                            type="tel"
-                            placeholder="Enter Phone Number"
-                            value={supplierData.phoneNumber}
-                            onChange={(e) => setSupplierData({ ...supplierData, phoneNumber: e.target.value })}
-                        />
-                    </div>
-                    <div className="mb-4">
-                        <label className="block text-gray-700 text-sm font-bold mb-2" >
-                            Email
-                        </label>
-                        <input
-                            className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
-                            type="email"
-                            placeholder="Enter Email"
-                            value={supplierData.email}
-                            onChange={(e) => setSupplierData({ ...supplierData, email: e.target.value })}
-                        />
-                    </div>
-                    <div className="mb-4">
-                        <label className="block text-gray-700 text-sm font-bold mb-2" >
-                            Address
-                        </label>
-                        <input
-                            className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
-                            type="text"
-                            placeholder="Enter Address"
-                            value={supplierData.address}
-                            onChange={(e) => setSupplierData({ ...supplierData, address: e.target.value })}
-                        />
-                    </div>
-                    <div className="mb-4">
-                        <label className="block text-gray-700 text-sm font-bold mb-2" >
-                            Category
-                        </label>
-                        <input
-                            className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
-                            type="text"
-                            placeholder="Enter Category"
-                            value={supplierData.category}
-                            onChange={(e) => setSupplierData({ ...supplierData, category: e.target.value })}
-                        />
-                    </div>
-                    <div className="flex items-center justify-between">
-                        <FilledButton
-                            className="text-base bg-yellow-600 hover:bg-yellow-700 text-white py-2 px-4 rounded focus:outline-none focus:shadow-outline"
-                            type="submit"
-                        >
-                            Submit Details
-                        </FilledButton>
-                    </div>
-                </form>
+    // Additional validation for email and phone number formats can be added here
+
+    try {
+      const response = await axios.post(
+        "http://localhost:5000/api/suppliers/",
+        supplierData
+      );
+      if (response.status === 201) {
+        navigate("/admin/supplier-management/suppliers");
+      }
+    } catch (error) {
+      console.error("Error creating supplier:", error);
+      toast.error("Something went wrong. Please try again.");
+    }
+  };
+
+  return (
+    <>
+      <div className="w-full bg-bgsec pt-[60px] pb-[70px]">
+        <div className="max-w-2xl mx-auto bg-white p-16 border-[2px] rounded-[15px]">
+          <h1 className="text-2xl font-bold mb-6">Add Suppliars</h1>
+
+          <form onSubmit={handleSubmit}>
+            <div className="grid gap-6 mb-6 mt-4 lg:grid-cols-1">
+              <TextField
+                id="supplierId"
+                label="Supplier Id"
+                name="supplierId"
+                variant="outlined"
+                type="text"
+                value={supplierData.supplierId}
+                onChange={handleInputChange}
+              />
+
+              <TextField
+                id="name"
+                label="Suppliar Name"
+                name="name"
+                variant="outlined"
+                type="text"
+                value={supplierData.name}
+                onChange={handleInputChange}
+              />
+
+              {/* Contact Number Field */}
+              <TextField
+                id="email"
+                label="Email"
+                name="email"
+                variant="outlined"
+                type="email"
+                value={supplierData.email}
+                onChange={handleInputChange}
+              />
+
+              <TextField
+                id="phoneNumber"
+                name="phoneNumber"
+                label="Phone Number"
+                variant="outlined"
+                value={supplierData.phoneNumber}
+                onChange={handleInputChange}
+              />
+
+              <TextField
+                id="address"
+                name="address"
+                label="Address"
+                variant="outlined"
+                value={supplierData.address}
+                onChange={handleInputChange}
+              />
+
+              <FormControl fullWidth>
+                <InputLabel id="category-select-label">Category</InputLabel>
+                <Select
+                  labelId="category-select-label"
+                  id="category-select"
+                  value={supplierData.category}
+                  onChange={handleInputChange}
+                  label="Category"
+                  name="category"
+                >
+                  <MenuItem value="Pet Food">Pet Food</MenuItem>
+                  <MenuItem value="Medicine">Medicine</MenuItem>
+                  <MenuItem value="Grooming and Bathroom Essential">Grooming and Bathroom Essential</MenuItem>
+                  <MenuItem value="Pet Toys">Pet Toys</MenuItem>
+                </Select>
+              </FormControl>
             </div>
+
+            {/* Submit Button */}
+            <button
+              type="submit"
+              className="flex ml-auto text-[15px] w rounded-[5px] text-white bg-[#FF9F00] hover:bg-[#E38E00] font-bold text-sm w-full sm:w-auto px-5 py-2.5 text-center"
+            >
+              Submit
+            </button>
+          </form>
         </div>
-    );
+      </div>
+    </>
+  );
 }

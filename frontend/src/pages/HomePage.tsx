@@ -18,7 +18,7 @@ export default function HomePage() {
         </div>
         <div className="">
           <h1 className="text-2xl font-bold text-white text-center my-2">
-            Customer Service
+            Costomer service
           </h1>
           <p className="text-center text-white">
             Experience exceptional service, tailored just for you.

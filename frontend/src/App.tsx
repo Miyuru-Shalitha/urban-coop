@@ -13,13 +13,14 @@ import EmployeeManagementEmployeesAdminPage from "./pages/EmployeeManagementAdmi
 import EmployeeManagementRolesAdminPage from "./pages/EmployeeManagementAdminPage/EmployeeManagementRolesPage";
 import EmployeeManagementSalaryPage from "./pages/EmployeeManagementAdminPage/EmployeeManagementSalaryPage";
 
-
+//Supplier Management Pages
 import SupplierManagementAdminPage from "./pages/SupplierManagementAdminPage/SupplierManagementAdminPage";
 import SupplierManagementDashboard from "./pages/SupplierManagementAdminPage/SupplierManagementDashboard";
 import SupplierManagementStockReq from "./pages/SupplierManagementAdminPage/SupplierManagementStockReq";
 import SupplierManagementUpdateSupplierPage from "./pages/SupplierManagementAdminPage/SupplierManagementUpdateSupplierPage";
 import SupplierManagementCreateSupplierPage from "./pages/SupplierManagementAdminPage/SupplierManagementCreateSupplierPage";
 import SupplierManagementSupplierPage from "./pages/SupplierManagementAdminPage/SupplierManagementSupplierPage";
+import SuppliersReport from "./pages/SupplierManagementAdminPage/SuppliersReport";
 
 
 import InventoryManagementPage from "./pages/InventoryManagementAdminPage/InventoryManagementAdminPage";
@@ -51,6 +52,9 @@ import EmployeeLogInPage from "./pages/EmployeeLogInPage";
 import InventoryManagementUpdatePage from "./pages/InventoryManagementAdminPage/InventoryManagementUpdatePage";
 import InventoryReport from "./pages/InventoryManagementAdminPage/InventoryReport";
 
+import CreateFeedbackPage from "./pages/FeedbackManagement/CreateFeedbackPage";
+import MyFeedbackPage from "./pages/FeedbackManagement/MyFeedbackPage";
+import FeedbackTable from "./pages/FeedbackManagement/FeedbackTable";
 
 export default function App() {
   return (
@@ -69,6 +73,17 @@ export default function App() {
             path="events/register/:id"
             element={<EventRegistrationPage />}
           />
+
+          <Route path="events" element={<EventPage />} />
+          <Route path="events/register/:id" element={<EventRegistrationPage />} />
+
+          <Route path="petdaycare" element={<PetDaycareBookingPage />} />
+          <Route path="mybookings" element={<PetDaycareMyBookings />} />
+          <Route path="mybookings/update/:id" element={<PetDaycareBookingUpdatePage />} />
+          <Route path="up" element={<PetDaycareBookingUpdatePage />} />
+
+          <Route path="feedback" element={<CreateFeedbackPage/>}/>
+          <Route path="myfeedback" element={<MyFeedbackPage/>}/>
 
           <Route path="petdaycare" element={<PetDaycareBookingPage />} />
           <Route path="mybookings" element={<PetDaycareMyBookings />} />
@@ -185,11 +200,6 @@ export default function App() {
           {/* income */}
           {/* expense */}
 
-
-
-
-
-
           {/* Supplier Management Routes */}
           <Route
             path="supplier-management"
@@ -203,7 +213,7 @@ export default function App() {
 
           <Route
             path="supplier-management/suppliers"
-            element={<SupplierManagementSupplierPage/>}
+            element={<SupplierManagementSupplierPage />}
           />
 
           <Route
@@ -211,13 +221,8 @@ export default function App() {
             element={<SupplierManagementCreateSupplierPage />}
           />
 
-          {/* <Route
-            path="supplier-management/update-suppliers"
-            element={<SupplierManagementUpdateSupplierPage />}
-          /> */}
-
           <Route
-            path="supplier-management/update-supplier/:supplierId"
+            path="supplier-management/suppliers/update/:id"
             element={<SupplierManagementUpdateSupplierPage />}
           />
 
@@ -225,24 +230,21 @@ export default function App() {
             path="supplier-management/stock-requests"
             element={<SupplierManagementStockReq />}
           />
-        
 
           <Route
+            path="supplier-management/report"
+            element={<SuppliersReport />}
+          />
+          
+          {/* <Route
             path="supplier-management/allsup/:id"
             element={<SupplierManagementUpdateSupplierPage />}
-          />
-
-
-
-
-
-
-
-
+          /> */}
+          
           {/* feedback dashboard */}
           <Route
-            path="feedback-dashboard"
-            element={<FeedbackManagementAdminPage />}
+            path="feedbacks"
+            element={<FeedbackTable />}
           />
         </Route>
       </Routes>
