@@ -31,7 +31,7 @@ import InventoryManagementCreateItemsPage from "./pages/InventoryManagementAdmin
 import InventoryManagementCreateRequest from "./pages/InventoryManagementAdminPage/InventoryManagementCreateRequest";
 import EventRegistrationPage from "./pages/EventManagementPage/EventRegistrationPage";
 import EventReport from "./pages/EventManagementPage/EventReport";
-import FeedbackManagementAdminPage from "./pages/FeedbackManagementAdminPage/FeedbackManagementAdminPage";
+
 import EmployeeProfilePage from "./pages/EmployeeProfilePage";
 
 //Pet Daycare Management Pages
@@ -43,6 +43,7 @@ import PetDaycareMyBookings from "./pages/PetDaycareManagementPage/PetDaycareMyB
 import PetDaycareBookingUpdatePage from "./pages/PetDaycareManagementPage/PetDaycareBookingUpdatePage";
 import BookingTable from "./pages/PetDaycareManagementAdminPage/BookingTable";
 import PetDaycareDashboard from "./pages/PetDaycareManagementAdminPage/PetDaycareDashboard";
+import AdminBookingApprovalPage from "./pages/PetDaycareManagementAdminPage/AdminBookingApprovalPage";
 
 import UpdateRegistrationForm from "./pages/EventManagementPage/updateUserRegistration";
 
@@ -170,7 +171,7 @@ export default function App() {
             element={<EventCreationForm />}
           />
 
-          <Route path="event-dashboard/uptadeEvent" element={<UpdateEvent />} />
+          <Route path="event-dashboard/uptadeEvent/:id" element={<UpdateEvent />} />
 
           <Route
             path="event-dashboard/uptadeEvent/:id"
@@ -184,11 +185,15 @@ export default function App() {
             element={<UpdateRegistrationForm />}
           />
 
-          <Route path="report-generation" element={<EventReport />} />
+          <Route
+            path="report-generation"
+            element={<EventReport />}
+          />
           {/* event report generation */}
 
           <Route path="allbookings" element={<BookingTable />} />
           <Route path="bookingsOverview" element={<PetDaycareDashboard />} />
+          <Route path="booking-approvals" element={<AdminBookingApprovalPage />} />
 
           {/* set daily rates */}
           {/* bookings */}
@@ -199,6 +204,7 @@ export default function App() {
           {/* expense */}
           {/* income */}
           {/* expense */}
+
 
           {/* Supplier Management Routes */}
           <Route
@@ -235,12 +241,7 @@ export default function App() {
             path="supplier-management/report"
             element={<SuppliersReport />}
           />
-          
-          {/* <Route
-            path="supplier-management/allsup/:id"
-            element={<SupplierManagementUpdateSupplierPage />}
-          /> */}
-          
+
           {/* feedback dashboard */}
           <Route
             path="feedbacks"

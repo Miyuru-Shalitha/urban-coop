@@ -61,7 +61,7 @@ const PetDaycareBookingUpdatePage = () => {
         e.preventDefault();
 
         try {
-            await axios.put(`http://localhost:5000/api/bookings/${id}`, formState);
+            await axios.put(`http://localhost:5000/api/bookings/online/${id}`, formState);
             toast.success('Booking updated successfully!');
             navigate('/mybookings');
         } catch (error) {

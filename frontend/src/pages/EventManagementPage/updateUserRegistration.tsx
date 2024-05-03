@@ -64,8 +64,7 @@ const UpdateRegistrationForm = () => {
       }
     };
     fetchData();
-  }, [id]); // Add id to the dependency array
-
+  }, [id]); 
   return (
     <div className="w-full flex flex-col items-center justify-center h-screen bg-gray-100 font-sans">
       <div className="bg-white p-8 rounded-lg shadow-md w-96">

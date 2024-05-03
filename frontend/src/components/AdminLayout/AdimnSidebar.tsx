@@ -131,7 +131,7 @@ export default function AdminSidebar() {
         subtitles: [
           {
             name: "Feedback",
-            route: "/admin/feedback-dashboard",
+            route: "/admin/feedbacks",
           },
         ],
       },
