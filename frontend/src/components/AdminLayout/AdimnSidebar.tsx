@@ -121,6 +121,10 @@ export default function AdminSidebar() {
             name: "Stock Requests",
             route: "/admin/supplier-management/stock-requests",
           },
+          {
+            name: "Get Report",
+            route: "/admin/supplier-management/report",
+          }
         ],
       },
       {

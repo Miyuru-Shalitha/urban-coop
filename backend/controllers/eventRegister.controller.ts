@@ -1,43 +1,8 @@
 import  { Request, Response } from "express";
 import registration from'../models/EventRegisterSchema';
 import Event from '../models/eventSchema';
-import { error } from "console";
 
-// const createReg = async (req: Request, res: Response) => {
-//   try {
-//     // Destructure eventId from req.body and collect remaining properties in registrationData
-//     const { eventId, ...registrationData } = req.body;
 
-//     // Check if eventId exists
-//     if (!eventId) {
-//       return res.status(400).json({ error: 'Event ID is required' });
-//     }
-
-//     // Find event by eventId
-//     const event = await Event.findById(eventId);
-//     console.log("Event data",event);
-//     // Check if event exists
-//     if (!event) {
-//       return res.status(404).json({ error: 'Event not found' });
-//     }
-
-//     // Create a new registration document with event name and additional registration data
-//     const Registration = new registration({
-//       eventName: event.title, // Assign the event title to the eventName field
-//       ...registrationData,   // Spread other registration data from registrationData
-//     });
-//     console.log("data base",Registration);
-//     // Save the new registration document to the database
-//     await Registration.save();
-
-//     // Send a success response with the created registration data
-//     res.status(201).json(Registration);
-//   } catch (error) {
-//     // Handle errors
-//     console.error('Error creating registration:', error);
-//     res.status(500).json({ error: 'Internal server error' });
-//   }
-// };
 const createReg = async (req: Request, res: Response) => {
  try{
   const{eventId,name,email,mobile,attendees}=req.body;
@@ -70,7 +35,6 @@ const createReg = async (req: Request, res: Response) => {
   }
 
 };
-
 
 const getReg = async (req: Request, res: Response) => {
   try {

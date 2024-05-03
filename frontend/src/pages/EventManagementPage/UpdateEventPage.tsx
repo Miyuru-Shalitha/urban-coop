@@ -15,8 +15,8 @@ const UpdateEvent = () => {
     image: '',
     maxParticipation: 0,
     description: '',
-   
   });
+  const [errors, setErrors] = useState({}); // State for holding validation errors
 
   useEffect(() => {
     const fetchData = async () => {
@@ -31,16 +31,59 @@ const UpdateEvent = () => {
     };
     fetchData();
   }, []);
-  
-  const handleInputChange = (e: any) => {
+
+  const validateForm = () => {
+    let isValid = true;
+    const errors:any = {};
+
+    if (!event.title.trim()) {
+      errors.title = "Title is required";
+      isValid = false;
+    }
+
+    if (!event.date) {
+      errors.date = "Date is required";
+      isValid = false;
+    }
+
+    if (!event.time) {
+      errors.time = "Time is required";
+      isValid = false;
+    }
+
+    if (!event.location.trim()) {
+      errors.location = "Location is required";
+      isValid = false;
+    }
+
+    if (!event.image) {
+      errors.image = "Image is required";
+      isValid = false;
+    }
+
+    if (event.maxParticipation <= 0) {
+      errors.maxParticipation = "Max Participation must be greater than 0";
+      isValid = false;
+    }
+
+    if (!event.description.trim()) {
+      errors.description = "Description is required";
+      isValid = false;
+    }
+
+    setErrors(errors);
+    return isValid;
+  };
+
+  const handleInputChange = (e:any) => {
     const { name, value } = e.target;
     setEvent(prevEvent => ({
       ...prevEvent,
       [name]: value,
-      
     }));
   };
-  const changeImageHandler = (e: any) => {
+
+  const changeImageHandler = (e:any) => {
     if (e.target.files && e.target.files.length > 0) {
       setEvent(prevEvent => ({
         ...prevEvent,
@@ -48,36 +91,39 @@ const UpdateEvent = () => {
       }));
     }
   };
-  
-  function formatDate(isoDateString: string): string {
+
+  function formatDate(isoDateString:any) {
     const date = new Date(isoDateString);
     return date.toISOString().split('T')[0]; // Extract the date part in the format YYYY-MM-DD
-}
+  }
 
-  
-  const handleSubmit = async (e: any) => {
+  const handleSubmit = async (e:any) => {
     e.preventDefault();
-    
+
+    if (!validateForm()) {
+      return;
+    }
+
     const formData = new FormData();
-    formData.append('title',event.title);
-    formData.append('date',event.date);
-    formData.append('time',event.time);
-    formData.append('location',event.location);
-    formData.append('image',event.image);
+    formData.append('title', event.title);
+    formData.append('date', event.date);
+    formData.append('time', event.time);
+    formData.append('location', event.location);
+    formData.append('image', event.image);
     formData.append('maxParticipation', event.maxParticipation.toString());
     formData.append('description', event.description);
-    
-   
+
     try {
       await axios.put(`http://localhost:5000/api/events/${id}`, formData);
       toast.success('Event updated successfully!', { position: "top-right" });
       navigate("/admin/event-dashboard");
     } catch (error) {
-      console.error('Error updating event:',error);
+      console.error('Error updating event:', error);
       toast.error('Something went wrong!');
     }
   };
-    return (
+
+  return (
     <div className="flex justify-center items-center h-full w-full m-4 font-sans">
       <div className="bg-gray-200 w-full max-w-md shadow-md rounded px-8 pt-6 pb-8 mb-4">
         <h1 className="text-3xl font-bold p-4 text-center">Update Event</h1>
@@ -92,8 +138,9 @@ const UpdateEvent = () => {
               id="title"
               value={event.title}
               onChange={handleInputChange}
-              className="appearance-none border rounded-md w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline text-sm"
+              className={`appearance-none border rounded-md w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline text-sm ${errors.title && 'border-red-500'}`}
             />
+            {errors.title && <p className="text-red-500 text-xs italic">{errors.title}</p>}
           </div>
           <div className="mb-4">
             <label htmlFor="date" className="block text-gray-700 font-bold mb-1">
@@ -105,8 +152,9 @@ const UpdateEvent = () => {
               id="date"
               value={event.date && formatDate(event.date)}
               onChange={handleInputChange}
-              className="appearance-none border rounded-md w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline text-sm"
+              className={`appearance-none border rounded-md w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline text-sm ${errors.date && 'border-red-500'}`}
             />
+            {errors.date && <p className="text-red-500 text-xs italic">{errors.date}</p>}
           </div>
           <div className="mb-4">
             <label htmlFor="time" className="block text-gray-700 font-bold mb-1">
@@ -118,8 +166,9 @@ const UpdateEvent = () => {
               id="time"
               value={event.time}
               onChange={handleInputChange}
-              className="appearance-none border rounded-md w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline text-sm"
+              className={`appearance-none border rounded-md w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline text-sm ${errors.time && 'border-red-500'}`}
             />
+            {errors.time && <p className="text-red-500 text-xs italic">{errors.time}</p>}
           </div>
           <div className="mb-4">
             <label htmlFor="location" className="block text-gray-700 font-bold mb-1">
@@ -131,8 +180,9 @@ const UpdateEvent = () => {
               id="location"
               value={event.location}
               onChange={handleInputChange}
-              className="appearance-none border rounded-md w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline text-sm"
+              className={`appearance-none border rounded-md w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline text-sm ${errors.location && 'border-red-500'}`}
             />
+            {errors.location && <p className="text-red-500 text-xs italic">{errors.location}</p>}
           </div>
           <img src={`http://localhost:5000/${event.image}`} alt="event" className="w-full h-40 object-cover mb-4" />
           <div className="mb-4">
@@ -143,12 +193,11 @@ const UpdateEvent = () => {
               type="file"
               name="image"
               id="image"
-              
               onChange={changeImageHandler}
-              className="appearance-none border rounded-md w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline text-sm"
+              className={`appearance-none border rounded-md w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline text-sm ${errors.image && 'border-red-500'}`}
             />
+            {errors.image && <p className="text-red-500 text-xs italic">{errors.image}</p>}
           </div>
-          
           <div className="mb-4">
             <label htmlFor="maxParticipation" className="block text-gray-700 font-bold mb-1">
               Max Participation
@@ -159,8 +208,9 @@ const UpdateEvent = () => {
               id="maxParticipation"
               value={event.maxParticipation}
               onChange={handleInputChange}
-              className="appearance-none border rounded-md w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline text-sm"
+              className={`appearance-none border rounded-md w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline text-sm ${errors.maxParticipation && 'border-red-500'}`}
             />
+            {errors.maxParticipation && <p className="text-red-500 text-xs italic">{errors.maxParticipation}</p>}
           </div>
           <div className="mb-4">
             <label htmlFor="description" className="block text-gray-700 font-bold mb-1">
@@ -171,8 +221,9 @@ const UpdateEvent = () => {
               id="description"
               value={event.description}
               onChange={handleInputChange}
-              className="appearance-none border rounded-md w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline text-sm"
+              className={`appearance-none border rounded-md w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline text-sm ${errors.description && 'border-red-500'}`}
             />
+            {errors.description && <p className="text-red-500 text-xs italic">{errors.description}</p>}
           </div>
           <div className="flex items-center justify-between">
             <button

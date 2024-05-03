@@ -81,12 +81,13 @@ const InventoryManagement: React.FC = () => {
     <div className="flex-1 flex flex-col justify-center items-center">
       <div>
         <input
-          
+
         />
         <PDFDownloadLink
           document={<InventoryReport items={filteredItems} />}
           fileName="inventory_report.pdf"
-          className="inline-block px-6 py-3 bg-green-500 text-white font-bold rounded-lg hover:bg-green-600 text-lg border-2 border-green-500 transition duration-300 ease-in-out"
+          className="inline-block px-6 py-3 bg-green-500 text-white font-bold rounded-lg
+          hover:bg-green-600 text-lg border-2 border-green-500 transition duration-300 ease-in-out"
           style={{ textDecoration: "none" }}
         >
           {({ loading }) => (loading ? "Generating PDF..." : "Download Inventory Report")}
