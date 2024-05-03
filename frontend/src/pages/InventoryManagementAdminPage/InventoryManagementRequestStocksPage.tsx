@@ -1,100 +1,81 @@
-import { Link } from "react-router-dom";
+import axios from 'axios';
+import React, { useEffect, useState } from 'react';
+import { Link } from 'react-router-dom';
 
-export default function InventoryManagementRequestStocksPage() {
-  return (
-    <div className="p-4">
-      <h1 className="text-xl font-bold mb-4">
-        INVENTORY MANAGEMENT All REQUEST STOCKS
-      </h1>
-      <h2 className="text-lg font-bold mb-2">Request Table</h2>
-      <table className="border border-black">
-        <thead>
-          <tr className="bg-primary text-black border-b border-black ">
-            <th className="p-2">Date</th>
-            <th className="p-2">Item Code</th>
-            <th className="p-2">Item Name</th>
-            <th className="p-2">Item Brand</th>
-            <th className="p-2">Quantity</th>
-            <th className="p-2">Status</th>
-            <th className="p-2">Action</th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr className="border-b border-black">
-            <td className="p-2">2024-04-16</td>
-            <td className="p-2">I002</td>
-            <td className="p-2">Wet Cat Food</td>
-            <td className="p-2">Fancy Feast</td>
-            <td className="p-2">10</td>
-            <td className="p-2">Pending</td>
-            <td className="p-2">
-              <button className="inline-flex justify-center py-2 px-4 border border-transparent shadow-sm text-sm font-medium rounded-md text-white bg-green-500 hover:bg-primary focus:outline-none focus:ring-2 focus:ring-offset-2">
-                Received <span className="ml-2">&#x2714;</span>
-              </button>
-            </td>
-          </tr>
-          <tr className="border-b border-black">
-            <td className="p-2">2024-04-15</td>
-            <td className="p-2">I003</td>
-            <td className="p-2">Dry Dog Food</td>
-            <td className="p-2">Pedigree</td>
-            <td className="p-2">15</td>
-            <td className="p-2">Delivered</td>
-            <td className="p-2">
-              <button className="inline-flex justify-center py-2 px-4 border border-transparent shadow-sm text-sm font-medium rounded-md text-white bg-green-500 hover:bg-primary focus:outline-none focus:ring-2 focus:ring-offset-2">
-                Received <span className="ml-2">&#x2714;</span>
-              </button>
-            </td>
-          </tr>
-          <tr className="border-b border-black">
-            <td className="p-2">2024-04-14</td>
-            <td className="p-2">I004</td>
-            <td className="p-2">Dog Chew Toy</td>
-            <td className="p-2">Nylabone</td>
-            <td className="p-2">20</td>
-            <td className="p-2">Pending</td>
-            <td className="p-2">
-              <button className="inline-flex justify-center py-2 px-4 border border-transparent shadow-sm text-sm font-medium rounded-md text-white bg-green-500 hover:bg-primary focus:outline-none focus:ring-2 focus:ring-offset-2">
-                Received <span className="ml-2">&#x2714;</span>
-              </button>
-            </td>
-          </tr>
-          <tr className="border-b border-black">
-            <td className="p-2">2024-04-13</td>
-            <td className="p-2">I005</td>
-            <td className="p-2">Catnip Toy</td>
-            <td className="p-2">Yeowww!</td>
-            <td className="p-2">8</td>
-            <td className="p-2">Delivered</td>
-            <td className="p-2">
-              <button className="inline-flex justify-center py-2 px-4 border border-transparent shadow-sm text-sm font-medium rounded-md text-white bg-green-500 hover:bg-primary focus:outline-none focus:ring-2 focus:ring-offset-2">
-                Received <span className="ml-2">&#x2714;</span>
-              </button>
-            </td>
-          </tr>
-          <tr className="border-b border-black">
-            <td className="p-2">2024-04-12</td>
-            <td className="p-2">I006</td>
-            <td className="p-2">Dog Collar</td>
-            <td className="p-2">Kong</td>
-            <td className="p-2">12</td>
-            <td className="p-2">Delivered</td>
-            <td className="p-2">
-              <button className="inline-flex justify-center py-2 px-4 border border-transparent shadow-sm text-sm font-medium rounded-md text-white bg-green-500 hover:bg-primary focus:outline-none focus:ring-2 focus:ring-offset-2">
-                Received <span className="ml-2">&#x2714;</span>
-              </button>
-            </td>
-          </tr>
-        </tbody>
-      </table>
-      <Link
-        to="/admin/inventory-management/request-create"
-        className="block mt-4"
-      >
-        <button className="bg-primary text-white py-2 px-4 rounded-md">
-          Create Request
-        </button>
-      </Link>
-    </div>
-  );
-}
+const StockTable = () => {
+    const [stocks, setStocks] = useState([]);
+    const [searchQuery, setSearchQuery] = useState('');
+
+    useEffect(() => {
+        const fetchStocks = async () => {
+            try {
+                const response = await axios.get('http://localhost:5000/api/stocks');
+                setStocks(response.data);
+            } catch (error) {
+                console.error('Error fetching stocks:', error);
+            }
+        };
+        fetchStocks();
+    }, []);
+
+    const filteredStocks = stocks.filter((stock) => {
+        return (
+            stock.stockCode.toLowerCase().includes(searchQuery.toLowerCase()) ||
+            stock.stockBrand.toLowerCase().includes(searchQuery.toLowerCase()) ||
+            stock.quantity.toString().includes(searchQuery) ||
+            stock.status.toLowerCase().includes(searchQuery.toLowerCase())
+        );
+    });
+
+    return (
+      
+        <div className="w-full mx-auto p-8 font-sans">
+          
+            <div className="flex justify-between items-center mb-4">
+                <input
+                    type="text"
+                    className="p-2 border rounded w-full"
+                    placeholder="Search stocks..."
+                    value={searchQuery}
+                    onChange={(e) => setSearchQuery(e.target.value)}
+                />
+                <Link to="/admin/inventory-management/request-create" className="bg-primaryAccent text-black px-4 py-2 rounded">
+                    Add Stock
+                </Link>
+            </div>
+
+            <div className="overflow-x-auto">
+                <table className="w-full border-collapse">
+                    <thead>
+                        <tr className="bg-gray-200">
+                        <th className="px-4 py-2 text-left">Date</th>
+                            <th className="px-4 py-2 text-left">Stock Code</th>
+                            <th className="px-4 py-2 text-left">Stock Brand</th>
+                            <th className="px-4 py-2 text-left">Quantity</th>
+                            <th className="px-4 py-2 text-left">Status</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {filteredStocks.length > 0 ? (
+                            filteredStocks.map((stock) => (
+                                <tr key={stock._id}>
+                                  <td className="px-4 py-2">{stock.date}</td>
+                                    <td className="px-4 py-2">{stock.stockCode}</td>
+                                    <td className="px-4 py-2">{stock.stockBrand}</td>
+                                    <td className="px-4 py-2">{stock.quantity}</td>
+                                    <td className="px-4 py-2">{stock.status}</td>
+                                </tr>
+                            ))
+                        ) : (
+                            <tr>
+                                <td colSpan={4} className="px-4 py-2 text-center">No stocks found.</td>
+                            </tr>
+                        )}
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    );
+};
+
+export default StockTable;

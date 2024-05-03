@@ -1,31 +1,44 @@
-import React, { useState, useEffect } from 'react';
-import axios, { AxiosResponse } from 'axios';
-import { Document, Page, Text, View, StyleSheet, PDFDownloadLink } from '@react-pdf/renderer';
+import React, { useState, useEffect } from "react";
+import axios, { AxiosResponse } from "axios";
+import {
+  Document,
+  Page,
+  Text,
+  View,
+  StyleSheet,
+  PDFDownloadLink,
+} from "@react-pdf/renderer";
 
 // Define types
 interface Item {
   itemCode: string;
   itemName: string;
   itemBrand: string;
-  category: string; // Assuming this is the category property
-  quantity: number; // Assuming this is the quantity property
+  category: string;
+  quantity: number;
 }
 
 const styles = StyleSheet.create({
   page: {
     padding: 20,
-    fontFamily: 'Helvetica',
+    fontFamily: "Helvetica",
     fontSize: 12,
   },
   title: {
     fontSize: 20,
     marginBottom: 10,
+    fontWeight: "bold",
+    textAlign: "center",
+    textDecoration: "underline",
   },
   item: {
     marginBottom: 10,
+    border: "1px solid #ccc",
+    padding: 10,
+    borderRadius: 5,
   },
   itemDetail: {
-    marginLeft: 10,
+    marginTop: 5,
   },
 });
 
@@ -49,47 +62,36 @@ const InventoryReport: React.FC<{ items: Item[] }> = ({ items }) => (
 
 const InventoryManagement: React.FC = () => {
   const [items, setItems] = useState<Item[]>([]);
-  const [searchQuery, setSearchQuery] = useState<string>('');
+
 
   useEffect(() => {
     const fetchItems = async () => {
       try {
-        const response: AxiosResponse<Item[]> = await axios.get('http://localhost:5000/api/items');
+        const response: AxiosResponse<Item[]> = await axios.get(
+          "http://localhost:5000/api/items"
+        );
         setItems(response.data);
       } catch (error) {
-        console.error('Error fetching items:', error);
-        // Handle error: You might want to set an error state to display a message to the user
+        console.error("Error fetching items:", error);
+     
       }
     };
     fetchItems();
   }, []);
 
-  const handleSearchChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    setSearchQuery(e.target.value);
-  };
-
-  const filteredItems = items.filter((item) =>
-    item.itemName.toLowerCase().includes(searchQuery.toLowerCase())
-  );
-
-  const generateReport = () => {
-    // Logic to generate the report
-    console.log('Generating inventory report...');
-  };
-
   return (
     <div className="flex-1 flex flex-col justify-center items-center">
       <div>
-        <input
-          
-        />
+        <input />
         <PDFDownloadLink
-          document={<InventoryReport items={filteredItems} />}
+          document={<InventoryReport items={items} />}
           fileName="inventory_report.pdf"
           className="inline-block px-6 py-3 bg-green-500 text-white font-bold rounded-lg hover:bg-green-600 text-lg border-2 border-green-500 transition duration-300 ease-in-out"
           style={{ textDecoration: "none" }}
         >
-          {({ loading }) => (loading ? "Generating PDF..." : "Download Inventory Report")}
+          {({ loading }) =>
+            loading ? "Generating PDF..." : "Download Inventory Report"
+          }
         </PDFDownloadLink>
       </div>
     </div>

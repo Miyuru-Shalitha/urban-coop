@@ -22,13 +22,13 @@ const InventoryManagement = () => {
     try {
       const response = await axios.delete(`http://localhost:5000/api/items/${itemId}`);
       if (response.status === 200) {
-        alert('Event deleted successfully!');
+        alert('Item deleted successfully!');
         setItems((prevItems) => prevItems.filter((item) => item._id !== itemId));
       } else {
-        alert('Failed to delete Event. Please try again later.');
+        alert('Failed to delete Item. Please try again later.');
       }
     } catch (error) {
-      console.error('Error deleting Event:', error);
+      console.error('Error deleting Item:', error);
       alert('An error occurred while deleting Event. Please try again later.');
     }
   };

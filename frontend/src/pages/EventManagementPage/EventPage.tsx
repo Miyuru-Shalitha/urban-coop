@@ -70,7 +70,7 @@ const EventPage = () => {
             <div className="flex" style={{ height: "100%" }}>
               <img
                 className="w-2/3 h-auto object-cover object-center"
-                src={`http://localhost:5000/uploads${event.image}`}
+                src={`http://localhost:5000/${event.image}`}
                 alt={event.title}
               />
               <div className=" p-4 w-2/3  max-h-full ...w-ful">

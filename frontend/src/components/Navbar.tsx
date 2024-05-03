@@ -15,7 +15,9 @@ export default function Navbar() {
         <Link to="/petdaycare">
         <li>Pet Daycare</li>
         </Link>
-        <li>Events</li>
+        <Link to="/events"><li>Events</li>
+        </Link>
+        
         <li>Pet Adoptation</li>
 
         <Link to="/feedback">
