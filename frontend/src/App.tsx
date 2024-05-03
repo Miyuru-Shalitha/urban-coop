@@ -13,10 +13,7 @@ import EmployeeManagementEmployeesAdminPage from "./pages/EmployeeManagementAdmi
 import EmployeeManagementRolesAdminPage from "./pages/EmployeeManagementAdminPage/EmployeeManagementRolesPage";
 import EmployeeManagementSalaryPage from "./pages/EmployeeManagementAdminPage/EmployeeManagementSalaryPage";
 
-<<<<<<< HEAD
-=======
-//Supplier Management Pages
->>>>>>> bf1d73d4daaaefbb73e5e035d2f9fcb3a66518bc
+// Supplier Management Pages
 import SupplierManagementAdminPage from "./pages/SupplierManagementAdminPage/SupplierManagementAdminPage";
 import SupplierManagementDashboard from "./pages/SupplierManagementAdminPage/SupplierManagementDashboard";
 import SupplierManagementStockReq from "./pages/SupplierManagementAdminPage/SupplierManagementStockReq";
@@ -214,7 +211,10 @@ export default function App() {
 
           <Route path="allbookings" element={<BookingTable />} />
           <Route path="bookingsOverview" element={<PetDaycareDashboard />} />
-          <Route path="booking-approvals" element={<AdminBookingApprovalPage />} />
+          <Route
+            path="booking-approvals"
+            element={<AdminBookingApprovalPage />}
+          />
 
           {/* set daily rates */}
           {/* bookings */}
