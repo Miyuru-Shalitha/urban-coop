@@ -25,21 +25,35 @@ const PetDaycareMyBookings = () => {
 
   const deleteBooking = async () => {
     if (bookingToDelete) {
-      try {
-        const response = await axios.delete(`http://localhost:5000/api/bookings/${bookingToDelete}`);
-        if (response.status === 200) {
-          toast.success('Booking deleted successfully!');
-          setBookings((prevBookings) => prevBookings.filter((booking) => booking._id !== bookingToDelete));
-          closeConfirmModal();
-        } else {
-          toast.error('Failed to delete booking. Please try again later.');
+        try {
+            const response = await axios.delete(`http://localhost:5000/api/bookings/online/${bookingToDelete}`);
+            if (response.status === 200) {
+                toast.success('Booking deleted successfully!');
+                setBookings((prevBookings) => prevBookings.filter((booking) => booking._id !== bookingToDelete));
+                closeConfirmModal();
+            } else {
+                toast.error('Failed to delete booking. Please try again later.');
+            }
+        } catch (error) {
+            // Check if the error is from Axios
+            if (axios.isAxiosError(error)) {
+                // Check if there is a response from the server
+                if (error.response) {
+                    // Display the error message from the backend
+                    toast.error(error.response.data.message || 'An error occurred while deleting the booking. Please try again later.');
+                } else {
+                    // No response from server, display generic message
+                    toast.error('An error occurred while deleting the booking. Please try again later.');
+                }
+            } else {
+                // Handle non-Axios errors
+                console.error('Error deleting booking:', error);
+                toast.error('An unexpected error occurred. Please try again later.');
+            }
         }
-      } catch (error) {
-        console.error('Error deleting booking:', error);
-        toast.error('An error occurred while deleting the booking. Please try again later.');
-      }
     }
-  };
+};
+
 
   function formatDate(isoDateString: string): string {
     const date = new Date(isoDateString);
