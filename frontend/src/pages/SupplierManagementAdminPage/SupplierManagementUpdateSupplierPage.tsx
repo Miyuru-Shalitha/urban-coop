@@ -138,8 +138,8 @@ const SupplierManagementUpdateSupplierPage = () => {
                             >
                                 <FormControlLabel value="Pet Food" control={<Radio />} label="Pet Food" />
                                 <FormControlLabel value="Medicine" control={<Radio />} label="Medicine" />
-                                <FormControlLabel value="Bathroom Items" control={<Radio />} label="Bathroom Items" />
-                                <FormControlLabel value="Toys" control={<Radio />} label="Toys" />
+                                <FormControlLabel value="Grooming and Bathroom Essential" control={<Radio />} label="Grooming and Bathroom Essential" />
+                                <FormControlLabel value="Pet Toys" control={<Radio />} label="Pet Toys" />
                             </RadioGroup>
                         </FormControl>
                     </div>
