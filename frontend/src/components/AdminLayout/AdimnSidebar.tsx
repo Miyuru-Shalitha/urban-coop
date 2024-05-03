@@ -33,8 +33,12 @@ export default function AdminSidebar() {
             route: "/admin/bookingsOverview",
           },
           {
-            name: "Pet Daycare Bookings",
+            name: "Online Bookings",
             route: "/admin/allbookings",
+          },
+          {
+            name: "Online Booking Review",
+            route: "/admin/booking-approvals",
           },
         ],
       },
