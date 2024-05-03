@@ -3,6 +3,7 @@ import { useState, FormEvent, ChangeEvent, useEffect } from 'react';
 import toast from 'react-hot-toast';
 import { useParams } from 'react-router-dom';
 import { useNavigate } from "react-router-dom";
+import { z } from 'zod';
 
 const UpdateRegistrationForm = () => {
   const Navigate = useNavigate();
@@ -12,10 +13,21 @@ const UpdateRegistrationForm = () => {
   const [mobile, setMobile] = useState<string>('');
   const [attendees, setAttendees] = useState<number | ''>('');
 
+  // Define Zod schema for validation with custom error messages
+  const registrationSchema = z.object({
+    name: z.string().min(1, { message: "Please enter your name." }),
+    email: z.string().email({ message: "Please enter a valid email address." }),
+    mobile: z.string().min(1, { message: "Please enter your contact number." }),
+    attendees: z.number().min(1, { message: "Please enter a valid attendee count." }).max(5, { message: "Maximum 5 attendees allowed." }).nullable(),
+  });
+
   const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
 
     try {
+      // Validate input against Zod schema
+      registrationSchema.parse({ name, email, mobile, attendees });
+
       const response = await axios.put(`http://localhost:5000/api/reg/${id}`, {
         name,
         email,
@@ -28,6 +40,12 @@ const UpdateRegistrationForm = () => {
 
     } catch (error) {
       console.log(error);
+      if (error instanceof z.ZodError) {
+        // Handle validation errors
+        error.errors.map((errorMessage) => toast.error(errorMessage.message));
+      } else {
+        toast.error('An error occurred while updating the registration.');
+      }
     }
   };
 
@@ -81,7 +99,6 @@ const UpdateRegistrationForm = () => {
               value={name}
               onChange={handleInputChange}
               className="w-full border border-gray-300 p-2 rounded-lg"
-
             />
           </div>
           <div>
@@ -95,7 +112,6 @@ const UpdateRegistrationForm = () => {
               value={email}
               onChange={handleInputChange}
               className="w-full border border-gray-300 p-2 rounded-lg"
-
             />
           </div>
           <div>
@@ -109,7 +125,6 @@ const UpdateRegistrationForm = () => {
               value={mobile}
               onChange={handleInputChange}
               className="w-full border border-gray-300 p-2 rounded-lg"
-
             />
           </div>
           <div>
@@ -123,7 +138,6 @@ const UpdateRegistrationForm = () => {
               value={attendees === '' ? '' : String(attendees)}
               onChange={handleInputChange}
               className="w-full border border-gray-300 p-2 rounded-lg"
-
             />
           </div>
           <div>

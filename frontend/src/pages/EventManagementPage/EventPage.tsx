@@ -72,7 +72,6 @@ const EventPage = () => {
 
   const filteredEvents = events.filter((event) =>
     (new Date(event.date) >= new Date()) && 
-    (calculateTotalAttendees(event._id) < event.maxParticipation) &&
     (event.title.toLowerCase().includes(searchQuery.toLowerCase()) ||
     event.location.toLowerCase().includes(searchQuery.toLowerCase()) ||
     event.date.toLowerCase().includes(searchQuery.toLowerCase()) ||
@@ -116,56 +115,56 @@ const EventPage = () => {
         </div>
       </div>  
       <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 animate-slide-in-left">
-  {filteredEvents.map((event:any) => (
-    <div
-      key={event._id}
-      className="bg-white shadow-lg rounded-lg overflow-hidden m-4 p-4 transform transition-transform duration-500 ease-in-out delay-100 hover:-translate-y-2 hover:shadow-2xl"
-      style={{ height: "300px" }}
-    >
-      <div className="flex" style={{ height: "100%" }}>
-        <img
-          className="w-2/5 h-auto object-cover object-center"
-          src={`http://localhost:5000/${event.image}`}
-          alt={event.title}
-        />
-        <div className="p-4 w-2/3 max-h-full ...w-ful">
-          <h2 className="text-lg font-semibold mb-2">{event.title}</h2>
-          <p className="text-gray-600 m-1">Date: {formatDate(event.date)}</p>
-          <p className="text-gray-600 m-1">Time: {event.time}</p>
-          <p className="text-gray-600 m-1">Location: {event.location}</p>
-          <p className="text-gray-600 m-1 pb-8">Registered Attendees: {calculateTotalAttendees(event._id)}</p>
-          <div className="flex justify-between items-center">
-            <Link to={`register/${event._id}`} className="inline-block px-2 py-1 bg-primaryAccent text-black rounded hover:bg-primary">
-              Register
-            </Link>
-            <button onClick={() => openEventModal(event)} className="inline-block px-2 py-1 bg-primaryAccent text-black rounded hover:bg-primary">
-              <i className="fas fa-eye"></i>
-            </button>
+        {filteredEvents.map((event:any) => (
+          <div
+            key={event._id}
+            className="bg-white shadow-lg rounded-lg overflow-hidden m-4 p-4 transform transition-transform duration-500 ease-in-out delay-100 hover:-translate-y-2 hover:shadow-2xl"
+            style={{ height: "300px" }}
+          >
+            <div className="flex" style={{ height: "100%" }}>
+              <img
+                className="w-2/5 h-auto object-cover object-center"
+                src={`http://localhost:5000/${event.image}`}
+                alt={event.title}
+              />
+              <div className="p-4 w-2/3 max-h-full ...w-ful">
+                <h2 className="text-lg font-semibold mb-2">{event.title}</h2>
+                <p className="text-gray-600 m-1">Date: {formatDate(event.date)}</p>
+                <p className="text-gray-600 m-1">Time: {event.time}</p>
+                <p className="text-gray-600 m-1">Location: {event.location}</p>
+                <p className="text-gray-600 m-1 pb-8">Registered Attendees: {calculateTotalAttendees(event._id)}</p>
+                <div className="flex justify-between items-center">
+                  <button onClick={() => openEventModal(event)} className="inline-block px-2 py-1 bg-primaryAccent text-black rounded hover:bg-primary">
+                    <i className="fas fa-eye"></i>
+                  </button>
+                  {calculateTotalAttendees(event._id) >= event.maxParticipation ? (
+                    <p className="text-red-500">Event Full</p>
+                  ) : (
+                    <Link to={`register/${event._id}`} className="inline-block px-2 py-1 bg-primaryAccent text-black rounded hover:bg-primary">
+                      Register
+                    </Link>
+                  )}
+                </div>
+              </div>
+            </div>
           </div>
-        </div>
+        ))}
       </div>
-    </div>
-  ))}
-</div>
 
       {selectedEvent && (
-        <div  className="fixed top-0 left-0 w-full h-full bg-gray-700 bg-opacity-75 flex justify-center items-center">
-          <div className="bg-white shadow-lg rounded-lg p-4">
-            <h2 className="text-lg font-semibold mb-2">{selectedEvent.title}</h2>
-            <p className="text-gray-600 m-1">Date: {formatDate(selectedEvent.date)}</p>
-            <p className="text-gray-600 m-1">Time: {selectedEvent.time}</p>
-            <p className="text-gray-600 m-1">Location: {selectedEvent.location}</p>
-            <p className="text-gray-600 m-1 ">Max attendee count: {selectedEvent.maxParticipation}</p>
-            <p className="text-gray-600 m-1 ">Registered Attendees: {calculateTotalAttendees(selectedEvent._id)}</p>
-            <p className="text-gray-700 m-1  pb-6">
-              {selectedEvent.description}
-            </p>
-            <button onClick={closeModal} className="inline-block px-2 py-1 bg-primaryAccent text-black rounded hover:bg-primary">
-              Close
-            </button>
-          </div>
-        </div>
-      )}
+  <div className="fixed top-0 left-0 w-full h-full bg-gray-700 bg-opacity-75 flex justify-center items-center">
+    <div className="bg-white shadow-lg rounded-lg p-4" style={{ maxWidth: "400px" }}>
+      <h2 className="text-lg font-semibold mb-2">{selectedEvent.title}</h2>
+      <p className="text-gray-600 m-1">Date: {formatDate(selectedEvent.date)}</p>
+      <p className="text-gray-600 m-1">Time: {selectedEvent.time}</p>
+      <p className="text-gray-600 m-1">Location: {selectedEvent.location}</p>
+      <p className="text-gray-600 m-1 ">Max attendee count: {selectedEvent.maxParticipation}</p>
+      <p className="text-gray-600 m-1 ">Registered Attendees: {calculateTotalAttendees(selectedEvent._id)}</p>
+      <p className="text-gray-700 m-1 pb-6">{selectedEvent.description}</p>
+      <button onClick={closeModal} className="inline-block px-2 py-1 bg-primaryAccent text-black rounded hover:bg-primary">Close</button>
+    </div>
+  </div>
+)}
     </div>
   );
 };
