@@ -1,6 +1,4 @@
 import { Request, Response } from "express";
-// const Employee = require('../models/employee.model');
-import connect from "../config/db.config";
 import Employee from "../models/employee.model";
 import Role from "../models/role.model";
 import bcrypt from "bcrypt";

@@ -30,7 +30,7 @@ import InventoryManagementCreateItemsPage from "./pages/InventoryManagementAdmin
 import InventoryManagementCreateRequest from "./pages/InventoryManagementAdminPage/InventoryManagementCreateRequest";
 import EventRegistrationPage from "./pages/EventManagementPage/EventRegistrationPage";
 import EventReport from "./pages/EventManagementPage/EventReport";
-import FeedbackManagementAdminPage from "./pages/FeedbackManagementAdminPage/FeedbackManagementAdminPage";
+
 import EmployeeProfilePage from "./pages/EmployeeProfilePage";
 
 //Pet Daycare Management Pages
@@ -170,7 +170,7 @@ export default function App() {
             element={<EventCreationForm />}
           />
 
-          <Route path="event-dashboard/uptadeEvent" element={<UpdateEvent />} />
+          <Route path="event-dashboard/uptadeEvent/:id" element={<UpdateEvent />} />
 
           <Route
             path="event-dashboard/uptadeEvent/:id"
@@ -184,7 +184,10 @@ export default function App() {
             element={<UpdateRegistrationForm />}
           />
 
-          <Route path="report-generation" element={<EventReport />} />
+          <Route
+            path="report-generation"
+            element={<EventReport />}
+          />
           {/* event report generation */}
 
           <Route path="allbookings" element={<BookingTable />} />
