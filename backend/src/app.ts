@@ -1,14 +1,16 @@
+import bodyParser from "body-parser";
+import cors from "cors";
 import "dotenv/config";
 import express from "express";
-import cors from "cors";
-import bodyParser from "body-parser";
 import connect from "../config/db.config";
 import logger from "../middlewares/logger.middleware";
-import employeeRoute from "../routes/employee.route";
+import adaptionRequestRoute from "../routes/adaptionRequest.route";
 import authRoute from "../routes/auth.route";
-import employeeAuthRoute from "../routes/employeeAuth.route";
-import roleRoute from "../routes/role.route";
 import bookingRoute from "../routes/booking.route";
+import employeeRoute from "../routes/employee.route";
+import employeeAuthRoute from "../routes/employeeAuth.route";
+import petRoute from "../routes/pet.route";
+import roleRoute from "../routes/role.route";
 
 import eventRoute from "../routes/Event.route";
 import regroute from "../routes/eventRegister.route";
@@ -35,9 +37,12 @@ app.use("/api/auth", authRoute);
 app.use("/api/employee-auth", employeeAuthRoute);
 app.use("/api/employees", employeeRoute);
 app.use("/api/roles", roleRoute);
-
+app.use("/api/pets", petRoute);
+app.use("/api/adoptionrequests", adaptionRequestRoute);
 app.use("/api/events", eventRoute);
 app.use("/api/reg", regroute);
+
+
 
 app.use("/api/bookings",bookingRoute);
 

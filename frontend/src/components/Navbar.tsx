@@ -13,6 +13,9 @@ export default function Navbar() {
       >
         <li className="text-primary">Home</li>
         <li>Services</li>
+        <Link to="/pets">
+        <li>Find a Pet</li>
+        </Link>
         <Link to="/feedback">
           <li>Feeback</li>
         </Link>
