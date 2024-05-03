@@ -3,6 +3,7 @@ import { useState, FormEvent, ChangeEvent } from 'react';
 import { useParams } from 'react-router-dom';
 import toast from 'react-hot-toast';
 import { useNavigate } from "react-router-dom";
+import { z } from 'zod';
 
 const EventRegistrationForm = () => {
   const { id: eventId } = useParams();
@@ -13,29 +14,46 @@ const EventRegistrationForm = () => {
   const [mobile, setMobile] = useState<string>('');
   const [attendees, setAttendees] = useState<number | ''>('');
 
+  // Define Zod schema for validation
+  const registrationSchema = z.object({
+    name: z.string().min(1),
+    email: z.string().email(),
+    mobile: z.string().min(1),
+    attendees: z.number().min(1).max(5).nullable(),
+  });
+
   const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    
-    // Basic validation
-    if (!name || !email || !mobile) {
-      toast.error('Please fill in all required fields.');
-      return;
-    }
-
-    // Additional validation for email format
-    const emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-    if (!emailPattern.test(email)) {
-      toast.error('Please enter a valid email address.');
-      return;
-    }
-
-    // Validate attendance count
-    if (attendees === '' || attendees > 5) {
-      toast.error('Please enter a valid attendance count (maximum 5).');
-      return;
-    }
-
+  
     try {
+      // Validate input against Zod schema
+      registrationSchema.parse({ name, email, mobile, attendees });
+    } catch (validationError: any) {
+      // Handle validation errors
+      if (validationError instanceof z.ZodError) {
+        // Iterate over validation errors and create custom error messages
+        const validationMessages = validationError.errors.map((error) => {
+          if (error.path[0] === 'name') {
+            return 'Please enter your name.';
+          } else if (error.path[0] === 'email') {
+            return 'Please enter a valid email address.';
+          } else if (error.path[0] === 'mobile') {
+            return 'Please enter your contact number.';
+          } else if (error.path[0] === 'attendees') {
+            return 'Please enter a valid number of attendees (maximum 5).';
+          } else {
+            return 'Invalid input.';
+          }
+        });
+  
+        // Display the first validation message
+        toast.error(validationMessages[0]);
+        return;
+      }
+    }
+  
+    try {
+      // Attempt to submit the registration
       const response = await axios.post('http://localhost:5000/api/reg', {
         eventId,
         name,
@@ -43,17 +61,18 @@ const EventRegistrationForm = () => {
         mobile,
         attendees,
       });
-      
+  
+      // Handle successful registration
       if (response.status === 201) {
         toast.success('Registration successful!');
         Navigate('/events');
-      } 
-    } catch (error) {
+      }
+    } catch (error: any) {
+      // Handle server errors
       console.log(error);
-      toast.error('Email already registered!');  
+      toast.error('An error occurred. Please try again later.');
     }
   };
-
   const handleInputChange = (e: ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.target;
     switch (name) {

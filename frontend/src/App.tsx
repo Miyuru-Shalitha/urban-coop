@@ -13,12 +13,17 @@ import EmployeeManagementEmployeesAdminPage from "./pages/EmployeeManagementAdmi
 import EmployeeManagementRolesAdminPage from "./pages/EmployeeManagementAdminPage/EmployeeManagementRolesPage";
 import EmployeeManagementSalaryPage from "./pages/EmployeeManagementAdminPage/EmployeeManagementSalaryPage";
 
+<<<<<<< HEAD
+=======
+//Supplier Management Pages
+>>>>>>> bf1d73d4daaaefbb73e5e035d2f9fcb3a66518bc
 import SupplierManagementAdminPage from "./pages/SupplierManagementAdminPage/SupplierManagementAdminPage";
 import SupplierManagementDashboard from "./pages/SupplierManagementAdminPage/SupplierManagementDashboard";
 import SupplierManagementStockReq from "./pages/SupplierManagementAdminPage/SupplierManagementStockReq";
 import SupplierManagementUpdateSupplierPage from "./pages/SupplierManagementAdminPage/SupplierManagementUpdateSupplierPage";
 import SupplierManagementCreateSupplierPage from "./pages/SupplierManagementAdminPage/SupplierManagementCreateSupplierPage";
 import SupplierManagementSupplierPage from "./pages/SupplierManagementAdminPage/SupplierManagementSupplierPage";
+import SuppliersReport from "./pages/SupplierManagementAdminPage/SuppliersReport";
 
 import InventoryManagementPage from "./pages/InventoryManagementAdminPage/InventoryManagementAdminPage";
 import InventoryManagementDashboard from "./pages/InventoryManagementAdminPage/InventoryManagementDashboard";
@@ -40,6 +45,7 @@ import PetDaycareMyBookings from "./pages/PetDaycareManagementPage/PetDaycareMyB
 import PetDaycareBookingUpdatePage from "./pages/PetDaycareManagementPage/PetDaycareBookingUpdatePage";
 import BookingTable from "./pages/PetDaycareManagementAdminPage/BookingTable";
 import PetDaycareDashboard from "./pages/PetDaycareManagementAdminPage/PetDaycareDashboard";
+import AdminBookingApprovalPage from "./pages/PetDaycareManagementAdminPage/AdminBookingApprovalPage";
 
 import UpdateRegistrationForm from "./pages/EventManagementPage/updateUserRegistration";
 
@@ -208,6 +214,7 @@ export default function App() {
 
           <Route path="allbookings" element={<BookingTable />} />
           <Route path="bookingsOverview" element={<PetDaycareDashboard />} />
+          <Route path="booking-approvals" element={<AdminBookingApprovalPage />} />
 
           {/* set daily rates */}
           {/* bookings */}
@@ -251,8 +258,8 @@ export default function App() {
           />
 
           <Route
-            path="supplier-management/allsup/:id"
-            element={<SupplierManagementUpdateSupplierPage />}
+            path="supplier-management/report"
+            element={<SuppliersReport />}
           />
 
           {/* feedback dashboard */}

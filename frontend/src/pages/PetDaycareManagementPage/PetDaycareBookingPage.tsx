@@ -19,6 +19,8 @@ type TFormData = {
     petName: string;
     petType: string;
     total: number;
+    paymentStatus: string;
+    approvalStatuse: string;
 };
 
 function PetDaycareBookingPage() {
@@ -42,6 +44,8 @@ function PetDaycareBookingPage() {
         petName: "",
         petType: "",
         total: total,
+        paymentStatus: "Due",
+        approvalStatuse: "Pending"
 
     });
 
@@ -191,6 +195,8 @@ function PetDaycareBookingPage() {
             petName: formState.petName,
             petType: formState.petType,
             total: formState.total,
+            paymentStatus: formState.paymentStatus,
+            approvalStatuse: formState.approvalStatuse,
         };
 
         try {
@@ -210,6 +216,8 @@ function PetDaycareBookingPage() {
                 petName: "",
                 petType: "",
                 total: total,
+                paymentStatus:"Due",
+                approvalStatuse:"Pending"
             });
 
             // Redirect user to a different page if needed

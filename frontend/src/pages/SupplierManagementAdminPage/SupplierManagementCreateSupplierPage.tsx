@@ -1,17 +1,17 @@
 import axios from "axios";
 import { useState, FormEvent } from "react";
 import { useNavigate } from "react-router-dom";
-import FilledButton from "../../components/Common/FilledButton";
+// import FilledButton from "../../components/Common/FilledButton";
 import toast from "react-hot-toast";
 import TextField from "@mui/material/TextField";
 import {
   FormControl,
-  FormControlLabel,
-  FormLabel,
+  // FormControlLabel,
+  // FormLabel,
   InputLabel,
   MenuItem,
-  Radio,
-  RadioGroup,
+  // Radio,
+  // RadioGroup,
   Select,
 } from "@mui/material";
 
@@ -44,6 +44,7 @@ export default function SupplierManagementCreateSupplierPage() {
       !supplierData.category
     ) {
       toast.error("Please fill in all required fields.");
+
       return;
     }
 
@@ -132,10 +133,8 @@ export default function SupplierManagementCreateSupplierPage() {
                 >
                   <MenuItem value="Pet Food">Pet Food</MenuItem>
                   <MenuItem value="Medicine">Medicine</MenuItem>
-                  <MenuItem value="Pet Accessories">Pet Accessories</MenuItem>
-                  <MenuItem value="Pet Health and Grooming">
-                    Pet Health and Grooming
-                  </MenuItem>
+                  <MenuItem value="Grooming and Bathroom Essential">Grooming and Bathroom Essential</MenuItem>
+                  <MenuItem value="Pet Toys">Pet Toys</MenuItem>
                 </Select>
               </FormControl>
             </div>
