@@ -24,8 +24,16 @@ function TableHeaderColumn({ children }: { children: ReactNode }) {
   );
 }
 
-function TableColumn({ children }: { children: ReactNode }) {
-  return <td className="px-6 py-4 whitespace-no-wrap">{children}</td>;
+function TableColumn({
+  children,
+  className,
+}: {
+  children: ReactNode;
+  className?: string;
+}) {
+  return (
+    <td className={`px-6 py-4 whitespace-no-wrap ${className}`}>{children}</td>
+  );
 }
 
 export { TableHeaderRow, TableRow, TableHeaderColumn, TableColumn };

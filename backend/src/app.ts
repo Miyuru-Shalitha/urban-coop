@@ -8,6 +8,7 @@ import logger from "../middlewares/logger.middleware";
 import employeeRoute from "../routes/employee.route";
 import authRoute from "../routes/auth.route";
 import employeeAuthRoute from "../routes/employeeAuth.route";
+import employeeAttendanceRoute from "../routes/employeeAttendance.route";
 import roleRoute from "../routes/role.route";
 import bookingRoute from "../routes/booking.route";
 import eventRoute from "../routes/Event.route";
@@ -41,6 +42,7 @@ app.use(cookieParser());
 // Routes
 app.use("/api/auth", authRoute);
 
+app.use("/api/employee-attendance", employeeAttendanceRoute);
 app.use("/api/employee-auth", employeeAuthRoute);
 app.use("/api/employees", employeeRoute);
 app.use("/api/roles", roleRoute);

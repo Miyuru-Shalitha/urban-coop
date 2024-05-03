@@ -53,6 +53,7 @@ import CreateFeedbackPage from "./pages/FeedbackManagement/CreateFeedbackPage";
 import MyFeedbackPage from "./pages/FeedbackManagement/MyFeedbackPage";
 import FeedbackTable from "./pages/FeedbackManagement/FeedbackTable";
 import EmployeeAttendancePage from "./pages/EmployeeAttendancePage";
+import EmployeeAttendanceMarkingFormPage from "./pages/EmployeeAttendanceMarkingFormPage";
 
 export default function App() {
   return (
@@ -100,6 +101,18 @@ export default function App() {
 
         {/* Employee Log In Page */}
         <Route path="/admin/login" element={<EmployeeLogInPage />} />
+
+        {/* Employee attendance marking form */}
+        <Route path="/admin/employee-attendance">
+          <Route
+            path="sign-in"
+            element={<EmployeeAttendanceMarkingFormPage />}
+          />
+          <Route
+            path="sign-out"
+            element={<EmployeeAttendanceMarkingFormPage />}
+          />
+        </Route>
 
         {/* Employee Profile Routes */}
         <Route path="/admin/profile" element={<EmployeeProfileLayout />}>

@@ -102,7 +102,7 @@ const createEmployee = async (req: Request, res: Response) => {
       roleId,
       password: hashedPassword,
     });
-    newEmployee.save();
+    await newEmployee.save();
 
     return res
       .status(201)

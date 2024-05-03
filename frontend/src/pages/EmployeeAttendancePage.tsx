@@ -1,13 +1,7 @@
 import { useEffect, useState } from "react";
-import {
-  TableColumn,
-  TableHeaderColumn,
-  TableHeaderRow,
-  TableRow,
-} from "../components/Common/Table";
 
 export default function EmployeeAttendancePage() {
-  const [dayCount, setDayCount] = useState(0);
+  const [days, setDays] = useState(0);
 
   useEffect(() => {
     const year = 2024;
@@ -15,44 +9,86 @@ export default function EmployeeAttendancePage() {
     const daysInMonth = getDaysInMonth(year, month);
 
     // console.log(`Number of days in ${year}-${month}: ${daysInMonth}`);
-    setDayCount(daysInMonth);
+    setDays(daysInMonth);
   }, []);
 
   return (
-    <div>
-      <table className="border-2">
-        <thead>
-          <TableHeaderRow>
-            <TableHeaderColumn>Date</TableHeaderColumn>
-            <TableHeaderColumn>Sign In</TableHeaderColumn>
-            <TableHeaderColumn>Sign Out</TableHeaderColumn>
-            <TableHeaderColumn>Present</TableHeaderColumn>
-          </TableHeaderRow>
-        </thead>
+    <div className="my-4">
+      <div className="bg-green-500">
+        <div>DATE AND CONTROLS</div>
+      </div>
 
-        <tbody>
-          <TableRow rowIndex={0}>
-            <TableColumn>2024/04/05</TableColumn>
-            <TableColumn>08:30 AM</TableColumn>
-            <TableColumn>4:30 PM</TableColumn>
-            <TableColumn>Present</TableColumn>
-          </TableRow>
+      <div className="flex gap-1 text-primary mb-1">
+        <Cell value="Monday" className="bg-secondary" />
+        <Cell value="Tuesday" className="bg-secondary" />
+        <Cell value="Wednesday" className="bg-secondary" />
+        <Cell value="Thurseday" className="bg-secondary" />
+        <Cell value="Friday" className="bg-secondary" />
+        <Cell value="Saturday" className="bg-secondary" />
+        <Cell value="Sunday" className="bg-secondary" />
+      </div>
 
-          <TableRow rowIndex={1}>
-            <TableColumn>2024/04/06</TableColumn>
-            <TableColumn>08:30 AM</TableColumn>
-            <TableColumn>4:30 PM</TableColumn>
-            <TableColumn>Present</TableColumn>
-          </TableRow>
+      <div className="flex gap-1 bg-white mb-1">
+        <Cell value="CELL" className="bg-yellow-300" />
+        <Cell value="CELL" className="bg-yellow-300" />
+        <Cell value="CELL" className="bg-yellow-300" />
+        <Cell value="CELL" className="bg-yellow-300" />
+        <Cell value="CELL" className="bg-yellow-300" />
+        <Cell value="CELL" className="bg-yellow-300" />
+        <Cell value="CELL" className="bg-yellow-300" />
+      </div>
 
-          <TableRow rowIndex={2}>
-            <TableColumn>2024/04/07</TableColumn>
-            <TableColumn>08:30 AM</TableColumn>
-            <TableColumn>4:30 PM</TableColumn>
-            <TableColumn>Absent</TableColumn>
-          </TableRow>
-        </tbody>
-      </table>
+      <div className="flex gap-1 bg-white mb-1">
+        <Cell value="CELL" className="bg-yellow-300" />
+        <Cell value="CELL" className="bg-yellow-300" />
+        <Cell value="CELL" className="bg-yellow-300" />
+        <Cell value="CELL" className="bg-yellow-300" />
+        <Cell value="CELL" className="bg-yellow-300" />
+        <Cell value="CELL" className="bg-yellow-300" />
+        <Cell value="CELL" className="bg-yellow-300" />
+      </div>
+
+      <div className="flex gap-1 bg-white mb-1">
+        <Cell value="CELL" className="bg-yellow-300" />
+        <Cell value="CELL" className="bg-yellow-300" />
+        <Cell value="CELL" className="bg-yellow-300" />
+        <Cell value="CELL" className="bg-yellow-300" />
+        <Cell value="CELL" className="bg-yellow-300" />
+        <Cell value="CELL" className="bg-yellow-300" />
+        <Cell value="CELL" className="bg-yellow-300" />
+      </div>
+
+      <div className="flex gap-1 bg-white mb-1">
+        <Cell value="CELL" className="bg-yellow-300" />
+        <Cell value="CELL" className="bg-yellow-300" />
+        <Cell value="CELL" className="bg-yellow-300" />
+        <Cell value="CELL" className="bg-yellow-300" />
+        <Cell value="CELL" className="bg-yellow-300" />
+        <Cell value="CELL" className="bg-yellow-300" />
+        <Cell value="CELL" className="bg-yellow-300" />
+      </div>
+
+      <div className="flex gap-1 bg-white">
+        <Cell value="CELL" className="bg-yellow-300" />
+        <Cell value="CELL" className="bg-yellow-300" />
+        <Cell value="CELL" className="bg-yellow-300" />
+        <Cell value="CELL" className="bg-yellow-300" />
+        <Cell value="CELL" className="bg-yellow-300" />
+        <Cell value="CELL" className="bg-yellow-300" />
+        <Cell value="CELL" className="bg-yellow-300" />
+      </div>
+    </div>
+  );
+}
+
+function Cell({ value, className }: { value: string; className?: string }) {
+  return (
+    <div className="w-28 h-20 rounded">
+      <div
+        className={`rounded w-full h-full flex justify-center items-center ${className}`}
+      >
+        {value}
+      </div>
     </div>
   );
 }
