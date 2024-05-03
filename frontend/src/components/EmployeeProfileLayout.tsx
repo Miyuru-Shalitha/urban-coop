@@ -33,7 +33,7 @@ export default function EmployeeProfileLayout() {
       {
         onClick: (index) => setActiveItemIndex(index),
         name: "Attendance",
-        route: "/admin/attendance",
+        route: "/admin/profile/attendance",
       },
       {
         onClick: (index) => setActiveItemIndex(index),

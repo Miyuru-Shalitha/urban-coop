@@ -26,9 +26,15 @@ const EventPage = () => {
   };
 
   const filteredEvents = events.filter((event:any) =>
-    event.title.toLowerCase().includes(searchQuery.toLowerCase())
+    event.title.toLowerCase().includes(searchQuery.toLowerCase())||
+    event.location.toLowerCase().includes(searchQuery.toLowerCase())||
+    event.date.toLowerCase().includes(searchQuery.toLowerCase())||
+    event.time.toLowerCase().includes(searchQuery.toLowerCase())
   );
-
+  function formatDate(isoDateString: string): string {
+    const date = new Date(isoDateString);
+    return date.toISOString().split('T')[0]; // Extract the date part in the format YYYY-MM-DD
+}
   return (
     <div className="w-screen mx-auto bg-orange-50 pt-10 pl-20 pr-20 font-sans">
       <div className="flex justify-between items-center">
@@ -69,13 +75,13 @@ const EventPage = () => {
           >
             <div className="flex" style={{ height: "100%" }}>
               <img
-                className="w-2/3 h-auto object-cover object-center"
+                className="w-2/5 h-auto object-cover object-center"
                 src={`http://localhost:5000/${event.image}`}
                 alt={event.title}
               />
               <div className=" p-4 w-2/3  max-h-full ...w-ful">
                 <h2 className="text-lg font-semibold mb-2">{event.title}</h2>
-                <p className="text-gray-600 mt-2">Date: {event.date}</p>
+                <p className="text-gray-600 mt-2">Date: {formatDate(event.date)}</p>
                 <p className="text-gray-600 mt-2">Time: {event.time}</p>
                 <p className="text-gray-600 mt-2">
                   Location: {event.location}

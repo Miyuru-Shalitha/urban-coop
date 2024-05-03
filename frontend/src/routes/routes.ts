@@ -14,9 +14,9 @@ const handleAdminRouteNavigation = (
     // case "Event Manager":
     //   navigate("/admin/event-management");
     //   break;
-    // case "Supplier Manager":
-    //   navigate("/admin/supplier-management");
-    //   break;
+    case "Supplier Manager":
+      navigate("/admin/supplier-management");
+      break;
     // case "Inventory Manager":
     //   navigate("/admin/inventory-management");
     //   break;

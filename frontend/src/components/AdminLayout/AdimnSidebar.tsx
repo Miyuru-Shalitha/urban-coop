@@ -92,6 +92,10 @@ export default function AdminSidebar() {
             name: "Request Stocks",
             route: "/admin/inventory-management/request-stocks",
           },
+          {
+            name: "Report Genarate",
+            route: "/admin/inventory-management/report",
+          }
         ],
       },
 
@@ -123,7 +127,7 @@ export default function AdminSidebar() {
         subtitles: [
           {
             name: "Feedback",
-            route: "/admin/feedback-dashboard",
+            route: "/admin/feedbacks",
           },
         ],
       },

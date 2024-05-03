@@ -12,6 +12,7 @@ import roleRoute from "../routes/role.route";
 import bookingRoute from "../routes/booking.route";
 import eventRoute from "../routes/Event.route";
 import regroute from "../routes/eventRegister.route";
+import itemRoute from "../routes/item.route";
 import supplierRoute from "../routes/supplier.route";
 import register from "../routes/UserRegister.route";
 import login from "../routes/userLogin.route";
@@ -50,6 +51,7 @@ app.use("/api/reg", regroute);
 app.use("/api/events", eventRoute);
 app.use("/api/reg", regroute);
 
+app.use("/api/items", itemRoute);
 app.use("/api/suppliers", supplierRoute);
 
 app.use("/api/bookings", bookingRoute);

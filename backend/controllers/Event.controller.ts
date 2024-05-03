@@ -21,6 +21,7 @@ const createEvent = async (req: Request, res: Response) => {
   }
 };
 // Get all events
+
 const getAllevents = async (req: Request, res: Response) => {
 
   try {
@@ -55,25 +56,29 @@ const getEventById = async (req: Request, res: Response) => {
 const updateEventById = async (req: Request, res: Response) => {
   try {
     const id = req.params.id;
+    const updateFields = req.body;
 
-    const eventData = await Event.findById(id);
-    if (!eventData) {
-      return res.status(404).json({ message: 'Event not found' });
-    }
-
-    console.log(req.body);
-    const updateFields = { ...req.body };
-
-   console.log(updateFields);
-    delete updateFields._id;
-
+    // Check if a new file is uploaded
+    let imagePath = null;
     if (req.file) {
-      updateFields.image = req.file.path;
+      imagePath = req.file.path;
+    } else {
+      // If no new file uploaded, retain the previous image path
+      const existingEvent = await Event.findById(id);
+      if (existingEvent) {
+        imagePath = existingEvent.image;
+      }
     }
-    const updatedEvent = await Event.findByIdAndUpdate(id, updateFields, { new: true });
 
+    const updatedEvent = await Event.findByIdAndUpdate(
+      id,
+      { ...updateFields, image: imagePath }, // Set image to the new path or previous path
+      { new: true }
+    );
+
+    // Check if the event with the provided ID exists
     if (!updatedEvent) {
-      return res.status(500).json({ message: 'Error updating event' });
+      return res.status(404).json({ message: 'Event not found' });
     }
 
     res.status(200).json(updatedEvent);
@@ -82,6 +87,8 @@ const updateEventById = async (req: Request, res: Response) => {
     res.status(500).json({ error: 'Internal server error' });
   }
 };
+
+
 //Delete event by id
 const deleteEventById = async (req: Request, res: Response) => {
   try {
