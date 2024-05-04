@@ -55,8 +55,10 @@ import InventoryReport from "./pages/InventoryManagementAdminPage/InventoryRepor
 import CreateFeedbackPage from "./pages/FeedbackManagement/CreateFeedbackPage";
 import MyFeedbackPage from "./pages/FeedbackManagement/MyFeedbackPage";
 import FeedbackTable from "./pages/FeedbackManagement/FeedbackTable";
-import EmployeeAttendancePage from "./pages/EmployeeAttendancePage";
 import EmployeeAttendanceMarkingFormPage from "./pages/EmployeeAttendanceMarkingFormPage";
+import EmployeeAttendancePage from "./pages/EmployeeAttendancePage";
+import EmployeeAttendanceSignInQR from "./pages/EmployeeAttendanceSignInQR";
+import EmployeeAttendanceSignOutQR from "./pages/EmployeeAttendanceSignOutQR";
 
 export default function App() {
   return (
@@ -101,6 +103,17 @@ export default function App() {
           />
           <Route path="up" element={<PetDaycareBookingUpdatePage />} />
         </Route>
+
+        {/* Employee attendance QR */}
+        <Route
+          path="/admin/employee-attendance-qr/sign-in"
+          element={<EmployeeAttendanceSignInQR />}
+        />
+
+        <Route
+          path="/admin/employee-attendance-qr/sign-out"
+          element={<EmployeeAttendanceSignOutQR />}
+        />
 
         {/* Employee Log In Page */}
         <Route path="/admin/login" element={<EmployeeLogInPage />} />

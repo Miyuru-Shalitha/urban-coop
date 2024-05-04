@@ -50,4 +50,19 @@ const updateRole = async (req: Request, res: Response) => {
   }
 };
 
-export { getRoles, getRole, updateRole };
+const getHourlyRate = async (req: Request, res: Response) => {
+  try {
+    const { roleName } = req.body;
+    const role = await Role.findOne({ name: roleName });
+
+    if (role === null) {
+      return res.status(404).json({ message: "Role not found!" });
+    }
+
+    return res.status(200).json({ hourlyRate: role.baseSalary });
+  } catch (error: any) {
+    return res.status(500).json({ message: "Something went wrong!" });
+  }
+};
+
+export { getRoles, getRole, updateRole, getHourlyRate };

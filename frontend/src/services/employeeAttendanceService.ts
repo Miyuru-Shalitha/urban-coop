@@ -39,4 +39,21 @@ const getAttendance = async (employeeId: string): Promise<any> => {
   }
 };
 
-export { markAttendance, getAttendance };
+const getHourlyRateByRoleName = async (roleName: string): Promise<number> => {
+  try {
+    const response = await axios.post(
+      "http://localhost:5000/api/roles/hourly-rate",
+      { roleName }
+    );
+
+    if (response.status === 200) {
+      return response.data.hourlyRate;
+    }
+  } catch (error: any) {
+    alert("Something went wrong!");
+  }
+
+  return 0;
+};
+
+export { markAttendance, getAttendance, getHourlyRateByRoleName };

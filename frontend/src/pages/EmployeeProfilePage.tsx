@@ -4,6 +4,7 @@ import {
   EmployeeContextType,
 } from "../context/EmployeeAuthContextProvider";
 import { getEmployeeById } from "../services/employeeService";
+import InputField from "../components/Common/InputField";
 
 export default function EmployeeProfilePage() {
   const context = useContext<EmployeeContextType | null>(EmployeeAuthContext);
@@ -23,20 +24,32 @@ export default function EmployeeProfilePage() {
   return (
     <div className="my-4">
       <div
-        className="bg-gray0 text-white w-60 h-60 rounded-full text-8xl
+        className="bg-gray0 text-white w-36 h-36 rounded-full text-7xl
                         flex justify-center items-center"
       >
-        <span>Z</span>
+        <span>{context?.employeeCredential.firstName[0]}</span>
         {/* <img src="" alt="" /> */}
       </div>
 
-      <div>
-        <p>Employee ID: {employee?.employeeId}</p>
-        <p>First Name: {employee?.firstName}</p>
-        <p>Last Name: {employee?.lastName}</p>
-        <p>Email: {employee?.email}</p>
-        <p>Address: {employee?.address}</p>
-        <p>Date Joined: {employee?.dateJoined}</p>
+      <div className="flex flex-col gap-4 mt-4">
+        <InputField
+          type="text"
+          label="Employee ID"
+          value={employee?.employeeId}
+        />
+        <InputField
+          type="text"
+          label="First Name"
+          value={employee?.firstName}
+        />
+        <InputField type="text" label="Last Name" value={employee?.lastName} />
+        <InputField type="email" label="Email" value={employee?.email} />
+        <InputField type="address" label="Address" value={employee?.address} />
+        <InputField
+          type="text"
+          label="Date Joined"
+          value={employee?.dateJoined}
+        />
       </div>
     </div>
   );

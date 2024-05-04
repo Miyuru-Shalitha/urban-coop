@@ -6,6 +6,7 @@ import {
   EmployeeAuthContext,
   EmployeeContextType,
 } from "../context/EmployeeAuthContextProvider";
+import Cookies from "js-cookie";
 
 interface BaseItem {
   onClick: (index: number) => void;
@@ -32,22 +33,39 @@ export default function EmployeeProfileLayout() {
       },
       {
         onClick: (index) => setActiveItemIndex(index),
-        name: "Attendance",
+        name: "Attendance / Salary",
         route: "/admin/profile/attendance",
       },
       {
-        onClick: (index) => setActiveItemIndex(index),
+        onClick: (index) => () => {
+          handleClickLogOut();
+          setActiveItemIndex(index);
+        },
         name: "Log Out",
-        route: "/admin/logout",
+        route: "/admin/login",
       },
     ]);
   }, []);
+
+  const handleClickLogOut = () => {
+    Cookies.remove("employee");
+    Cookies.remove("token");
+    context?.setEmployeeCredential({
+      _id: "",
+      employeeId: "",
+      firstName: "",
+      lastName: "",
+      email: "",
+      role: "",
+    });
+    navigate("/admin/login", { replace: true });
+  };
 
   return (
     <div className="bg-surface">
       <AdminTopbar />
 
-      <div className="h-screen flex">
+      <div className="h-screen flex overflow-auto">
         <div className="w-72 h-full p-4">
           <ul className="bg-white h-full p-4 rounded flex flex-col gap-1">
             {items.map((item, index) => (
@@ -84,8 +102,8 @@ function SidebarItem({
   const navigate = useNavigate();
 
   const handleClick = () => {
-    navigate(route);
     onClick(itemIndex);
+    navigate(route);
   };
 
   return (

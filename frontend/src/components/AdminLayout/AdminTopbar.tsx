@@ -1,9 +1,14 @@
 import ProfilePhoto from "../ProfilePhoto";
 import Logo from "../../assets/UBLogo.png";
-import { MouseEventHandler, ReactNode } from "react";
-import { Link, To } from "react-router-dom";
+import { MouseEventHandler, ReactNode, useContext } from "react";
+import { Link, To, useNavigate } from "react-router-dom";
 import { useDispatch } from "react-redux";
 import { logOut } from "../../store/employeeAuthSlice";
+import {
+  EmployeeAuthContext,
+  EmployeeContextType,
+} from "../../context/EmployeeAuthContextProvider";
+import Cookies from "js-cookie";
 
 export default function AdminTopbar() {
   return (
@@ -20,16 +25,27 @@ export default function AdminTopbar() {
 }
 
 function DropDown() {
-  const dispatch = useDispatch();
+  const context = useContext<EmployeeContextType | null>(EmployeeAuthContext);
+  const navigate = useNavigate();
 
   const handleClickLogOut = () => {
-    dispatch(logOut(null));
+    Cookies.remove("employee");
+    Cookies.remove("token");
+    context?.setEmployeeCredential({
+      _id: "",
+      employeeId: "",
+      firstName: "",
+      lastName: "",
+      email: "",
+      role: "",
+    });
+    navigate("/admin/login", { replace: true });
   };
 
   return (
     <ul
-      className="bg-white absolute top-14 right-0 w-48
-                  rounded border-2 hidden group-hover:flex flex-col last:border-b-0"
+      className="bg-white absolute top-10 right-0 w-48
+                  rounded border-2 hidden group-hover:flex flex-col last:border-b-0 z-50"
     >
       <DropDownItem to="/admin/profile">Profile</DropDownItem>
       <DropDownItem to={null} onClick={handleClickLogOut}>

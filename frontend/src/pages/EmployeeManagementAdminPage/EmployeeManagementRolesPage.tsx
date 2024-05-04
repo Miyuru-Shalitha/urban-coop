@@ -52,7 +52,7 @@ export default function EmployeeManagementRolesAdminPage() {
           <thead>
             <TableHeaderRow>
               <TableHeaderColumn>Role</TableHeaderColumn>
-              <TableHeaderColumn>Base Salary</TableHeaderColumn>
+              <TableHeaderColumn>Hourly Rate</TableHeaderColumn>
               <TableHeaderColumn>Controls</TableHeaderColumn>
             </TableHeaderRow>
           </thead>

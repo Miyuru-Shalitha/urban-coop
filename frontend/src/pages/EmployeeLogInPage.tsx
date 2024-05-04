@@ -46,6 +46,11 @@ export default function EmployeeLogInPage() {
 
   const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
+    if (logInData.email === "" || logInData.password === "") {
+      toast.error("Invalid credentials");
+      return;
+    }
+
     const employee = await logInEmployee(logInData.email, logInData.password);
 
     if (employee) {

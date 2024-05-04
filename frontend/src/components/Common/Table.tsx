@@ -7,12 +7,23 @@ function TableHeaderRow({ children }: { children: ReactNode }) {
 function TableRow({
   children,
   rowIndex,
+  onClick,
+  className,
 }: {
   children: ReactNode;
   rowIndex: number;
+  onClick?: () => void;
+  className?: string;
 }) {
   return (
-    <tr className={rowIndex % 2 === 0 ? "bg-white" : "bg-gray0"}>{children}</tr>
+    <tr
+      className={
+        rowIndex % 2 === 0 ? `bg-white ${className}` : `bg-gray0 ${className}`
+      }
+      onClick={onClick}
+    >
+      {children}
+    </tr>
   );
 }
 
