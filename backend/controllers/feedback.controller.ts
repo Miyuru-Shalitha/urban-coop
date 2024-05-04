@@ -201,7 +201,20 @@ const feedbackController = {
       });
     }
   },
+  // Get approved feedbacks
+  getApprovedFeedbacks: async (_req: Request, res: Response) => {
+    try {
+      const approvedFeedbacks = await Feedback.find({ status: "approved" }).populate("customer", "-password");
 
+      res.status(200).json({ success: true, feedbacks: approvedFeedbacks });
+    } catch (error) {
+      console.error(error);
+      res.status(500).json({
+        success: false,
+        error: error instanceof Error ? error.message : "Internal server error",
+      });
+    }
+  },
 
 };
 

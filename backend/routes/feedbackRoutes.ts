@@ -9,6 +9,8 @@ router.post('/', feedbackController.createFeedback);
 // Get all feedback
 router.get('/', feedbackController.getAllFeedback);
 
+router.get('/approved', feedbackController.getApprovedFeedbacks);
+
 // Get feedback by ID
 router.get('/:id', feedbackController.getFeedbackById);
 

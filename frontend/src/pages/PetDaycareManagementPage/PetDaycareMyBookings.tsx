@@ -127,6 +127,7 @@ const PetDaycareMyBookings = () => {
                 <th className="px-4 py-2 text-left w-1/6">Start Date</th>
                 <th className="px-4 py-2 text-left w-1/6">End Date</th>
                 <th className="px-4 py-2 text-left w-1/6">Pet Type</th>
+                <th className="px-4 py-2 text-left w-1/6">Approval Status</th> {/* Add new header */}
                 <th className="px-4 py-2 text-left w-1/6">Actions</th>
               </tr>
             </thead>
@@ -139,6 +140,13 @@ const PetDaycareMyBookings = () => {
                     <td className="px-4 py-2">{formatDate(booking.startDate)}</td>
                     <td className="px-4 py-2">{formatDate(booking.endDate)}</td>
                     <td className="px-4 py-2">{booking.petType}</td>
+                    <td
+                      className={`px-4 py-2 ${
+                        booking.approvalStatuse === 'approved' ? 'text-green-500' : booking.approvalStatuse === 'denied' ? 'text-red-500' : ''
+                      }`}
+                    >
+                      {booking.approvalStatuse} {/* Display approval status */}
+                    </td>
                     <td className="px-4 py-2 flex flex-col sm:flex-row gap-2 sm:gap-2 sm:justify-start sm:items-center">
                       {/* Eye Button */}
                       <button onClick={() => openModal(booking)} className="bg-primaryAccent text-black px-3 py-1 rounded">

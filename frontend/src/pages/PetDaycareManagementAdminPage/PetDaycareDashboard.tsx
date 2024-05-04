@@ -45,7 +45,7 @@ const AdminDashboardOverview: React.FC = () => {
     useEffect(() => {
         const fetchData = async () => {
             try {
-                const response = await axios.get<Booking[]>('http://localhost:5000/api/bookings');
+                const response = await axios.get<Booking[]>('http://localhost:5000/api/bookings/mybookings');
                 setBookings(response.data);
             } catch (error) {
                 console.error('Error fetching bookings data:', error);
