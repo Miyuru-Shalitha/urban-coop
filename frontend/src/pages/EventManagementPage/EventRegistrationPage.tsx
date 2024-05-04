@@ -4,7 +4,7 @@ import { useParams } from 'react-router-dom';
 import toast from 'react-hot-toast';
 import { useNavigate } from "react-router-dom";
 import { z } from 'zod';
-
+import Cookies from 'js-cookie';
 const EventRegistrationForm = () => {
   const { id: eventId } = useParams();
   const Navigate = useNavigate();
@@ -24,7 +24,11 @@ const EventRegistrationForm = () => {
 
   const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-  
+    const userId = Cookies.get("userId");
+    if (!userId) {
+      toast.error('Please login to register for the event.');
+      return;
+    }
     try {
       // Validate input against Zod schema
       registrationSchema.parse({ name, email, mobile, attendees });
@@ -55,6 +59,7 @@ const EventRegistrationForm = () => {
     try {
       // Attempt to submit the registration
       const response = await axios.post('http://localhost:5000/api/reg', {
+        userId,
         eventId,
         name,
         email,

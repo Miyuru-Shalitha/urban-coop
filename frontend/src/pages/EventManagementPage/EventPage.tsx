@@ -138,7 +138,7 @@ const EventPage = () => {
                     <i className="fas fa-eye"></i>
                   </button>
                   {calculateTotalAttendees(event._id) >= event.maxParticipation ? (
-                    <p className="text-red-500">Event Full</p>
+                    <p className="text-red-500">Registration close</p>
                   ) : (
                     <Link to={`register/${event._id}`} className="inline-block px-2 py-1 bg-primaryAccent text-black rounded hover:bg-primary">
                       Register

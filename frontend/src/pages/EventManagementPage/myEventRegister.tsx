@@ -11,36 +11,28 @@ const MyEvent = () => {
     const [isModalOpen, setIsModalOpen] = useState(false);
     const [userIdToDelete, setUserIdToDelete] = useState("");
 
+   
     useEffect(() => {
-       // Cookies.get("userId")
-        const fetchData = async () => {
-            try {
-                const allUser = await axios.get("http://localhost:5000/api/reg");
-                setUser(allUser.data);
-            } catch (error) {
-                console.error("Error fetching events:", error);
-            } finally {
-                setLoading(false); 
+       
+         const fetchData = async () => {
+             try {
+                const userId = Cookies.get('userId');
                 
-            }
-        };
-        fetchData();
-    }, []);
-    // useEffect(() => {
-    //     const id = Cookies.get("userId")
-    //      const fetchData = async () => {
-    //          try {
-    //              const allUser = await axios.get(`http://localhost:5000/api/reg/${id}`);
-    //              setUser(allUser.data);
-    //          } catch (error) {
-    //              console.error("Error fetching events:", error);
-    //          } finally {
-    //              setLoading(false); 
+                if(!userId){
+                    toast.error('Please login to view your events');
+                    
+                }
+                 const allUser = await axios.get(`http://localhost:5000/api/reg/${userId}`);
+                 setUser(allUser.data);
+             } catch (error) {
+                 console.error("Error fetching events:", error);
+             } finally {
+                 setLoading(false); 
                  
-    //          }
-    //      };
-    //      fetchData();
-    //  }, []);
+             }
+         };
+         fetchData();
+     }, []);
 
     const deleteReg = async (userId: string) => {
         try {
