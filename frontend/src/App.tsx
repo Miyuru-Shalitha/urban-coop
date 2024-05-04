@@ -65,7 +65,7 @@ import ProtectedUserDiv from "./components/ProtectedUserDiv";
 import EmployeeAttendancePage from "./pages/EmployeeAttendancePage";
 import EmployeeAttendanceMarkingFormPage from "./pages/EmployeeAttendanceMarkingFormPage";
 import MyEvent from "./pages/EventManagementPage/myEventRegister";
-
+import AboutUs from "./pages/aboutUs";
 export default function App() {
   return (
     <BrowserRouter>
@@ -82,11 +82,13 @@ export default function App() {
           <Route path="" element={<HomePage />} />
 
           <Route path="/userprofile" element={<UserProfileLayout />}>
+          <Route path="my-event" element={<MyEvent />} />
           <Route path="mybookings" element={<PetDaycareMyBookings />} />
           <Route path="mybookings/update/:id" element={<PetDaycareBookingUpdatePage />} />
+          
           </Route>
       
-
+          <Route path="about-us" element={<AboutUs />} />
           <Route path="events" element={<EventPage />} />
           <Route
             path="events/register/:id"
@@ -106,7 +108,7 @@ export default function App() {
             path="events/register/:id"
             element={<EventRegistrationPage />}
           />
-          <Route path="my-event" element={<MyEvent />} />
+          
 
           <Route path="petdaycare" element={<PetDaycareBookingPage />} />
           <Route path="mybookings" element={<PetDaycareMyBookings />} />
@@ -124,6 +126,8 @@ export default function App() {
 
           <Route path="petdaycare" element={<PetDaycareBookingPage />} />
           <Route path="mybookings" element={<PetDaycareMyBookings />} />
+          
+
           <Route
             path="mybookings/update/:id"
             element={<PetDaycareBookingUpdatePage />}

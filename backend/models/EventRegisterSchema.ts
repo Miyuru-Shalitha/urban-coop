@@ -1,6 +1,7 @@
 import mongoose, { Document } from "mongoose";
 
 interface EventRegister extends Document {
+    userId: string;
     eventName: string;
     eventId: string;
     name: string;
@@ -10,6 +11,10 @@ interface EventRegister extends Document {
 }
 
 const eventRegisterSchema = new mongoose.Schema<EventRegister>({
+    userId: {
+        type: String,
+        required: [true, "Please provide event name"],
+    },
     eventName: {
         type: String,
         required: [true, "Please provide event name"],

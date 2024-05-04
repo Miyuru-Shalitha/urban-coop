@@ -23,7 +23,10 @@ export default function Navbar() {
         <Link to="/feedback">
           <li>Feeback</li>
         </Link>
+       
+        <Link to="/about-us">
         <li>About Us</li>
+        </Link>
       </ul>
 
       <ProfilePhoto />

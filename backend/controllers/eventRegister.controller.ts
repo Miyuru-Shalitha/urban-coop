@@ -5,7 +5,7 @@ import Event from '../models/eventSchema';
 
 const createReg = async (req: Request, res: Response) => {
  try{
-  const{eventId,name,email,mobile,attendees}=req.body;
+  const{userId,eventId,name,email,mobile,attendees}=req.body;
 
   const event = await Event.findById(eventId);
 
@@ -20,6 +20,7 @@ const createReg = async (req: Request, res: Response) => {
   const eventName = event.title;
 
   const newRegistration = new registration({
+    userId,
     eventName,
     eventId,
     name,
@@ -47,15 +48,15 @@ const getReg = async (req: Request, res: Response) => {
     res.status(500).json({ error: 'Internal server error' });
   }
 };
-const getone = async (req: Request, res: Response) => {
-  try {
-    const oneReg = await registration.findById(req.params.id);
-    res.status(200).json(oneReg);
-  } catch (error) {
-    console.error("Error fetching events:", error);
-    res.status(500).json({ error: 'Internal server error' });
-  }
-};
+// const getone = async (req: Request, res: Response) => {
+//   try {
+//     const oneReg = await registration.findById(req.params.id);
+//     res.status(200).json(oneReg);
+//   } catch (error) {
+//     console.error("Error fetching events:", error);
+//     res.status(500).json({ error: 'Internal server error' });
+//   }
+// };
 const updateone = async (req: Request, res: Response) => {
   try {
     const updatedRegistration = await registration.findByIdAndUpdate(req.params.id, req.body, { new: true });
@@ -91,6 +92,21 @@ const deleteEventById = async (req: Request, res: Response) => {
     console.error('Error deleting event:', error);
     res.status(500).json({ error: 'Internal server error' });
   }
+
 };
-export { createReg, getReg, getone, updateone, deleteEventById };
+const geteventsByUserId = async (req: Request, res: Response) => {
+  try {
+    const userId = req.params.userId;
+    
+    const data = await registration.find({ userId: userId });
+    res.status(200).json(data);
+  } catch (error: any) {
+    if (error instanceof Error) {
+      res.status(500).json({ error: error.message });
+    } else {
+      res.status(500).json({ error: "An unknown error occurred" });
+    }
+  }
+};
+export { createReg, getReg, updateone, deleteEventById,geteventsByUserId };
 

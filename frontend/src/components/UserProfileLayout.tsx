@@ -21,15 +21,16 @@ export default function UserProfileLayout() {
       },
       {
         onClick: (index) => setActiveItemIndex(index),
-        name: "TEST",
-        route: "/userprofile/test-2",
+        name: "My Event",
+        route: "/userprofile/my-event",
       },
+      
     ]);
   }, []);
 
   return (
     <ProtectedDiv className="flex bg-surface">
-      <div className="w-72 h-full p-4">
+      <div className="w-72 h-96 p-4">
         <ul className="bg-white h-full p-4 rounded flex flex-col gap-1">
           {items.map((item, index) => (
             <SidebarItem
