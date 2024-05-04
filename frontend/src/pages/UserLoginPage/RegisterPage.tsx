@@ -46,7 +46,7 @@ const RegisterPage: React.FC = () => {
       // Handle successful registration
       toast.success("Registration successful! Welcome, Please Log-In");
 
-      navigate('/user-login');
+      navigate('/login');
     } catch (error) {
       // Handle any errors during registration
       console.error('Registration failed:', error);
@@ -137,7 +137,7 @@ const RegisterPage: React.FC = () => {
         )}
         <br />
         <Typography variant="body2" align="center" className="mt-4">
-          Already have an account? <Link to="/user-login" className="text-blue-600 hover:underline">Log in</Link>
+          Already have an account? <Link to="/login" className="text-blue-600 hover:underline">Log in</Link>
         </Typography>
       </Paper>
     </div>

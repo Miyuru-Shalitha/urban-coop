@@ -1,7 +1,6 @@
 import axios from 'axios';
 import React, { useEffect, useState } from 'react';
 import toast from 'react-hot-toast';
-import { Link } from 'react-router-dom';
 import GenerateReportButton from '../PetDaycareManagementAdminPage/MyBookingsReport'; // Import your component
 
 const PetDaycareMyBookings = () => {
@@ -13,7 +12,7 @@ const PetDaycareMyBookings = () => {
     useEffect(() => {
         const fetchBookings = async () => {
             try {
-                const response = await axios.get('http://localhost:5000/api/bookings');
+                const response = await axios.get('http://localhost:5000/api/bookings/mybookings');
                 setBookings(response.data);
             } catch (error) {
                 console.error('Error fetching bookings:', error);
@@ -21,7 +20,6 @@ const PetDaycareMyBookings = () => {
         };
         fetchBookings();
     }, []);
-
 
     function formatDate(isoDateString: string): string {
         const date = new Date(isoDateString);
@@ -49,6 +47,28 @@ const PetDaycareMyBookings = () => {
     const closeModal = () => {
         setIsModalOpen(false);
         setSelectedBooking(null);
+    };
+
+    // Function to handle deleting a booking
+    const handleDelete = async (bookingId: string) => {
+        try {
+            // Send DELETE request to the backend
+            const response = await axios.delete(`http://localhost:5000/api/bookings/${bookingId}`);
+
+            // If deletion is successful, update the state
+            if (response.status === 200) {
+                // Filter out the deleted booking from the list
+                setBookings((prevBookings) =>
+                    prevBookings.filter((booking) => booking._id !== bookingId)
+                );
+                toast.success('Booking deleted successfully!');
+            } else {
+                toast.error('Failed to delete booking.');
+            }
+        } catch (error) {
+            console.error('Error deleting booking:', error);
+            toast.error('An error occurred while deleting the booking.');
+        }
     };
 
     return (
@@ -88,10 +108,21 @@ const PetDaycareMyBookings = () => {
                                     <td className="px-4 py-2">{formatDate(booking.startDate)}</td>
                                     <td className="px-4 py-2">{formatDate(booking.endDate)}</td>
                                     <td className="px-4 py-2">{booking.petType}</td>
-                                    <td className="px-4 py-2 flex">
+                                    <td className="px-4 py-2 flex gap-2">
                                         {/* Eye Button */}
-                                        <button onClick={() => openModal(booking)} className="bg-primaryAccent text-black px-3 py-1 rounded">
+                                        <button
+                                            onClick={() => openModal(booking)}
+                                            className="bg-primaryAccent text-black px-3 py-1 rounded"
+                                        >
                                             <i className="fas fa-eye"></i>
+                                        </button>
+
+                                        {/* Delete Button */}
+                                        <button
+                                            onClick={() => handleDelete(booking._id)}
+                                            className="bg-red-500 text-white px-3 py-1 rounded"
+                                        >
+                                            <i className="fas fa-trash"></i>
                                         </button>
                                     </td>
                                 </tr>

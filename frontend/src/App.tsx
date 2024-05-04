@@ -20,7 +20,6 @@ import SupplierManagementStockReq from "./pages/SupplierManagementAdminPage/Supp
 import SupplierManagementUpdateSupplierPage from "./pages/SupplierManagementAdminPage/SupplierManagementUpdateSupplierPage";
 import SupplierManagementCreateSupplierPage from "./pages/SupplierManagementAdminPage/SupplierManagementCreateSupplierPage";
 import SupplierManagementSupplierPage from "./pages/SupplierManagementAdminPage/SupplierManagementSupplierPage";
-import SuppliersReport from "./pages/SupplierManagementAdminPage/SuppliersReport";
 
 import InventoryManagementPage from "./pages/InventoryManagementAdminPage/InventoryManagementAdminPage";
 import InventoryManagementDashboard from "./pages/InventoryManagementAdminPage/InventoryManagementDashboard";
@@ -30,6 +29,9 @@ import InventoryManagementCreateItemsPage from "./pages/InventoryManagementAdmin
 import InventoryManagementCreateRequest from "./pages/InventoryManagementAdminPage/InventoryManagementCreateRequest";
 import EventRegistrationPage from "./pages/EventManagementPage/EventRegistrationPage";
 import EventReport from "./pages/EventManagementPage/EventReport";
+import FeedbackManagementAdminPage from "./pages/FeedbackManagementAdminPage/FeedbackManagementAdminPage";
+
+//import FeedbackManagementAdminPage from "./pages/FeedbackManagementAdminPage/FeedbackManagementAdminPage";
 
 import EmployeeProfilePage from "./pages/EmployeeProfilePage";
 
@@ -59,6 +61,10 @@ import EmployeeAttendanceMarkingFormPage from "./pages/EmployeeAttendanceMarking
 import EmployeeAttendancePage from "./pages/EmployeeAttendancePage";
 import EmployeeAttendanceSignInQR from "./pages/EmployeeAttendanceSignInQR";
 import EmployeeAttendanceSignOutQR from "./pages/EmployeeAttendanceSignOutQR";
+import UserProfileLayout from "./components/UserProfileLayout";
+import ProtectedUserDiv from "./components/ProtectedUserDiv";
+import MyEvent from "./pages/EventManagementPage/myEventRegister";
+import AboutUs from "./pages/aboutUs";
 
 export default function App() {
   return (
@@ -72,6 +78,16 @@ export default function App() {
         <Route path="/" element={<Layout />}>
           <Route path="" element={<HomePage />} />
 
+          <Route path="/userprofile" element={<UserProfileLayout />}>
+            <Route path="my-event" element={<MyEvent />} />
+            <Route path="mybookings" element={<PetDaycareMyBookings />} />
+            <Route
+              path="mybookings/update/:id"
+              element={<PetDaycareBookingUpdatePage />}
+            />
+          </Route>
+
+          <Route path="about-us" element={<AboutUs />} />
           <Route path="events" element={<EventPage />} />
           <Route
             path="events/register/:id"
@@ -79,6 +95,17 @@ export default function App() {
           />
 
           <Route path="events" element={<EventPage />} />
+
+          <Route
+            path="events/register/:id"
+            element={<EventRegistrationPage />}
+          />
+
+          <Route path="petdaycare" element={<PetDaycareBookingPage />} />
+
+          <Route path="feedback" element={<CreateFeedbackPage />} />
+          <Route path="myfeedback" element={<MyFeedbackPage />} />
+
           <Route
             path="events/register/:id"
             element={<EventRegistrationPage />}
@@ -95,8 +122,11 @@ export default function App() {
           <Route path="feedback" element={<CreateFeedbackPage />} />
           <Route path="myfeedback" element={<MyFeedbackPage />} />
 
+          <Route path="userprofile"></Route>
+
           <Route path="petdaycare" element={<PetDaycareBookingPage />} />
           <Route path="mybookings" element={<PetDaycareMyBookings />} />
+
           <Route
             path="mybookings/update/:id"
             element={<PetDaycareBookingUpdatePage />}
@@ -202,6 +232,7 @@ export default function App() {
             element={<EventCreationForm />}
           />
 
+          <Route path="event-dashboard/uptadeEvent" element={<UpdateEvent />} />
           <Route
             path="event-dashboard/uptadeEvent/:id"
             element={<UpdateEvent />}
@@ -271,9 +302,15 @@ export default function App() {
           />
 
           <Route
-            path="supplier-management/report"
-            element={<SuppliersReport />}
+            path="supplier-management/allsup/:id"
+            element={<SupplierManagementUpdateSupplierPage />}
           />
+
+          {/* 
+          <Route 
+            path="supplier-management/allsup/:id"
+            element={<SupplierManagementUpdateSupplierPage />} /> 
+          */}
 
           {/* feedback dashboard */}
           <Route path="feedbacks" element={<FeedbackTable />} />

@@ -1,8 +1,8 @@
 import React, { useEffect, useState } from 'react';
 import axios from 'axios';
 import toast from 'react-hot-toast';
-import { Link, useNavigate } from 'react-router-dom';
-import { Feedback } from '../../types/Feedback';
+import { useNavigate } from 'react-router-dom';
+import { Feedback } from './Feedback';
 import { FormControl, InputLabel, MenuItem, Select, TextField } from '@mui/material';
 
 const API_BASE_URL = 'http://localhost:5000/api';

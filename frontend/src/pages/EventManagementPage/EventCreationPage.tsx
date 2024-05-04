@@ -49,15 +49,16 @@ export default function EventCreationForm() {
   const handleImageChange = (e:any) => {
     setFormState({
       ...formState,
-      image: e.target.files[0], // Assuming image will be a file object
+      image: e.target.files[0], 
     });
   };
 
+  
   const handleSubmit = async (e:any) => {
     e.preventDefault();
 
     try {
-      // Validate form data against zod schema
+      
       eventSchema.parse(formState);
 
       const formData = new FormData();
@@ -78,7 +79,7 @@ export default function EventCreationForm() {
       Navigate("/admin/event-dashboard");
 
     } catch (error) {
-      // If validation fails, display error messages
+      
       if (error instanceof z.ZodError) {
         setValidationErrors(error.errors.reduce((acc, err) => {
           return { ...acc, [err.path[0]]: err.message };

@@ -1,15 +1,27 @@
-import mongoose from "mongoose";
+import mongoose, { Document } from "mongoose";
 
-const eventRegisterSchema = new mongoose.Schema({
+interface EventRegister extends Document {
+    userId: string;
+    eventName: string;
+    eventId: string;
+    name: string;
+    email: string;
+    mobile: string;
+    attendees: number;
+}
+
+const eventRegisterSchema = new mongoose.Schema<EventRegister>({
+    userId: {
+        type: String,
+        required: [true, "Please provide event name"],
+    },
     eventName: {
         type: String,
         required: [true, "Please provide event name"],
-        
     },
     eventId: {
         type: String,
         required: [true, "Please provide the event id"],
-        
     },
     name: {
         type: String,
@@ -19,8 +31,7 @@ const eventRegisterSchema = new mongoose.Schema({
     email: {
         type: String,
         required: [true, "Please provide the email"],
-        unique: true
-        ,
+        unique: true,
     },
     mobile: {
         type: String,
@@ -29,10 +40,11 @@ const eventRegisterSchema = new mongoose.Schema({
     },
     attendees: {
         type: Number,
-        required: [true, "Please provide the number of atendees"],
+        required: [true, "Please provide the number of attendees"],
         unique: false,
     },
-    });
+});
 
-    const EventRegister = mongoose.models.eventRegister || mongoose.model("eventRegister", eventRegisterSchema);
-    export default EventRegister;
+const EventRegisterModel = mongoose.models.eventRegister || mongoose.model<EventRegister>("eventRegister", eventRegisterSchema);
+
+export default EventRegisterModel;

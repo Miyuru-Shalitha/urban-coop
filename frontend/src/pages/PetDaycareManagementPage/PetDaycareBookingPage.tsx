@@ -6,10 +6,12 @@ import { useNavigate } from "react-router-dom";
 import { RootState } from "../../store/store";
 import { FormControl, FormControlLabel, FormLabel, Radio, RadioGroup } from "@mui/material";
 import toast from "react-hot-toast";
+import Cookies from "js-cookie"
+
 
 // Define the types
 type TFormData = {
-    cus_id: string;
+    userId: string;
     customerName: string;
     email: string;
     description: string;
@@ -24,7 +26,6 @@ type TFormData = {
 };
 
 function PetDaycareBookingPage() {
-    const { user } = useSelector((state: RootState) => state.auth);
 
     const [total, setTotal] = useState(0);
 
@@ -34,7 +35,7 @@ function PetDaycareBookingPage() {
 
 
     const [formState, setFormState] = useState<TFormData>({
-        cus_id: user._id,
+        userId:"",
         customerName: "",
         email: "",
         description: "",
@@ -177,6 +178,11 @@ function PetDaycareBookingPage() {
     const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault();
 
+        const userId = Cookies.get("userId");
+
+        console.log(userId);
+        
+
         // Validate form data
         const isValid = validateForm();
         if (!isValid) {
@@ -186,6 +192,7 @@ function PetDaycareBookingPage() {
 
         // Create booking data object
         const bookingData = {
+            userId:userId,
             customerName: formState.customerName,
             email: formState.email,
             description: formState.description,
@@ -201,12 +208,21 @@ function PetDaycareBookingPage() {
 
         try {
             // Send POST request to the backend API
-            await axios.post("http://localhost:5000/api/bookings/", bookingData);
+
+            await axios.post("http://localhost:5000/api/bookings",bookingData);
             toast.success("Booking created successfully!");
+
+            console.log(bookingData,userId);
+            console.log("3rdd:",bookingData);
+            console.log("Booking data being sent:", JSON.stringify(bookingData));
+
+            
+
+
 
             // Reset the form state
             setFormState({
-                cus_id: user._id,
+                userId: "",
                 customerName: "",
                 email: "",
                 description: "",

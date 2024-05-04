@@ -13,7 +13,10 @@ router.post('/', bookingController.createBooking);
 router.get('/for-approval', bookingController.getBookingsForApproval);
 
 // Get all bookings
-router.get('/', bookingController.getAllBookings);
+router.get('/mybookings', bookingController.getAllBookings);
+
+// Get all user bookings
+router.get('/userbookings/:userId',bookingController.getBookingsByUserId);
 
 // Get booking by ID
 router.get('/:id', bookingController.getBookingById);
