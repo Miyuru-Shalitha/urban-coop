@@ -16,6 +16,17 @@ const UpdateItemForm = () => {
   const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
 
+    if (!itemCode || !itemName || !itemBrand || !category || quantity === '') {
+      toast.error('Please fill in all fields.');
+      return;
+    }
+  
+    if (isNaN(quantity as number)) {
+      toast.error('Quantity must be a number.');
+      return;
+    }
+  
+
     try {
       const response = await axios.put(`http://localhost:5000/api/items/${id}`, {
         itemCode,

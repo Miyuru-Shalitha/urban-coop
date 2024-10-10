@@ -33,7 +33,6 @@ const styles = StyleSheet.create({
   },
 });
 
-// Define the PDF document component
 const RegistrationReport: React.FC<{ registrations: Registration[] }> = ({ registrations }) => (
   <Document>
     <Page style={styles.page}>

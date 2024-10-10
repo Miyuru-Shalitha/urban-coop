@@ -1,5 +1,6 @@
 import { Request, Response } from 'express';
 import Supplier from '../models/SupplierSchema'; 
+import mongoose from 'mongoose';
 
 const supplierController = {
     // Create a suppliers
@@ -35,10 +36,10 @@ const supplierController = {
     // Get suppliers by ID
     getSupplierById: async (req: Request, res: Response) => {
         try {
-            const supplierId = req.params.id;
-            const supplier = await Supplier.findOne({ supplierId });
+            const supplierId = req.params.id; // MongoDB ObjectId
+            const supplier = await Supplier.findById(supplierId);
             if (!supplier) {
-                res.status(404).json({ message: 'Booking not found' });
+                res.status(404).json({ message: 'Supplier not found' });
             } else {
                 res.status(200).json(supplier);
             }
@@ -53,12 +54,27 @@ const supplierController = {
 
     // Update suppliers by ID
     updateSupplierById: async (req: Request, res: Response) => {
+        console.log('Received request to update supplier:', req.params.id, req.body);
+
         try {
             const supplierId = req.params.id;
             const updatedData = req.body;
+
+            const isValidObjectId = mongoose.Types.ObjectId.isValid(supplierId);
+if (!isValidObjectId) {
+    return res.status(400).json({ error: 'Invalid supplier ID format' });
+}
+
+
+            console.log(supplierId);
+            
             const updatedSupplier = await Supplier.findByIdAndUpdate(supplierId, updatedData, { new: true });
+            console.log('Updated supplier result:', updatedSupplier);
+
+            console.log("hello");
+            
             if (!updatedSupplier) {
-                res.status(404).json({ message: 'Booking not found' });
+                res.status(404).json({ message: 'Suppliar not found' });
             } else {
                 res.status(200).json(updatedSupplier);
             }
