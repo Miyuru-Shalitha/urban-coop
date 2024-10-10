@@ -1,23 +1,48 @@
 import { BrowserRouter, Route, Routes } from "react-router-dom";
+<<<<<<< HEAD
 import HomePage from "./pages/HomePage";
 import RegisterPage from "./pages/UserLoginPage/RegisterPage";
 import UserLoginPage from "./pages/UserLoginPage/LoginPage";
 import EventPage from "./pages/EventManagementPage/EventPage";
 import EventCreationForm from "./pages/EventManagementPage/EventCreationPage";
 import EmployeeManagementAdminPage from "./pages/EmployeeManagementAdminPage/EmployeeManagementAdminPage";
+=======
+>>>>>>> cfc6e7c402f2004a64ff94d4027117a434e929fe
 import AdminLayout from "./components/AdminLayout/AdminLayout";
 import Layout from "./components/Layout";
-import EventDash from "./pages/EventManagementPage/EventAdminPage";
-import UpdateEvent from "./pages/EventManagementPage/UpdateEventPage";
+import EmployeeManagementAdminPage from "./pages/EmployeeManagementAdminPage/EmployeeManagementAdminPage";
 import EmployeeManagementEmployeesAdminPage from "./pages/EmployeeManagementAdminPage/EmployeeManagementEmployeesAdminPage";
 import EmployeeManagementRolesAdminPage from "./pages/EmployeeManagementAdminPage/EmployeeManagementRolesPage";
 import EmployeeManagementSalaryPage from "./pages/EmployeeManagementAdminPage/EmployeeManagementSalaryPage";
+<<<<<<< HEAD
 
 
+=======
+import EmployeeProfilePage from "./pages/EmployeeProfilePage";
+import EventDash from "./pages/EventManagementPage/EventAdminPage";
+import EventCreationForm from "./pages/EventManagementPage/EventCreationPage";
+import EventPage from "./pages/EventManagementPage/EventPage";
+import EventRegistrationPage from "./pages/EventManagementPage/EventRegistrationPage";
+import UpdateEvent from "./pages/EventManagementPage/UpdateEventPage";
+import FeedbackManagementAdminPage from "./pages/FeedbackManagementAdminPage/FeedbackManagementAdminPage";
+import HomePage from "./pages/HomePage";
+import InventoryManagementPage from "./pages/InventoryManagementAdminPage/InventoryManagementAdminPage";
+import InventoryManagementCreateItemsPage from "./pages/InventoryManagementAdminPage/InventoryManagementCreateItemsPage";
+import InventoryManagementCreateRequest from "./pages/InventoryManagementAdminPage/InventoryManagementCreateRequest";
+import InventoryManagementDashboard from "./pages/InventoryManagementAdminPage/InventoryManagementDashboard";
+import InventoryManagementItemPage from "./pages/InventoryManagementAdminPage/InventoryManagementItemPage";
+import InventoryManagementRequestStocksPage from "./pages/InventoryManagementAdminPage/InventoryManagementRequestStocksPage";
+import InventoryManagementUpdateItems from "./pages/InventoryManagementAdminPage/InventoryManagementUpdateItems";
+import LogInPage from "./pages/LogInPage";
+import PetDaycareMyBookings from "./pages/PetDaycareManagementAdminPage/PetDaycareMyBookings";
+import PetDaycareBookingPage from "./pages/PetDaycareManagementPage/PetDaycareBookingPage";
+>>>>>>> cfc6e7c402f2004a64ff94d4027117a434e929fe
 import SupplierManagementAdminPage from "./pages/SupplierManagementAdminPage/SupplierManagementAdminPage";
+import SupplierManagementCreateSupplierPage from "./pages/SupplierManagementAdminPage/SupplierManagementCreateSupplierPage";
 import SupplierManagementDashboard from "./pages/SupplierManagementAdminPage/SupplierManagementDashboard";
 import SupplierManagementStockReq from "./pages/SupplierManagementAdminPage/SupplierManagementStockReq";
 import SupplierManagementUpdateSupplierPage from "./pages/SupplierManagementAdminPage/SupplierManagementUpdateSupplierPage";
+<<<<<<< HEAD
 import SupplierManagementCreateSupplierPage from "./pages/SupplierManagementAdminPage/SupplierManagementCreateSupplierPage";
 import SupplierManagementSupplierPage from "./pages/SupplierManagementAdminPage/SupplierManagementSupplierPage";
 
@@ -42,18 +67,27 @@ import PetDaycareMyBookings from "./pages/PetDaycareManagementPage/PetDaycareMyB
 import PetDaycareBookingUpdatePage from "./pages/PetDaycareManagementPage/PetDaycareBookingUpdatePage";
 import BookingTable from "./pages/PetDaycareManagementAdminPage/BookingTable";
 import PetDaycareDashboard from "./pages/PetDaycareManagementAdminPage/PetDaycareDashboard";
+=======
+>>>>>>> cfc6e7c402f2004a64ff94d4027117a434e929fe
 
 import UpdateRegistrationForm from "./pages/EventManagementPage/updateUserRegistration";
 
-import Userdash from "./pages/EventManagementPage/UserRegistrationForEventPage";
 import EmployeeProfileLayout from "./components/EmployeeProfileLayout";
+import AdaptionManagementAdminPage from "./pages/AdoptionManagement/AdaptionManagementAdminPage";
+import PetDetails from "./pages/AdoptionManagement/PetDetails";
+import PetsDisplay from "./pages/AdoptionManagement/PetsDisplay";
+import PetsManagementAdminPage from "./pages/AdoptionManagement/PetsManagementAdminPage";
 import EmployeeLogInPage from "./pages/EmployeeLogInPage";
+<<<<<<< HEAD
 import InventoryManagementUpdatePage from "./pages/InventoryManagementAdminPage/InventoryManagementUpdatePage";
 import InventoryReport from "./pages/InventoryManagementAdminPage/InventoryReport";
 
 import CreateFeedbackPage from "./pages/FeedbackManagement/CreateFeedbackPage";
 import MyFeedbackPage from "./pages/FeedbackManagement/MyFeedbackPage";
 import FeedbackTable from "./pages/FeedbackManagement/FeedbackTable";
+=======
+import Userdash from "./pages/EventManagementPage/UserRegistrationForEventPage";
+>>>>>>> cfc6e7c402f2004a64ff94d4027117a434e929fe
 
 export default function App() {
   return (
@@ -66,6 +100,14 @@ export default function App() {
 
         <Route path="/" element={<Layout />}>
           <Route path="" element={<HomePage />} />
+<<<<<<< HEAD
+=======
+          <Route path="log-in" element={<LogInPage />} />
+          <Route path="events" element={<EventPage />} />
+          <Route path="pets" element={<PetsDisplay />} />
+          <Route path="/pets/:petId" element={<PetDetails/>}/>
+                   
+>>>>>>> cfc6e7c402f2004a64ff94d4027117a434e929fe
 
           <Route path="events" element={<EventPage />} />
           <Route
@@ -103,6 +145,16 @@ export default function App() {
 
         {/* Management Routes */}
         <Route path="/admin" element={<AdminLayout />}>
+          {/* Adaption Management */}
+          <Route
+            path="pets-management"
+            element={<PetsManagementAdminPage />}
+          />
+          <Route
+            path="adoption-management"
+            element={<AdaptionManagementAdminPage />}
+          />
+          
           <Route
             path="employee-management"
             element={<EmployeeManagementAdminPage />}
@@ -261,6 +313,8 @@ export default function App() {
             path="feedbacks"
             element={<FeedbackTable />}
           />
+
+          
         </Route>
       </Routes>
     </BrowserRouter>
